@@ -3,10 +3,9 @@ function [ bestAttribute ] = ChooseBestDecisionAttribute( examples, attributes, 
 %information gain
 
 bestAttribute = attributes(1)
+highestInformationGain = -Inf;
 
 for attribute=attributes
-    attribute
-    
     p0 = 0;
     p1 = 0;
     n0 = 0;
@@ -30,8 +29,14 @@ for attribute=attributes
         end
     end
     
-    fprintf(1, 'p0: %i, p1: %i, n0: %i, n1: %i\n', p0, p1, n0, n1)
-    gain = I(p0 + p1, n0 + n1) - Remainder(p0, p1, n0, n1)
+    fprintf(1, 'p0: %i, p1: %i, n0: %i, n1: %i\n', p0, p1, n0, n1);
+    gain = I(p0 + p1, n0 + n1) - Remainder(p0, p1, n0, n1);
+    
+    % Update bestAttribute if suitable
+    if gain > highestInformationGain
+        bestAttribute = attribute;
+        highestInformationGain = gain;
+    end
 end
 
 function [ i ] = I( p, n )
