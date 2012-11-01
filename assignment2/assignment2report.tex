@@ -54,8 +54,6 @@ Actual class & Fear & 0.5 & 2.3  & 3.9 & 1.8  & 0.8 & 2.6 \\
 \caption{Confusion matrix}
 \end{table}
 
-
-
 \begin{table}
 \centering
 \begin{tabular}{l | r r}
@@ -86,7 +84,6 @@ Surprise & 47.4114 \\
 \caption{F1 measures}
 \end{table}
 
-
 Average classification rate = 0.5808 \\ 
 
 
@@ -108,11 +105,14 @@ The cost variable on the y-axis is the average number of comparisons for each cl
 
 We think that this cost is calculated based on trees of different sizes, showing the value of cost for each size of tree. The blue line is probably without using pruning, and the red line is with using pruning.
 
-The optimal tree size when using the pruning algorithm is where the cost is as small as possible whilst still having an error rate of the tree using cross validation. \\
+The optimal tree size when using the pruning algorithm is one where the cost is as small as possible, yet still having an error rate of the tree using cross validation. \\
+
+
+\newpage
 
 {\bf Code Flowchart} \\
 \begin{center}
-  \includegraphics[scale=0.7]{report-images/flowchart.png}
+  \includegraphics[scale=0.6]{report-images/flowchart.png}
 \end{center}
 
 \end{document}
