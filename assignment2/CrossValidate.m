@@ -20,7 +20,6 @@ for i=1:10
     % first will mark the index of the start of the fold, and last the end
     first = last + 1;
     last = round(size(examples, 1)*i / 10);
-    fprintf('iteration %i; first: %i, last: %i\n', i, first, last);
     
     % split the examples from the fold
     trainingSet = examples(~ismember(1:size(examples, 1), [first:last]), :);

@@ -1,7 +1,6 @@
 function [ tree ] = DecisionTreeLearning( examples, attributes, binaryTargets )
 %DecisionTreeLearning Trains a decision tree using given examples
 
-tree.op = 0;
 if range(binaryTargets) == 0
     % All binary targets are the same
     tree.kids = cell(0);
@@ -19,7 +18,6 @@ else
            bestAttributeIndex = i;
        end
     end
-    
     kids = cell(0);
     
     for u=0:1
