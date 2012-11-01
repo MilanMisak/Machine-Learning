@@ -28,7 +28,7 @@ for i=1:10
     trees = cell(6);
     classifications = cell(6);
     correctClassifications = cell(6);
-    for n=1:
+    for n=1:6
         examplesTargets = targets{n}(~ismember(1:size(targets{n}, 2), (first:last)), :);
         testSetTargets = targets{n}(ismember(1:size(targets{n}, 2), (first:last)), :);
         
