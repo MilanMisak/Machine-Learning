@@ -1,44 +1,43 @@
 \documentclass[12pt]{article}
 \usepackage{graphicx}
 \begin{document}
-{\bf Names:} Jack Bracewell, Milan Misak, Craig Ellis\\
+{\bf Names:} Jack Bracewell, Milan Misak, Craig Ellis \\
 {\bf Usernames:} jb2910, mm5510, ce710 \\
-{\bf Group Number: 28}  \\
+{\bf Group Number: 28}  \\ \\
 
 {\bf Assignment 2:} Decision Trees Algorithm \\ \\
 
 {\bf Implementation details} \\
 \begin{itemize}
-  \item Cross-validation was done by first generating a cell array of the binary targets for each emotion. Then, inside a for-loop, each fold is removed from the set of examples in turn, leaving a set used to train the decision tree, and the fold used to test the resulting trees for accuracy. A running total is kept of correct answers, along with a confusion matrix updated on each loop. These are used to define how well the decision trees performed.
-  \item Best attributes were selected by ...
-  \item Average results were computed by ...
+  \item Cross-validation was done by first generating a cell array of the binary targets for each emotion. Then, inside a for-loop, each fold is removed from the set of examples in turn, leaving a set used to train the decision tree, and the fold used to test the resulting trees for accuracy. A running total is kept of correct answers, along with a confusion matrix updated on each loop.
+  \item Best attributes were selected in the suggested manner, by keeping track of \( p_0 \), \( n_0 \), \( p_1 \), and \( n_1 \) in the loop for each attribute, and using the provided formulae to compute whether or not the new attribute provides a greater information gain than the previous best.
+  \item All data for the average cross-validation results is collected during the cross-validation, with a running total of correct answers, and the incrementation of entries in the confusion matrix. A call is made to a seperate function to get recall and precision rates, as well as \( F_1 \) measures, to keep the code tidier.
 \end{itemize}
-Include at least: cross-validation, best attribute selection, computing average results\\
 
 {\bf Generated trees} \\
-\begin{figure}[h]
-  \includegraphics{report-images/tree1.png}
-  \caption{Tree for anger}
-\hfill
-  \includegraphics{report-images/tree2.png}
-  \caption{Tree for disgust}
-\hfill
-  \includegraphics{report-images/tree3.png}
-  \caption{Tree for fear}
-\hfill
-  \includegraphics{report-images/tree4.png}
-  \caption{Tree for happiness}
-\hfill
-  \includegraphics{report-images/tree5.png}
-  \caption{Tree for sadness}
-\hfill
-  \includegraphics{report-images/tree6.png}
-  \caption{Tree for surprise}
-\end{figure}
-Just diagrams \\
+\begin{center}
+  \includegraphics[scale=0.28]{report-images/tree1.png}
+  Tree for anger \\
+  \vspace{\baselineskip}
+  \includegraphics[scale=0.28]{report-images/tree2.png}
+  Tree for disgust \\
+  \vspace{\baselineskip}
+  \includegraphics[scale=0.28]{report-images/tree3.png}
+  Tree for fear \\
+  \vspace{\baselineskip}
+  \includegraphics[scale=0.28]{report-images/tree4.png}
+  Tree for happiness \\
+  \vspace{\baselineskip}
+  \includegraphics[scale=0.28]{report-images/tree5.png}
+  Tree for sadness \\
+  \vspace{\baselineskip}
+  \includegraphics[scale=0.28]{report-images/tree6.png}
+  Tree for surprise
+\end{center}
+
 
 {\bf Evaluation results} \\
-Confusion matrix, av. classification rate, av. precision/recall rates, F-measure; include comments \\
+Confusion matrix, av. classification rate, av. precision/recall rates, F-measure; include comments \\ \\
 
           confusionMatrix =
 
@@ -89,7 +88,7 @@ Finally, we made a score system for trees when competing against each other. If 
 If we had more time, I would like to have trained a decision tree to choose which label to trust in the event of multiple positives, or even in other cases (for instance if it was always the case that if the two trees to return positive were Anger and Surprise then the true label was Happy, if all the other trees returned negative). It is worth noting that this would require a much larger sample of data.
 
 {\bf Pruning} \\
-Answer sheet question\\
+Answer sheet question\\ \\
 
 {\bf Code Flowchart} \\
 \begin{center}
