@@ -60,6 +60,7 @@ confusionMatrix = confusionMatrix / 10;
 confusionMatrix
 
 recallAndPrecisionRates = GetRecallAndPrecisionRates(confusionMatrix)
+GetF1Measures(recallAndPrecisionRates)
 
 errorEstimate = errorEstimate / 10;
 
