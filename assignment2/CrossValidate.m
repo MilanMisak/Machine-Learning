@@ -1,4 +1,4 @@
-function [ errorEstimate ] = CrossValidate( examples, cleandata, attributes )
+function [ errorEstimate ] = CrossValidate( examples, labels )
 %CrossValidate uses 10-fold validation to estimate the error rate of the 6
 %trees created from training the examples
 
@@ -8,9 +8,9 @@ last = 1;
 
 targets = cell(6);
 for i=1:6
-    targets{i} = zeros(size(cleandata.y));
-    for j=1:size(cleandata.y)
-        targets{i}(j) = cleandata.y(j) == i;
+    targets{i} = zeros(size(labels));
+    for j=1:size(labels)
+        targets{i}(j) = labels(j) == i;
     end
 end
 
