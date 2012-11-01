@@ -1,52 +1,57 @@
 \documentclass[12pt]{article}
 \usepackage{graphicx}
 \begin{document}
-{\bf Names:} Jack Bracewell, Milan Misak, Craig Ellis\\
+{\bf Names:} Jack Bracewell, Milan Misak, Craig Ellis \\
 {\bf Usernames:} jb2910, mm5510, ce710 \\
-{\bf Group Number: 28}  \\
+{\bf Group Number: 28}  \\ \\
 
 {\bf Assignment 2:} Decision Trees Algorithm \\ \\
 
 {\bf Implementation details} \\
 \begin{itemize}
-  \item Cross-validation was done by first generating a cell array of the binary targets for each emotion. Then, inside a for-loop, each fold is removed from the set of examples in turn, leaving a set used to train the decision tree, and the fold used to test the resulting trees for accuracy. A running total is kept of correct answers, along with a confusion matrix updated on each loop. These are used to define how well the decision trees performed.
-  \item Best attributes were selected by ...
-  \item Average results were computed by ...
+  \item Cross-validation was done by first generating a cell array of the binary targets for each emotion. Then, inside a for-loop, each fold is removed from the set of examples in turn, leaving a set used to train the decision tree, and the fold used to test the resulting trees for accuracy. A running total is kept of correct answers, along with a confusion matrix updated on each loop.
+  \item Best attributes were selected in the suggested manner, by keeping track of \( p_0 \), \( n_0 \), \( p_1 \), and \( n_1 \) in the loop for each attribute, and using the provided formulae to compute whether or not the new attribute provides a greater information gain than the previous best.
+  \item All data for the average cross-validation results is collected during the cross-validation, with a running total of correct answers, and the incrementation of entries in the confusion matrix. A call is made to a seperate function to get recall and precision rates, as well as \( F_1 \) measures, to keep the code tidier.
 \end{itemize}
-Include at least: cross-validation, best attribute selection, computing average results\\
 
-{\bf Generated trees} \\
-\begin{figure}[h]
-  \includegraphics{report-images/tree1.png}
-  \caption{Tree for emotion 1}
-\hfill
-  \includegraphics{report-images/tree2.png}
-  \caption{Tree for emotion 2}
-\hfill
-  \includegraphics{report-images/tree3.png}
-  \caption{Tree for emotion 3}
-\hfill
-  \includegraphics{report-images/tree4.png}
-  \caption{Tree for emotion 4}
-\hfill
-  \includegraphics{report-images/tree5.png}
-  \caption{Tree for emotion 5}
-\hfill
-  \includegraphics{report-images/tree6.png}
-  \caption{Tree for emotion 6}
-\end{figure}
-Just diagrams \\
+{\bf Generated trees} \\ \\
+\begin{center}
+  \includegraphics[scale=0.28]{report-images/tree1.png} \\
+  Tree for emotion 1 \\
+  \vspace{\baselineskip}
+  \includegraphics[scale=0.28]{report-images/tree2.png} \\
+  Tree for emotion 2 \\
+  \vspace{\baselineskip}
+  \includegraphics[scale=0.28]{report-images/tree3.png} \\
+  Tree for emotion 3 \\
+  \vspace{\baselineskip}
+  \includegraphics[scale=0.28]{report-images/tree4.png} \\
+  Tree for emotion 4 \\
+  \vspace{\baselineskip}
+  \includegraphics[scale=0.28]{report-images/tree5.png} \\
+  Tree for emotion 5 \\
+  \vspace{\baselineskip}
+  \includegraphics[scale=0.28]{report-images/tree6.png} \\
+  Tree for emotion 6 \\
+  \vspace{\baselineskip}
+\end{center}
 
 {\bf Evaluation results} \\
-Confusion matrix, av. classification rate, av. precision/recall rates, F-measure; include comments \\
+Confusion matrix, av. classification rate, av. precision/recall rates, F-measure; include comments \\ \\
 
 {\bf Ambiguity} \\
-Answer sheet question \\
+There are 2 cases when there needs to be a decision made about classification which cannot be made by the trees themselves. Firstly, it is where none of the trees have returned a positive value, secondly it is when multiple trees positively classify the same example. Initially we chose to randomise the classification, this was our benchmark. The obvious drawbacks of choosing randomly are that it is a complete guess, and should intuitively not be used if there is more information available. Generation of pseudo random numbers is also a rather expensive task if time is a factor. \\
+
+Then we decided to select the value which had been chosen the most so far without contention. This was slightly worse than random on average, it is highly dependent on the order of the data. This method then became superseded by choosing the most common label in the test set. Statistically choosing the most common label should be better on average, but it fared worse when being used for examples that has no classifications. Of course the drawback of this method is that the statistically most common labels need to be known in advance. This method proved to be slightly better than by random on average. \\
+
+Finally, we made a score system for trees when competing against each other. If there were multiple trees all with positive classifications then the tree that was chosen would receive a point if it correctly classified the result, or lose one if it provided a false positive. Then for the next classification the tree with the highest score would be chosen if there was contention. This improved the \( F_1 \) measure, but could not be used when no classes were found. Another drawback is that a different measure must be used the first time there is contention as there are no scores, and this can have a large impact on the path of evaluation. Also, it may not always be possible to get immediate feedback on the classification whilst learning, which would not make this possible. This method is also bound by the complexity of sorting the order of label priorities (n log n), so it may not be the best choice if there is a very large number of labels, and time is a factor. \\
+
+If we had more time, I would like to have trained a decision tree to choose which label to trust in the event of multiple positives, or even in other cases (for instance if it was always the case that if the two trees to return positive were Anger and Surprise then the true label was Happy, if all the other trees returned negative). It is worth noting that this would require a much larger sample of data.
 
 {\bf Pruning} \\
-Answer sheet question\\
+Answer sheet question\\ \\
 
 {\bf Code Flowchart} \\
-Flowchart of code workings\\
+Flowchart of code workings\\ \\
 
 \end{document}
