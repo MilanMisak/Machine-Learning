@@ -3,12 +3,14 @@ function [ predictions ] = TestTrees( T, x2 )
 
 examples = x2.x;
 labels = ones(size(examples, 1));
+%T
 
 exampleIndex = 1;
 for example=examples
     classifications = cell(0);
     treeIndex = 1;
     for tree=T
+        %tree
         if TreeClassify(tree, example)
            classifications{size(classifications) + 1} = treeIndex; 
         end

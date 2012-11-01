@@ -11,10 +11,10 @@ for i=1:6
 end
 
 attributes = 1:1:45;
-S = DecisionTreeLearning(cleandata.x, attributes, targets{1}); 
-DrawDecisionTree(S)
+%S = DecisionTreeLearning(cleandata.x, attributes, targets{1}); 
+%DrawDecisionTree(S)
 
-%CrossValidate(cleandata.x, cleandata.y)
+CrossValidate(cleandata.x, cleandata.y)
 
 
 

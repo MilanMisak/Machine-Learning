@@ -1,6 +1,10 @@
 function [ tree ] = DecisionTreeLearning( examples, attributes, binaryTargets )
 %DecisionTreeLearning Trains a decision tree using given examples
 
+examples
+attributes
+binaryTargets
+
 if range(binaryTargets) == 0
     % All binary targets are the same
     tree.kids = cell(0);
