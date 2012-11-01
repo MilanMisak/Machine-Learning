@@ -45,7 +45,7 @@ for j=1:size(examples, 1)
             tempOccurences(I) = 0;
         end
     
-        labels(j) = randi(6);
+        labels(j) = guessPriorities(1);
     else
        
         %Order priorities of the labels encountered so far
