@@ -1,10 +1,11 @@
-function [ tree ] = DecisionTreeLearning( examples, attributes, binaryTargets)
+function [ tree ] = DecisionTreeLearning( examples, attributes, binaryTargets )
 %DecisionTreeLearning Trains a decision tree using given examples
 
 if range(binaryTargets) == 0
     % All binary targets are the same
     tree.kids = cell(0);
     tree.class = binaryTargets(1);
+    fprintf('HAI (%i, %i)\n', binaryTargets(1), size(binaryTargets, 1));
 elseif isempty(attributes)
     % There are no attributes to split the tree on
     tree.kids = cell(0);
@@ -13,7 +14,6 @@ else
     bestAttribute = ChooseBestDecisionAttribute(examples, attributes, binaryTargets);
     bestAttributeIndex = 0;
 
-    size(attributes, 2)
     for i=1:size(attributes, 2)
        if attributes(i) == bestAttribute
            bestAttributeIndex = i;
@@ -55,5 +55,5 @@ else
 end
 
 function [ majorityValue ] = MajorityValue( values )
-majorityValue = mode(values)
+majorityValue = mode(values);
     
