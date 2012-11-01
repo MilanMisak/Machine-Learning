@@ -18,7 +18,6 @@ for i=1:10
     % first will mark the index of the start of the fold, and last the end
     first = last + 1;
     last = round(size(examples, 1) / i);
-    foldSize = last - first;
     
     % split the examples from the fold
     newExamples = examples(~ismember(1:size(examples, 1), (first:last)), :);
