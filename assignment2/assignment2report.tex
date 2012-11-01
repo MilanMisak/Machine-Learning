@@ -37,7 +37,6 @@
 
 
 {\bf Evaluation results} \\
-Confusion matrix, av. classification rate, av. precision/recall rates, F-measure; include comments \\ \\
 
 \begin{table}
 \centering
@@ -56,34 +55,40 @@ Actual class & Fear & 0.5 & 2.3  & 3.9 & 1.8  & 0.8 & 2.6 \\
 \end{table}
 
 
-          recallAndPrecisionRates =
 
-          56.0606   74.0000
-          75.7576   53.9568
-          32.7731   67.2414
-          87.0370   56.1194
-          34.0909   61.6438
-          42.0290   54.3750
+\begin{table}
+\centering
+\begin{tabular}{l | r r}
+Emotion & Recall rate (\%) & Precision rate (\%) \\
+\hline
+Anger & 56.0606 & 74.0000 \\
+Disgust & 75.7576 & 53.9568 \\
+Fear & 32.7731 & 67.2414 \\
+Happiness & 87.0370 & 56.1194 \\
+Sadness & 34.0909 & 61.6438 \\
+Surprise & 42.0290 & 54.3750 \\
+\end{tabular}
+\caption{Recall and precision rates}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{l | r}
+Emotion & \( F_1 \) measure \\
+\hline
+Anger & 63.7931 \\
+Disgust & 63.0252 \\
+Fear & 44.0678 \\
+Happiness & 68.2396 \\
+Sadness & 43.9024 \\
+Surprise & 47.4114 \\
+\end{tabular}
+\caption{F1 measures}
+\end{table}
 
 
-          f1Measures =
+Average classification rate = 0.5808 \\ 
 
-          63.7931
-          63.0252
-          44.0678
-          68.2396
-          43.9024
-          47.4114
-
-
-          classificationRate =
-
-          0.5808
-
-
-          ans =
-
-          0.5808
 
 {\bf Ambiguity} \\
 There are 2 cases when there needs to be a decision made about classification which cannot be made by the trees themselves. Firstly, it is where none of the trees have returned a positive value, secondly it is when multiple trees positively classify the same example. Initially we chose to randomise the classification, this was our benchmark. The obvious drawbacks of choosing randomly are that it is a complete guess, and should intuitively not be used if there is more information available. Generation of pseudo random numbers is also a rather expensive task if time is a factor. \\
