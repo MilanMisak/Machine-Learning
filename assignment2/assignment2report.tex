@@ -18,27 +18,66 @@ Include at least: cross-validation, best attribute selection, computing average 
 {\bf Generated trees} \\
 \begin{figure}[h]
   \includegraphics{report-images/tree1.png}
-  \caption{Tree for emotion 1}
+  \caption{Tree for anger}
 \hfill
   \includegraphics{report-images/tree2.png}
-  \caption{Tree for emotion 2}
+  \caption{Tree for disgust}
 \hfill
   \includegraphics{report-images/tree3.png}
-  \caption{Tree for emotion 3}
+  \caption{Tree for fear}
 \hfill
   \includegraphics{report-images/tree4.png}
-  \caption{Tree for emotion 4}
+  \caption{Tree for happiness}
 \hfill
   \includegraphics{report-images/tree5.png}
-  \caption{Tree for emotion 5}
+  \caption{Tree for sadness}
 \hfill
   \includegraphics{report-images/tree6.png}
-  \caption{Tree for emotion 6}
+  \caption{Tree for surprise}
 \end{figure}
 Just diagrams \\
 
 {\bf Evaluation results} \\
 Confusion matrix, av. classification rate, av. precision/recall rates, F-measure; include comments \\
+
+          confusionMatrix =
+
+          7.4000    1.4000    0.4000    2.0000    0.9000    1.1000
+          1.2000   15.0000         0    2.1000    0.6000    0.9000
+          0.5000    2.3000    3.9000    1.8000    0.8000    2.6000
+          0.2000    2.0000         0   18.8000    0.1000    0.5000
+          0.7000    2.8000    0.4000    2.6000    4.5000    2.2000
+          0    4.3000    1.1000    6.2000    0.4000    8.7000
+
+
+          recallAndPrecisionRates =
+
+          56.0606   74.0000
+          75.7576   53.9568
+          32.7731   67.2414
+          87.0370   56.1194
+          34.0909   61.6438
+          42.0290   54.3750
+
+
+          f1Measures =
+
+          63.7931
+          63.0252
+          44.0678
+          68.2396
+          43.9024
+          47.4114
+
+
+          classificationRate =
+
+          0.5808
+
+
+          ans =
+
+          0.5808
 
 {\bf Ambiguity} \\
 There are 2 cases when there needs to be a decision made about classification which cannot be made by the trees themselves. Firstly, it is where none of the trees have returned a positive value, secondly it is when multiple trees positively classify the same example. Initially we chose to randomise the classification, this was our benchmark. The obvious drawbacks of choosing randomly are that it is a complete guess, and should intuitively not be used if there is more information available. Generation of pseudo random numbers is also a rather expensive task if time is a factor. \\
@@ -53,6 +92,8 @@ If we had more time, I would like to have trained a decision tree to choose whic
 Answer sheet question\\
 
 {\bf Code Flowchart} \\
-Flowchart of code workings\\
+\begin{center}
+  \includegraphics{report-images/flowchart.png}
+\end{center}
 
 \end{document}
