@@ -1,6 +1,8 @@
 cleandata = load('cleandata_students.mat');
 
 
+CrossValidate(cleandata.x, cleandata.y)
+
 %Create the 6 target vectors
 targets = cell(6);
 for i=1:6
@@ -10,12 +12,16 @@ for i=1:6
     end
 end
 
-attributes = 1:1:45;
+%attributes = 1:1:45;
 %S = DecisionTreeLearning(cleandata.x, attributes, targets{1}); 
 %DrawDecisionTree(S)
 
-CrossValidate(cleandata.x, cleandata.y)
 
-
+trees = cell(1, 6);
+for i=1:6
+    targetVector = targets{i}(1:size(targets{i}, 1));
+    trees{i} = DecisionTreeLearning(cleandata.x, 1:1:45, targetVector);
+    DrawDecisionTree(trees{i});
+end
 
             

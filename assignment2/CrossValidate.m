@@ -1,8 +1,8 @@
-function [ errorEstimate ] = CrossValidate( examples, labels )
+function [ percentCorrect ] = CrossValidate( examples, labels )
 %CrossValidate uses 10-fold validation to estimate the error rate of the 6
 %trees created from training the examples
 
-errorEstimate = 0;
+percentCorrect = 0;
 first = 0;
 last = 0;
 
@@ -14,12 +14,12 @@ for i=1:6
     end
 end
 
+confusionMatrix = zeros(6);
 
 for i=1:10
     % first will mark the index of the start of the fold, and last the end
     first = last + 1;
     last = round(size(examples, 1)*i / 10);
-    fprintf('iteration %i; first: %i, last: %i\n', i, first, last);
     
     % split the examples from the fold
     trainingSet = examples(~ismember(1:size(examples, 1), [first:last]), :);
@@ -39,18 +39,29 @@ for i=1:10
     x2.y = testSetLabels;
     predictions = TestTrees(trees, x2);
     
-    % compare to actual results
+    % compare to actual results and generate confusion matrix
     correct = 0;
+    
     for m=1:size(testSetLabels)
         %fprintf('%i %i\n', predictions.y(m), testSetLabels(m));
-        if predictions.y(m) == testSetLabels(m)
+        predictedLabel = predictions.y(m);
+        actualLabel = testSetLabels(m);
+
+        if predictedLabel == actualLabel
             correct = correct + 1;
         end
+        
+        confusionMatrix(actualLabel, predictedLabel) = confusionMatrix(actualLabel, predictedLabel) + 1;
     end
     
-    errorEstimate = errorEstimate + (1 - (correct / size(testSetLabels, 1)));
-    
+    percentCorrect = percentCorrect + (correct / size(testSetLabels, 1));
 end
 
-errorEstimate = errorEstimate / 10;
+confusionMatrix = confusionMatrix / 10;
+confusionMatrix
+
+recallAndPrecisionRates = GetRecallAndPrecisionRates(confusionMatrix)
+GetF1Measures(recallAndPrecisionRates)
+
+percentCorrect = 10*percentCorrect;
 
