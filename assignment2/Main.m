@@ -16,6 +16,11 @@ attributes = 1:1:45;
 
 CrossValidate(cleandata.x, cleandata.y)
 
-
+trees = cell(1, 6);
+for i=1:6
+    targetVector = targets{i}(1:size(targets{i}, 1));
+    trees{i} = DecisionTreeLearning(cleandata.x, 1:1:45, targetVector);
+    DrawDecisionTree(trees{i});
+end
 
             
