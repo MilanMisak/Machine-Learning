@@ -39,14 +39,21 @@
 {\bf Evaluation results} \\
 Confusion matrix, av. classification rate, av. precision/recall rates, F-measure; include comments \\ \\
 
-          confusionMatrix =
-
-          7.4000    1.4000    0.4000    2.0000    0.9000    1.1000
-          1.2000   15.0000         0    2.1000    0.6000    0.9000
-          0.5000    2.3000    3.9000    1.8000    0.8000    2.6000
-          0.2000    2.0000         0   18.8000    0.1000    0.5000
-          0.7000    2.8000    0.4000    2.6000    4.5000    2.2000
-          0    4.3000    1.1000    6.2000    0.4000    8.7000
+\begin{table}
+\centering
+\begin{tabular}{r r | r r r r r r}
+\multicolumn{8}{c}{Predicted class} \\
+&  & Anger & Disgust & Fear & Happiness & Sadness & Surprise \\
+\hline
+& Anger & 7.4 & 1.4  & 0.4 & 2.0  & 0.9 & 1.1 \\
+ & Disgust & 1.2 & 15.0 & 0   & 2.1  & 0.6 & 0.9 \\
+Actual class & Fear & 0.5 & 2.3  & 3.9 & 1.8  & 0.8 & 2.6 \\
+ & Happiness & 0.2 & 2.0  & 0   & 18.8 & 0.1 & 0.5 \\
+& Sadness & 0.7 & 2.8  & 0.4 & 2.6  & 4.5 & 2.2 \\
+& Surprise & 0   & 4.3  & 1.1 & 6.2  & 0.4 & 8.7 \\
+\end{tabular}
+\caption{Confusion matrix}
+\end{table}
 
 
           recallAndPrecisionRates =
