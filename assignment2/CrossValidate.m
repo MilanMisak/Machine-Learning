@@ -14,6 +14,7 @@ for i=1:6
     end
 end
 
+confusionMatrix = zeros(6);
 
 for i=1:10
     % first will mark the index of the start of the fold, and last the end
@@ -37,18 +38,26 @@ for i=1:10
     x2.x = testSet;
     predictions = TestTrees(trees, x2);
     
-    % compare to actual results
+    % compare to actual results and generate confusion matrix
     correct = 0;
+    
     for m=1:size(testSetLabels)
         %fprintf('%i %i\n', predictions.y(m), testSetLabels(m));
-        if predictions.y(m) == testSetLabels(m)
+        predictedLabel = predictions.y(m);
+        actualLabel = testSetLabels(m);
+
+        if predictedLabel == actualLabel
             correct = correct + 1;
         end
+        
+        confusionMatrix(actualLabel, predictedLabel) = confusionMatrix(actualLabel, predictedLabel) + 1;
     end
     
     errorEstimate = errorEstimate + (1 - (correct / size(testSetLabels, 1)));
-    
 end
+
+confusionMatrix = confusionMatrix / 10;
+confusionMatrix
 
 errorEstimate = errorEstimate / 10;
 
