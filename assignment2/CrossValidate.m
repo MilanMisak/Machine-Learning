@@ -1,8 +1,8 @@
-function [ percentCorrect ] = CrossValidate( examples, labels )
+function [ classificationRate ] = CrossValidate( examples, labels )
 %CrossValidate uses 10-fold validation to estimate the error rate of the 6
 %trees created from training the examples
 
-percentCorrect = 0;
+classificationRate = 0;
 first = 0;
 last = 0;
 
@@ -43,7 +43,6 @@ for i=1:10
     correct = 0;
     
     for m=1:size(testSetLabels)
-        %fprintf('%i %i\n', predictions.y(m), testSetLabels(m));
         predictedLabel = predictions.y(m);
         actualLabel = testSetLabels(m);
 
@@ -54,14 +53,10 @@ for i=1:10
         confusionMatrix(actualLabel, predictedLabel) = confusionMatrix(actualLabel, predictedLabel) + 1;
     end
     
-    percentCorrect = percentCorrect + (correct / size(testSetLabels, 1));
+    classificationRate = classificationRate + (correct / size(testSetLabels, 1));
 end
 
-confusionMatrix = confusionMatrix / 10;
-confusionMatrix
+confusionMatrix = confusionMatrix / 10
 
 recallAndPrecisionRates = GetRecallAndPrecisionRates(confusionMatrix)
-GetF1Measures(recallAndPrecisionRates)
-
-percentCorrect = 10*percentCorrect;
-
+f1Measures = GetF1Measures(recallAndPrecisionRates)
