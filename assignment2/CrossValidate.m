@@ -59,5 +59,8 @@ end
 confusionMatrix = confusionMatrix / 10;
 confusionMatrix
 
+recallAndPrecisionRates = GetRecallAndPrecisionRates(confusionMatrix)
+GetF1Measures(recallAndPrecisionRates)
+
 percentCorrect = 10*percentCorrect;
 
