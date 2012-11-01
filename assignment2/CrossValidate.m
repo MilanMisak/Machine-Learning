@@ -1,4 +1,4 @@
-function [ errorEstimate ] = CrossValidate( examples, attributes )
+function [ errorEstimate ] = CrossValidate( examples, cleandata, attributes )
 %CrossValidate uses 10-fold validation to estimate the error rate of the 6
 %trees created from training the examples
 
