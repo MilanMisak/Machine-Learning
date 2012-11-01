@@ -9,7 +9,7 @@ for example=examples
     classifications = cell(0);
     treeIndex = 1;
     for tree=T
-        if treeClassify(example, tree)
+        if TreeClassify(tree, example)
            classifications{size(classifications) + 1} = treeIndex; 
         end
         treeIndex = treeIndex + 1;
