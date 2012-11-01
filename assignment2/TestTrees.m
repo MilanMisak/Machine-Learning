@@ -23,19 +23,9 @@ for i=1:6
 end
 
 guessPriorities2 = zeros(1, 6);
-for i=1:6
-    [C, I] = max(occurences);
-    guessPriorities2(i) = I;
-    occurences(I) = 0;
-end
+guessPriorities3 = zeros(1, 6);
 
-
-
-
-
-
-
-
+score = zeros(1, 6);
 
 for j=1:size(examples, 1)
     classifications = [];
@@ -54,32 +44,46 @@ for j=1:size(examples, 1)
             guessPriorities2(i) = I;
             tempOccurences(I) = 0;
         end
-        
-        if (guessPriorities2(1) == 0)
-            labels(j) = randi(6);
-        else
-            labels(j) = guessPriorities2(1);
-        end
+    
+        labels(j) = randi(6);
     else
-        
+       
+        %Order priorities of the labels encountered so far
         tempOccurences = occurences;
         for i=1:6
             [C, I] = max(tempOccurences);
             guessPriorities2(i) = I;
             tempOccurences(I) = 0;
         end
-        
+      
+        %Choose the most trustworthy tree
         for i=1:size(classifications)
-            if ~isempty(find(classifications == guessPriorities2(1:i)))
-                [C, I] = find(classifications == guessPriorities2(1:i));
+            if ~isempty(find(classifications == guessPriorities3(1:i)))
+                [C, I] = find(classifications == guessPriorities3(1:i));
                 labels(j) = classifications(I);
                 break;
             end
         end
 
+        %If no label could be chosen, pick one at random
         if (labels(j) == 0)
             % Select classification at random
             labels(j) = classifications(randi(size(classifications, 1)));
+        end
+
+
+        label = labels(j);
+        if(labels(j) == x2.y(j))
+            score(label) = score(label) + 1;
+        else
+            score(label) = score(label) - 1;
+        end
+
+        tempScores = score;
+        for i=1:6
+            [C, I] = max(tempScores);
+            guessPriorities3(i) = I;
+            tempScores(I) = 0;
         end
          
         %Select most common label
