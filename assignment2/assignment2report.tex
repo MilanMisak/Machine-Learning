@@ -41,6 +41,8 @@
 
 {\bf Evaluation results} \\
 
+Confusion matrix: The happiness tree was very good, perhaps overfit. Disgust and Happiness were quite often misclassified as well as correctly. They probably produced better trees because there was more data for them. Classification rate: The average classification rate is semi-successful as it succeeds most of the time. But it is far from perfect. Precision/Recall rate:  F-measure: The F measures suggest as suspected that the Disgust and Happiness have well trained trees. Perhaps Sadness and Surprise did not have enough data. Anger is likely an easy emotion to classify given the trees high performance given a relatively small amount of data \\ \\
+
 \begin{table}
 \centering
 \begin{tabular}{r r | r r r r r r}
@@ -98,11 +100,7 @@ We then decided to select the value which had been chosen the most so far, witho
 
 Finally, we made a score system for trees when competing against each other. If there were multiple trees with positive classifications, then the tree that was chosen would receive a point if it correctly classified the result, but lose one if it provided a false positive. For the next classification, the tree with the highest score would be chosen if there was contention. This improved the \( F_1 \) measure, but could not be used when no classes were found. Another drawback is that a different measure must be used the first time there is contention, since there are no scores, and this can have a large impact on the path of evaluation. Also, it may not always be possible to get immediate feedback on the classification whilst learning, which would impose limits on its usefulness. This method is also bound by the complexity of sorting the label priorities (n log n), so it may not be the best choice if there are a very large number of labels, and time is a factor. \\
 
-<<<<<<< HEAD
-If we had more time, I would like to have trained a decision tree to choose which label to trust in the event of multiple positives, or even in other cases (for instance if it was always the case that if the two trees to return positive were Anger and Surprise then the true label was Happy, if all the other trees returned negative). It is worth noting that this would require a much larger sample of data. \\
-=======
 If we had more time, I would like to have trained a decision tree to choose which label to trust in the event of multiple positives, or even in other cases (for instance, if it was always the case that when the two positive-valued trees were Anger and Surprise, then the actual label was Happy). It is worth noting that this would require a much larger sample of data. \\ \\
->>>>>>> origin/master
 
 {\bf Pruning} \\
 
@@ -114,21 +112,17 @@ The cost variable on the y-axis is the average number of comparisons for each cl
 
 We think that this cost is calculated based on trees of different sizes, showing the value of cost for each size of tree. The blue line is most likely the cost without using pruning, and the red line the cost after pruning. \\
 
-<<<<<<< HEAD
-The optimal tree size when using the pruning algorithm is where the cost is as small as possible whilst still having an error rate of the tree using cross validation. \\
-
-{\bf Code Flowchart} \\
-\begin{center}
-  \includegraphics[scale=0.7]{report-images/flowchart.png}
-=======
 The optimal tree size when using the pruning algorithm is one where the cost is as small as possible, yet still having an error rate of the tree using cross validation. \\
+
+\begin{center}
+  \includegraphics[scale=0.6]{report-images/pruning.png}
+\end{center}
 
 \newpage
 
 {\bf Code Flowchart} \\
 \begin{center}
   \includegraphics[scale=0.6]{report-images/flowchart.png}
->>>>>>> origin/master
 \end{center}
 
 \end{document}
