@@ -1,8 +1,8 @@
-function [ errorEstimate ] = CrossValidate( examples, labels )
+function [ percentCorrect ] = CrossValidate( examples, labels )
 %CrossValidate uses 10-fold validation to estimate the error rate of the 6
 %trees created from training the examples
 
-errorEstimate = 0;
+percentCorrect = 0;
 first = 0;
 last = 0;
 
@@ -53,11 +53,11 @@ for i=1:10
         confusionMatrix(actualLabel, predictedLabel) = confusionMatrix(actualLabel, predictedLabel) + 1;
     end
     
-    errorEstimate = errorEstimate + (1 - (correct / size(testSetLabels, 1)));
+    percentCorrect = percentCorrect + (correct / size(testSetLabels, 1));
 end
 
 confusionMatrix = confusionMatrix / 10;
 confusionMatrix
 
-errorEstimate = errorEstimate / 10;
+percentCorrect = 10*percentCorrect;
 

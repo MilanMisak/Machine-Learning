@@ -10,7 +10,7 @@ for i=1:6
     end
 end
 
-attributes = 1:1:45;
+%attributes = 1:1:45;
 %S = DecisionTreeLearning(cleandata.x, attributes, targets{1}); 
 %DrawDecisionTree(S)
 
