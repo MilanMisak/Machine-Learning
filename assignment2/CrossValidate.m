@@ -3,7 +3,6 @@ function [ classificationRate ] = CrossValidate( examples, labels )
 %trees created from training the examples
 
 classificationRate = 0;
-first = 0;
 last = 0;
 
 targets = cell(6);
