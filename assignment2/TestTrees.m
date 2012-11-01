@@ -2,29 +2,22 @@ function [ predictions ] = TestTrees( T, x2 )
 %TestTrees predicts output of examples, given the 6 trained trees, T
 
 examples = x2.x;
-labels = ones(size(examples, 1));
+labels = zeros(1, size(examples, 1));
 %T
 
-exampleIndex = 1;
-for example=examples
+for j=1:size(examples, 1)
     classifications = cell(0);
-    treeIndex = 1;
-    for tree=T
-        %tree
-        if TreeClassify(tree, example)
-           classifications{size(classifications) + 1} = treeIndex; 
+    for i=1:6
+        if logical(TreeClassify(T{i}, examples(j, :)))
+           classifications{size(classifications, 1) + 1} = i;
         end
-        treeIndex = treeIndex + 1;
     end
-
-    classifications
     
-    if size(classifications) == 0
-        fprintf('No classifications');
-        % Label defaults to 1
+    if size(classifications, 1) == 0
+        labels(j) = randi(6);
     else
         % Select classification at random
-        labels(exampleIndex) = classifications{randi(size(classifications))};
+        labels(j) = classifications{randi(size(classifications, 1))};
     end
 end
 

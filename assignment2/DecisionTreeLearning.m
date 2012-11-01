@@ -1,15 +1,11 @@
 function [ tree ] = DecisionTreeLearning( examples, attributes, binaryTargets )
 %DecisionTreeLearning Trains a decision tree using given examples
 
-examples
-attributes
-binaryTargets
-
+tree.op = 0;
 if range(binaryTargets) == 0
     % All binary targets are the same
     tree.kids = cell(0);
     tree.class = binaryTargets(1);
-    fprintf('HAI (%i, %i)\n', binaryTargets(1), size(binaryTargets, 1));
 elseif isempty(attributes)
     % There are no attributes to split the tree on
     tree.kids = cell(0);

@@ -3,7 +3,7 @@ function [ errorEstimate ] = CrossValidate( examples, labels )
 %trees created from training the examples
 
 errorEstimate = 0;
-first = 1;
+first = 0;
 last = 0;
 
 targets = cell(6);
@@ -18,36 +18,37 @@ end
 for i=1:10
     % first will mark the index of the start of the fold, and last the end
     first = last + 1;
-    last = round(size(examples, 1) / i);
+    last = round(size(examples, 1)*i / 10);
+    fprintf('iteration %i; first: %i, last: %i\n', i, first, last);
     
     % split the examples from the fold
-    trainingSet = examples(~ismember(1:size(examples, 1), (first:last)), :);
-    testSet = examples(ismember(1:size(examples, 1), (first:last)), :);
-    testSetLabels = labels(ismember(1:size(labels, 1), (first:last)), :);
+    trainingSet = examples(~ismember(1:size(examples, 1), [first:last]), :);
+    testSet = examples(ismember(1:size(examples, 1), [first:last]), :);
+    testSetLabels = labels(ismember(1:size(labels, 1), [first:last]), :);
     
     % create the 6 trees for the fold, and classify the test set for each
-    trees = cell(6);
+    trees = cell(1, 6);
     for n=1:6
-        trainingSetTargets = targets{n}(~ismember(1:size(targets{n}, 1), (first:last)), :);
+        trainingSetTargets = targets{n}(~ismember(1:size(targets{n}, 1), [first:last]), :);
         
         % train a tree on the examples
         trees{n} = DecisionTreeLearning(trainingSet, 1:1:45, trainingSetTargets);
-        trees{n}
     end
-    trees
 
     x2.x = testSet;
-    predictions = TestTrees(trees, x2)
-
+    predictions = TestTrees(trees, x2);
+    
     % compare to actual results
     correct = 0;
     for m=1:size(testSetLabels)
+        %fprintf('%i %i\n', predictions.y(m), testSetLabels(m));
         if predictions.y(m) == testSetLabels(m)
             correct = correct + 1;
         end
     end
-        
-    errorEstimate = errorEstimate + (1 - (correct / size(classifications, 2)));
+    
+    errorEstimate = errorEstimate + (1 - (correct / size(testSetLabels, 1)));
+    
 end
 
 errorEstimate = errorEstimate / 10;
