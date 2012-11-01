@@ -36,6 +36,7 @@ for i=1:10
     end
 
     x2.x = testSet;
+    x2.y = testSetLabels;
     predictions = TestTrees(trees, x2);
     
     % compare to actual results

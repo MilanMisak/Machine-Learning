@@ -3,21 +3,97 @@ function [ predictions ] = TestTrees( T, x2 )
 
 examples = x2.x;
 labels = zeros(1, size(examples, 1));
-%T
+
+%Work out the number of occurences of each label in the test data
+occurences = zeros(1, 6);
+for i=1:6
+    for j=1:size(x2.y)
+        if (x2.y(j) == i)
+            occurences(i) = occurences(i) + 1;
+        end
+    end
+end
+
+%Order labels by priority based on their occurence in the test data
+guessPriorities = zeros(1, 6);
+for i=1:6
+    [C, I] = max(occurences);
+    guessPriorities(i) = I;
+    occurences(I) = 0;
+end
+
+guessPriorities2 = zeros(1, 6);
+for i=1:6
+    [C, I] = max(occurences);
+    guessPriorities2(i) = I;
+    occurences(I) = 0;
+end
+
+
+
+
+
+
+
+
 
 for j=1:size(examples, 1)
-    classifications = cell(0);
+    classifications = [];
     for i=1:6
         if logical(TreeClassify(T{i}, examples(j, :)))
-           classifications{size(classifications, 1) + 1} = i;
+           classifications(size(classifications, 1) + 1) = i;
+           occurences(i) = occurences(i) + 1;
         end
     end
     
     if size(classifications, 1) == 0
-        labels(j) = randi(6);
+        %Select the most common label
+        tempOccurences = occurences;
+        for i=1:6
+            [C, I] = max(tempOccurences);
+            guessPriorities2(i) = I;
+            tempOccurences(I) = 0;
+        end
+        
+        if (guessPriorities2(1) == 0)
+            labels(j) = randi(6);
+        else
+            labels(j) = guessPriorities2(1);
+        end
     else
+        
+        tempOccurences = occurences;
+        for i=1:6
+            [C, I] = max(tempOccurences);
+            guessPriorities2(i) = I;
+            tempOccurences(I) = 0;
+        end
+        
+        for i=1:size(classifications)
+            if ~isempty(find(classifications == guessPriorities2(1:i)))
+                [C, I] = find(classifications == guessPriorities2(1:i));
+                labels(j) = classifications(I);
+                break;
+            end
+        end
+
+        if (labels(j) == 0)
+            % Select classification at random
+            labels(j) = classifications(randi(size(classifications, 1)));
+        end
+         
+        %Select most common label
+        %for i=1:size(classifications)
+        %   if ~isempty(find(classifications == guessPriorities(1:i)))
+        %        [C, I] = find(classifications == guessPriorities(1:i));
+        %        labels(j) = classifications(I);
+        %        break;
+        %        fprintf('MOOOO')
+        %    end
+        %end
+        
         % Select classification at random
-        labels(j) = classifications{randi(size(classifications, 1))};
+        %labels(j) = classifications(randi(size(classifications, 1)));
     end
 end
 
