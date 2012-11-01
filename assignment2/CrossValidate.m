@@ -46,9 +46,7 @@ for i=1:10
         end
         
         errorEstimate = errorEstimate + (1 - (correctClassifications(n) / size(classifications, 2)));
-        
     end
-    
 end
 
 errorEstimate = errorEstimate / 10;
