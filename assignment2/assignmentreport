@@ -14,6 +14,8 @@
   \item All data for the average cross-validation results is collected during the cross-validation, with a running total of correct answers, and the incrementation of entries in the confusion matrix. A call is made to a seperate function to get recall and precision rates, as well as \( F_1 \) measures, to keep the code tidier.
 \end{itemize}
 
+\newpage
+
 {\bf Generated trees} \\
 \begin{center}
   \includegraphics[scale=0.28]{report-images/tree1.png} \\
@@ -35,9 +37,9 @@
   Tree for surprise
 \end{center}
 
+\newpage
 
 {\bf Evaluation results} \\
-Confusion matrix: The happiness tree was very good, perhaps overfit. Disgust and Happiness were quite often misclassified as well as correctly. They probably produced better trees because there was more data for them. Classification rate: The average classification rate is semi-successful as it succeeds most of the time. But it is far from perfect. Precision/Recall rate: The standout results are that sadness and fear are very difficult to identify correctly, most of the time they are not recognised. Wheras Hapiness was easy to recall but also registering many false positives. The anger tree was very cautious in making classifications but when it did, it was very successful.  F-measure: The F measures suggest as suspected that the Disgust and Happiness have well trained trees. Perhaps Sadness and Surprise did not have enough data. Anger is likely an easy emotion to classify given the trees high performance given a relatively small amount of data \\ \\
 
 Confusion matrix: The happiness tree was very good, perhaps overfit. Disgust and Happiness were quite often misclassified as well as correctly. They probably produced better trees because there was more data for them. Classification rate: The average classification rate is semi-successful as it succeeds most of the time. But it is far from perfect. Precision/Recall rate:  F-measure: The F measures suggest as suspected that the Disgust and Happiness have well trained trees. Perhaps Sadness and Surprise did not have enough data. Anger is likely an easy emotion to classify given the trees high performance given a relatively small amount of data \\ \\
 
@@ -91,38 +93,30 @@ Average classification rate = 0.5808 \\
 
 
 {\bf Ambiguity} \\
-There are 2 cases when there needs to be a decision made about classification which cannot be made by the trees themselves. Firstly, it is where none of the trees have returned a positive value, secondly it is when multiple trees positively classify the same example. Initially we chose to randomise the classification, this was our benchmark. The obvious drawbacks of choosing randomly are that it is a complete guess, and should intuitively not be used if there is more information available. Generation of pseudo random numbers is also a rather expensive task if time is a factor. \\
 
-Then we decided to select the value which had been chosen the most so far without contention. This was slightly worse than random on average, it is highly dependent on the order of the data. This method then became superseded by choosing the most common label in the test set. Statistically choosing the most common label should be better on average, but it fared worse when being used for examples that has no classifications. Of course the drawback of this method is that the statistically most common labels need to be known in advance. This method proved to be slightly better than by random on average. \\
+There are 2 cases when a decision must be made about classification, which cannot be made by the trees themselves. The first case occurs when none of the trees have returned a positive value, and the second when multiple trees positively classify the same example. Initially, we chose to randomise the classification, and this became our benchmark. The obvious drawbacks of choosing randomly are that it is a complete guess, and should intuitively not be used if there is more information available. Generation of pseudo random numbers is also a rather expensive task if time is a factor. \\
 
-Finally, we made a score system for trees when competing against each other. If there were multiple trees all with positive classifications then the tree that was chosen would receive a point if it correctly classified the result, or lose one if it provided a false positive. Then for the next classification the tree with the highest score would be chosen if there was contention. This improved the \( F_1 \) measure, but could not be used when no classes were found. Another drawback is that a different measure must be used the first time there is contention as there are no scores, and this can have a large impact on the path of evaluation. Also, it may not always be possible to get immediate feedback on the classification whilst learning, which would not make this possible. This method is also bound by the complexity of sorting the order of label priorities (n log n), so it may not be the best choice if there is a very large number of labels, and time is a factor. \\
+We then decided to select the value which had been chosen the most so far, without contention. This was slightly worse than random on average, it is highly dependent on the order of the data. This method was then superseded by choosing the most common label in the test set. Statistically, choosing the most common label should be better on average, but it fared worse when used for examples that had no classification. Of course the drawback of this method is that the statistically most common labels need to be known in advance. This method proved to be slightly better on average than the random choices. \\
 
-<<<<<<< HEAD
 Finally, we made a score system for trees when competing against each other. If there were multiple trees with positive classifications, then the tree that was chosen would receive a point if it correctly classified the result, but lose one if it provided a false positive. For the next classification, the tree with the highest score would be chosen if there was contention. This improved the \( F_1 \) measure, but could not be used when no classes were found. Another drawback is that a different measure must be used the first time there is contention, since there are no scores, and this can have a large impact on the path of evaluation. Also, it may not always be possible to get immediate feedback on the classification whilst learning, which would impose limits on its usefulness. This method is also bound by the complexity of sorting the label priorities (n log n), so it may not be the best choice if there are a very large number of labels, and time is a factor. \\
 
 If we had more time, I would like to have trained a decision tree to choose which label to trust in the event of multiple positives, or even in other cases (for instance, if it was always the case that when the two positive-valued trees were Anger and Surprise, then the actual label was Happy). It is worth noting that this would require a much larger sample of data. \\ \\
-=======
-If we had more time, I would like to have trained a decision tree to choose which label to trust in the event of multiple positives, or even in other cases (for instance if it was always the case that if the two trees to return positive were Anger and Surprise then the true label was Happy, if all the other trees returned negative). It is worth noting that this would require a much larger sample of data. \\
->>>>>>> 0ce18fc41967fc8d7924d1dc3d83f4b55b9bf47c
 
 {\bf Pruning} \\
-The pruning\_examples function shows a graph where tree pruning is used on a decision tree built using the default matlab libraries. We imagine tree pruning will first remove branches that result in the same value no matter the value of the attribute split on.
 
-The pruning algorithm used is resubstitution pruning which substitutes leaf nodes with the most common attribute, until the error value is intolerably high.
+The pruning\_examples function shows a graph where tree pruning is used on a decision tree built using the default matlab libraries. We imagine that tree pruning will first remove extraneous branches, where any choice would lead to the same answer. \\
 
-The cost variable on the y-axis is the average number of comparisons for each classification. This is calculated by summing the probability that a leaf node is reached, by the cost it took to reach.
+The pruning algorithm used is resubstitution pruning, which substitutes leaf nodes with the most common attribute until the error value is intolerably high. \\
 
-We think that this cost is calculated based on trees of different sizes, showing the value of cost for each size of tree. The blue line is probably without using pruning, and the red line is with using pruning.
+The cost variable on the y-axis is the average number of comparisons for each classification. This is calculated by multiplying the probability that a leaf node is reached by the cost it took to reach, and summing the results. \\
+
+We think that this cost is calculated based on trees of different sizes, showing the value of cost for each size of tree. The blue line is most likely the cost without using pruning, and the red line the cost after pruning. \\
 
 The optimal tree size when using the pruning algorithm is one where the cost is as small as possible, yet still having an error rate of the tree using cross validation. \\
-<<<<<<< HEAD
 
 \begin{center}
   \includegraphics[scale=0.6]{report-images/pruning.png}
 \end{center}
-=======
->>>>>>> 0ce18fc41967fc8d7924d1dc3d83f4b55b9bf47c
-
 
 \newpage
 
