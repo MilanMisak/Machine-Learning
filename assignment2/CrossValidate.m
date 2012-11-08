@@ -33,6 +33,8 @@ for i=1:10
         % train a tree on the examples
         trees{n} = DecisionTreeLearning(trainingSet, 1:1:45, trainingSetTargets);
     end
+    
+    save('trees.mat', 'trees');
 
     x2.x = testSet;
     x2.y = testSetLabels;
@@ -59,3 +61,5 @@ confusionMatrix = confusionMatrix / 10
 
 recallAndPrecisionRates = GetRecallAndPrecisionRates(confusionMatrix)
 f1Measures = GetF1Measures(recallAndPrecisionRates)
+
+classificationRate = classificationRate / 10
