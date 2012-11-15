@@ -10,16 +10,17 @@ n = size(x, 2);
 
 testInputs  = x(:, 1:floor(0.67*n));
 testTargets = y(:, 1:floor(0.67*n));
-validationInputs  = x(:, ceil(0.67*n):n);
-validationTargets = y(:, ceil(0.67*n):n);
+validationInputs  = x(:, (floor(0.67*n) + 1):n);
+validationTargets = y(:, (floor(0.67*n) + 1):n);
 
 % 6-output network
 [net] = feedforwardnet(6);
 [net] = configure(net, x, y);
 net.trainParam.epochs = 100;
-
 [net, tr] = train(net, testInputs, testTargets);
-Y = sim(net, testInputs);
+
+predictions = testANN(net, validationInputs);
+
 
 
 % 6 1-output networks
@@ -37,7 +38,6 @@ for i=1:6
 end
 
 
-predictions = testANN(net, x2);
 
 
 %plotperform(tr);
