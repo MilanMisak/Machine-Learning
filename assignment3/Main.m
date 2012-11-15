@@ -10,6 +10,9 @@ y = y2;
 test_inputs = x(:, 1:100);
 test_targets = y(:, 1:100);
 
-[net] = feedforwardnet(50);
+[net] = feedforwardnet(6);
 [net] = configure(net, x, y);
+net.trainParam.epochs = 100;
 [net] = train(net, test_inputs, test_targets);
+Y = sim(net, test_inputs);
+%plot(test_inputs, test_targets, test_inputs, Y, 'r.');
