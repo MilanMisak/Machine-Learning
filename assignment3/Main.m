@@ -30,14 +30,15 @@ simulations = cell(1, 6);
 
 for i=1:6
     trainingTargets = testTargets(i, :);
-    [nets{i}] = feedforwardnet(6);
+    [nets{i}] = feedforwardnet([15,20], 'traingdx');
     [nets{i}] = configure(nets{i}, testInputs, trainingTargets);
-    nets{i}.trainParam.epochs = 100;    
+    %nets{i}.layers{1}.transferFcn = '';
+    %nets{i}.layers{2}.transferFcn = '';
+    nets{i}.trainParam.epochs = 1000;
+    nets{i}.trainParam.lr = 0.015;
     [nets{i}, trs{i}] = train(nets{i}, testInputs, trainingTargets);
     simulations{i} = sim(nets{i}, testInputs);
 end
-
-
 
 
 %plotperform(tr);
