@@ -34,6 +34,7 @@ for i=1:6
     [nets{i}] = configure(nets{i}, testInputs, trainingTargets);
     %nets{i}.layers{1}.transferFcn = '';
     %nets{i}.layers{2}.transferFcn = '';
+    nets{i}.trainParam.mc = 0.95;
     nets{i}.trainParam.epochs = 1000;
     nets{i}.trainParam.lr = 0.015;
     [nets{i}, trs{i}] = train(nets{i}, testInputs, trainingTargets);
