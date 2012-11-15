@@ -38,6 +38,8 @@ for i=1:6
     nets{i}.trainParam.lr = 0.015;
     [nets{i}, trs{i}] = train(nets{i}, testInputs, trainingTargets);
     simulations{i} = sim(nets{i}, testInputs);
+
+    fprintf('Best performance: %f\n', trs{i}.best_perf);
 end
 
 
