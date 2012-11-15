@@ -19,3 +19,5 @@ for i=1:6
     trees{i} = DecisionTreeLearning(cleandata.x, 1:1:45, targetVector);
     DrawDecisionTree(trees{i});
 end
+
+save('trees.mat', 'trees');
