@@ -1,15 +1,19 @@
 cleandata = load('cleandata_students.mat');
 
 [x2, y2] = ANNdata(cleandata.x, cleandata.y);
-
-
-% Part 3 stuff
 x = x2;
 y = y2;
+n = size(x, 2);
 
-testInputs = x(:, 1:100);
-testTargets = y(:, 1:100);
+%f = floor(0.67*n)
+%c = ceil(0.67*n)
 
+testInputs  = x(:, 1:floor(0.67*n));
+testTargets = y(:, 1:floor(0.67*n));
+validationInputs  = x(:, ceil(0.67*n):n);
+validationTargets = y(:, ceil(0.67*n):n);
+
+% 6-output network
 [net] = feedforwardnet(6);
 [net] = configure(net, x, y);
 net.trainParam.epochs = 100;
@@ -17,6 +21,8 @@ net.trainParam.epochs = 100;
 [net, tr] = train(net, testInputs, testTargets);
 Y = sim(net, testInputs);
 
+
+% 6 1-output networks
 nets = cell(1, 6);
 trs = cell(1, 6);
 simulations = cell(1, 6);
@@ -34,14 +40,6 @@ end
 predictions = testANN(net, x2);
 
 
-
-
-
-
 %plotperform(tr);
 
 %plottrainstate(tr);
-
-%Y = sim(net, test_inputs);
-%plot(test_inputs, test_targets, test_inputs, Y, 'r.');
-
