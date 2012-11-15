@@ -13,10 +13,12 @@ testTargets = y(:, 1:100);
 [net] = feedforwardnet(6);
 [net] = configure(net, x, y);
 net.trainParam.epochs = 100;
-[net] = train(net, testInputs, testTargets);
+
+[net, tr] = train(net, testInputs, testTargets);
 Y = sim(net, testInputs);
 
 nets = cell(1, 6);
+trs = cell(1, 6);
 simulations = cell(1, 6);
 
 for i=1:6
@@ -24,7 +26,7 @@ for i=1:6
     [nets{i}] = feedforwardnet(6);
     [nets{i}] = configure(nets{i}, x2, y2);
     nets{i}.trainParam.epochs = 100;    
-    nets{i} = train(nets{i}, testInputs, testTargets);
+    [nets{i}, trs{i}] = train(nets{i}, testInputs, testTargets);
     simulations{i} = sim(nets{i}, testInputs);
 end
 
@@ -32,4 +34,11 @@ end
 
 
 
+
+%plotperform(tr);
+
+%plottrainstate(tr);
+
+%Y = sim(net, test_inputs);
+%plot(test_inputs, test_targets, test_inputs, Y, 'r.');
 
