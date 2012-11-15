@@ -22,13 +22,16 @@ trs = cell(1, 6);
 simulations = cell(1, 6);
 
 for i=1:6
-    trainingTargets = x(i, :);
+    trainingTargets = testTargets(i, :);
     [nets{i}] = feedforwardnet(6);
-    [nets{i}] = configure(nets{i}, x2, y2);
+    [nets{i}] = configure(nets{i}, testInputs, trainingTargets);
     nets{i}.trainParam.epochs = 100;    
-    [nets{i}, trs{i}] = train(nets{i}, testInputs, testTargets);
+    [nets{i}, trs{i}] = train(nets{i}, testInputs, trainingTargets);
     simulations{i} = sim(nets{i}, testInputs);
 end
+
+
+predictions = testANN(net, x2);
 
 
 
