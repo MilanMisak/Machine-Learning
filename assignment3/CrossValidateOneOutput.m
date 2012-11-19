@@ -1,6 +1,6 @@
 function [ classificationRate ] = CrossValidateOneOutput( examples, labels )
 %CrossValidate uses 10-fold validation to estimate the error rate of the 6
-%neural networks trained using the examples.
+% neural networks trained using the examples.
 
 classificationRate = 0;
 last = 0;

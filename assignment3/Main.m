@@ -25,7 +25,9 @@ net.trainParam.showWindow = 0;
 predictions = testANN(net, validationInputs);
 
 
-CrossValidateOneOutput(x2, y2);
+%CrossValidateOneOutput(x2, y2);
+
+CrossValidateSixOutput(x2, y2);
 
 % 6 1-output networks
 %nets = cell(1, 6);

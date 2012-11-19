@@ -1,6 +1,6 @@
 function [ classificationRate ] = CrossValidateSixOutput( examples, labels )
-%CrossValidate uses 10-fold validation to estimate the error rate of the 6
-%trees created from training the examples
+%CrossValidate uses 10-fold validation to estimate the error rate of a
+% 6-output neural network trained using the examples.
 
 classificationRate = 0;
 last = 0;
@@ -13,47 +13,48 @@ for i=1:10
     last = round(size(examples, 2)*i / 10);
 
     % split the examples from the fold
-    testInputs  = examples(:, first:last);
-    testTargets = labels(:, first:last);
-    validationInputs  = examples(:, first:last);
-    validationTargets = labels(:, first:last);
-
-    predictions = cell(size(validationTargets,1), size(validationTargets,2));
+    trainingInputs = examples(:, ~ismember(1:size(examples, 2), [first:last]));
+    trainingTargets = labels(:, ~ismember(1:size(labels, 2), [first:last]));
+    validationInputs = examples(:, ismember(1:size(examples, 2), [first:last]));
+    validationTargets = labels(:, ismember(1:size(labels, 2), [first:last]));
 
     [net] = feedforwardnet([15,20], 'traingdx');
-    [net] = configure(net, testInputs, testTargets);
+    [net] = configure(net, trainingInputs, trainingTargets);
+    
+    % TODO - this stuff is a bit arbitrary
     %net.layers{1}.transferFcn = '';
     %net.layers{2}.transferFcn = '';
     net.trainParam.mc = 0.95;
     net.trainParam.epochs = 1000;
     net.trainParam.lr = 0.015;
-    [net, tr] = train(net, testInputs, testTargets);
-    simulation = sim(net, testInputs);
+    net.trainParam.showWindow = 0;
+    
+    [net, tr] = train(net, trainingInputs, trainingTargets);
 
     predictions = testANN(net, validationInputs);
-    %fprintf('Best performance: %f\n', trs{i}.best_perf);
 
     % compare to actual results and generate confusion matrix
     correct = 0;
 
-    for m=1:size(predictions,2)
-        predictedLabel = predictions(:,m);
-        actualLabel = validationTargets(:,m);
+    for m=1:size(validationTargets, 2)
+        predictedLabel = predictions(m);
+        nonZeroValues = find(validationTargets(:, m));
+        actualLabel = nonZeroValues(1);
 
         if predictedLabel == actualLabel
             correct = correct + 1;
         end
 
-        confusionMatrix(actualLabel, predictedLabel) = confusionMatrix(actualLabel, predictedLabel    ) + 1;
+        confusionMatrix(actualLabel, predictedLabel) = confusionMatrix(actualLabel, predictedLabel) + 1;
     end
 
-    classificationRate = classificationRate + (correct / size(testSetLabels, 1));
+    classificationRate = classificationRate + (correct / size(validationTargets, 1));
 end
 
 confusionMatrix = confusionMatrix / 10
 
-recallAndPrecisionRates = GetRecallAndPrecisionRates(confusionMatrix)
-f1Measures = GetF1Measures(recallAndPrecisionRates)
+recallAndPrecisionRates = getRecallAndPrecisionRates(confusionMatrix)
+f1Measures = getF1Measures(recallAndPrecisionRates)
 
 classificationRate = classificationRate / 10
 
