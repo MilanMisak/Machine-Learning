@@ -1,4 +1,4 @@
-function [ f1Measures ] = GetF1Measures( ratesMatrix )
+function [ f1Measures ] = getF1Measures( ratesMatrix )
 %GetF1Measures Given recall and precision rates matrix returns a matrix
 % of F1 measures.
 

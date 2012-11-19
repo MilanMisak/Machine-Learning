@@ -1,12 +1,11 @@
 cleandata = load('cleandata_students.mat');
 
+% TODO - just use x2 and y2 everywhere instead of x and y
 [x2, y2] = ANNdata(cleandata.x, cleandata.y);
 x = x2;
 y = y2;
 n = size(x, 2);
 
-%f = floor(0.67*n)
-%c = ceil(0.67*n)
 
 testInputs  = x(:, 1:floor(0.67*n));
 testTargets = y(:, 1:floor(0.67*n));
