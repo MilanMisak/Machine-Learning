@@ -6,37 +6,40 @@ x = x2;
 y = y2;
 n = size(x, 2);
 
-
-testInputs  = x(:, 1:floor(0.67*n));
-testTargets = y(:, 1:floor(0.67*n));
-validationInputs  = x(:, (floor(0.67*n) + 1):n);
-validationTargets = y(:, (floor(0.67*n) + 1):n);
+% Divide data into training and validation sets with a 67:23 split
+splitIndex = floor(0.67*n);
+trainingInputs  = x(:, 1:splitIndex);
+trainingTargets = y(:, 1:splitIndex);
+validationInputs  = x(:, (splitIndex + 1):n);
+validationTargets = y(:, (splitIndex + 1):n);
 
 % 6-output network
 [net] = feedforwardnet(6);
-[net] = configure(net, x, y);
+[net] = configure(net, trainingInputs, trainingTargets);
 net.trainParam.epochs = 100;
-[net, tr] = train(net, testInputs, testTargets);
+[net, tr] = train(net, trainingInputs, trainingTargets);
+
+%plotperform(tr);
 
 predictions = testANN(net, validationInputs);
 
 
-CrossValidate(x,y)
+CrossValidateOneOutput(x,y)
 % 6 1-output networks
 %nets = cell(1, 6);
 %trs = cell(1, 6);
 %simulations = cell(1, 6);
 
 %for i=1:6
-%    trainingTargets = testTargets(i, :);
+%    trainingTargets2 = testTargets(i, :);
 %    [nets{i}] = feedforwardnet([15,20], 'traingdx');
-%    [nets{i}] = configure(nets{i}, testInputs, trainingTargets);
+%    [nets{i}] = configure(nets{i}, testInputs, trainingTargets2);
     %nets{i}.layers{1}.transferFcn = '';
     %nets{i}.layers{2}.transferFcn = '';
 %    nets{i}.trainParam.mc = 0.95;
 %    nets{i}.trainParam.epochs = 1000;
 %    nets{i}.trainParam.lr = 0.015;
-%    [nets{i}, trs{i}] = train(nets{i}, testInputs, trainingTargets);
+%    [nets{i}, trs{i}] = train(nets{i}, testInputs, trainingTargets2);
 %    simulations{i} = sim(nets{i}, testInputs);
 
 %    fprintf('Best performance: %f\n', trs{i}.best_perf);
