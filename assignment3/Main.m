@@ -15,11 +15,15 @@ validationTargets = y(:, (splitIndex + 1):n);
 
 % 6-output network
 [net] = feedforwardnet(6);
-[net] = configure(net, x, y);
+[net] = configure(net, trainingInputs, trainingTargets);
 net.trainParam.epochs = 100;
 [net, tr] = train(net, trainingInputs, trainingTargets);
 
+%plotperform(tr);
+
 predictions = testANN(net, validationInputs);
+
+
 
 
 
