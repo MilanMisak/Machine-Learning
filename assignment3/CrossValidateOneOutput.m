@@ -26,9 +26,6 @@ for i=1:10
     nets = cell(1, 6);
     trs = cell(1, 6);
 
-    %predictions = cell(size(validationTargets, 1), size(validationTargets, 2));
-    predictions = cell(6);
-
     for n=1:6
         trainingTargetsForEmotion = trainingTargets(n, :);
         
@@ -44,40 +41,33 @@ for i=1:10
         nets{n}.trainParam.showWindow = 0;
         
         [nets{n}, trs{i}] = train(nets{n}, trainingInputs, trainingTargetsForEmotion);
-        
-        %validationInputs
-        %testANN(nets{n}, validationInputs)
-        
-        
-        %fprintf('Best performance: %f\n', trs{i}.best_perf);
     end
     
-    predictions{n} = testANN(nets, validationInputs);
+    predictions = testANN(nets, validationInputs);
 
     % compare to actual results and generate confusion matrix
     correct = 0;
-
-    %validationTargets
-    %predictions
     
     for m=1:size(validationTargets, 1)
-        predictedLabel = predictions{1}(m);
-        actualLabel = validationTargets(m);
+        predictedLabel = predictions(m);
+        nonZeroValues = find(validationTargets(:, m));
+        actualLabel = validationTargets(nonZeroValues(1), m);
 
         if predictedLabel == actualLabel
             correct = correct + 1;
         end
+        fprintf('%i, %i %i\n', i, predictedLabel, actualLabel)
 
-        confusionMatrix(actualLabel, predictedLabel) = confusionMatrix(actualLabel, predictedLabel    ) + 1;
+        confusionMatrix(actualLabel, predictedLabel) = confusionMatrix(actualLabel, predictedLabel) + 1;
     end
 
-    classificationRate = classificationRate + (correct / size(testSetLabels, 1));
+    classificationRate = classificationRate + (correct / size(validationTargets, 1));
 end
 
 confusionMatrix = confusionMatrix / 10
 
-recallAndPrecisionRates = GetRecallAndPrecisionRates(confusionMatrix)
-f1Measures = GetF1Measures(recallAndPrecisionRates)
+recallAndPrecisionRates = getRecallAndPrecisionRates(confusionMatrix)
+f1Measures = getF1Measures(recallAndPrecisionRates)
 
 classificationRate = classificationRate / 10
 
