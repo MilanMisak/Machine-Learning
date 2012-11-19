@@ -17,6 +17,7 @@ validationTargets = y(:, (splitIndex + 1):n);
 [net] = feedforwardnet(6);
 [net] = configure(net, trainingInputs, trainingTargets);
 net.trainParam.epochs = 100;
+net.trainParam.showWindow = 0;
 [net, tr] = train(net, trainingInputs, trainingTargets);
 
 %plotperform(tr);
@@ -25,6 +26,7 @@ predictions = testANN(net, validationInputs);
 
 
 CrossValidateOneOutput(x2, y2)
+
 % 6 1-output networks
 %nets = cell(1, 6);
 %trs = cell(1, 6);

@@ -26,13 +26,11 @@ for i=1:10
     nets = cell(1, 6);
     trs = cell(1, 6);
 
-    predictions = cell(size(validationTargets,1), size(validationTargets,2));
-    
-    trainingTargets %
+    %predictions = cell(size(validationTargets, 1), size(validationTargets, 2));
+    predictions = cell(6);
 
     for n=1:6
         trainingTargetsForEmotion = trainingTargets(n, :);
-        trainingTargetsForEmotion %
         
         [nets{n}] = feedforwardnet([15,20], 'traingdx');
         [nets{n}] = configure(nets{n}, trainingInputs, trainingTargetsForEmotion);
@@ -43,21 +41,28 @@ for i=1:10
         nets{n}.trainParam.mc = 0.95;
         nets{n}.trainParam.epochs = 1000;
         nets{n}.trainParam.lr = 0.015;
+        nets{n}.trainParam.showWindow = 0;
         
         [nets{n}, trs{i}] = train(nets{n}, trainingInputs, trainingTargetsForEmotion);
-
-        validationInputs
         
-        predictions{n} = testANN(nets{n}, validationInputs);
+        %validationInputs
+        %testANN(nets{n}, validationInputs)
+        
+        
         %fprintf('Best performance: %f\n', trs{i}.best_perf);
     end
+    
+    predictions{n} = testANN(nets, validationInputs);
 
     % compare to actual results and generate confusion matrix
     correct = 0;
 
-    for m=1:size(predictions,2)
-        predictedLabel = predictions(:,m);
-        actualLabel = validationTargets(:,m);
+    %validationTargets
+    %predictions
+    
+    for m=1:size(validationTargets, 1)
+        predictedLabel = predictions{1}(m);
+        actualLabel = validationTargets(m);
 
         if predictedLabel == actualLabel
             correct = correct + 1;
