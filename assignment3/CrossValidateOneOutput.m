@@ -15,12 +15,8 @@ for i=1:10
     % split the examples from the fold
     trainingInputs = examples(:, ~ismember(1:size(examples, 2), [first:last]));
     trainingTargets = labels(:, ~ismember(1:size(labels, 2), [first:last]));
-    %trainingInputs  = examples(:, first:last);
-    %trainingTargets = labels(:, first:last);
     validationInputs = examples(:, ismember(1:size(examples, 2), [first:last]));
-    validationTargets = labels(:, ismember(1:size(examples, 2), [first:last]));
-    %validationInputs  = examples(:, first:last);
-    %validationTargets = labels(:, first:last);
+    validationTargets = labels(:, ismember(1:size(labels, 2), [first:last]));
 
     % create the 6 networks for the fold
     nets = cell(1, 6);
