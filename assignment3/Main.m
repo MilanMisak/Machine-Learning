@@ -24,7 +24,7 @@ net.trainParam.epochs = 100;
 predictions = testANN(net, validationInputs);
 
 
-CrossValidateOneOutput(x,y)
+CrossValidateOneOutput(x2, y2)
 % 6 1-output networks
 %nets = cell(1, 6);
 %trs = cell(1, 6);

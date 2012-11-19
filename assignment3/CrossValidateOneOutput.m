@@ -1,6 +1,6 @@
 function [ classificationRate ] = CrossValidateOneOutput( examples, labels )
 %CrossValidate uses 10-fold validation to estimate the error rate of the 6
-%trees created from training the examples
+%neural networks trained using the examples.
 
 classificationRate = 0;
 last = 0;
@@ -13,30 +13,38 @@ for i=1:10
     last = round(size(examples, 2)*i / 10);
 
     % split the examples from the fold
-    testInputs  = examples(:, first:last);
-    testTargets = labels(:, first:last);
+    % TODO - this is not looking good
+    trainingInputs  = examples(:, first:last);
+    trainingTargets = labels(:, first:last);
     validationInputs  = examples(:, first:last);
     validationTargets = labels(:, first:last);
 
     % create the 6 networks for the fold, and classify the test set for each
     nets = cell(1, 6);
     trs = cell(1, 6);
-    simulations = cell(1, 6);
 
     predictions = cell(size(validationTargets,1), size(validationTargets,2));
+    
+    trainingTargets %
 
     for n=1:6
-        testTargets2 = testTargets(n, :);
+        trainingTargetsForEmotion = trainingTargets(n, :);
+        trainingTargetsForEmotion %
+        
         [nets{n}] = feedforwardnet([15,20], 'traingdx');
-        [nets{n}] = configure(nets{n}, testInputs, testTargets2);
+        [nets{n}] = configure(nets{n}, trainingInputs, trainingTargetsForEmotion);
+        
+        % TODO - this stuff is a bit arbitrary
         %nets{i}.layers{1}.transferFcn = '';
         %nets{i}.layers{2}.transferFcn = '';
         nets{n}.trainParam.mc = 0.95;
         nets{n}.trainParam.epochs = 1000;
         nets{n}.trainParam.lr = 0.015;
-        [nets{n}, trs{i}] = train(nets{n}, testInputs, testTargets2);
-        simulations{n} = sim(nets{n}, testInputs);
+        
+        [nets{n}, trs{i}] = train(nets{n}, trainingInputs, trainingTargetsForEmotion);
 
+        validationInputs
+        
         predictions{n} = testANN(nets(n), validationInputs);
         %fprintf('Best performance: %f\n', trs{i}.best_perf);
     end
