@@ -1,2 +1,8 @@
 *.pdf
 *.m~
+*.zip
+*.aux
+*.bbl
+*.blg
+*.log
+*.DS_Store
