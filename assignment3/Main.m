@@ -21,26 +21,26 @@ net.trainParam.epochs = 100;
 predictions = testANN(net, validationInputs);
 
 
-
+CrossValidate(x,y)
 % 6 1-output networks
-nets = cell(1, 6);
-trs = cell(1, 6);
-simulations = cell(1, 6);
+%nets = cell(1, 6);
+%trs = cell(1, 6);
+%simulations = cell(1, 6);
 
-for i=1:6
-    trainingTargets = testTargets(i, :);
-    [nets{i}] = feedforwardnet([15,20], 'traingdx');
-    [nets{i}] = configure(nets{i}, testInputs, trainingTargets);
+%for i=1:6
+%    trainingTargets = testTargets(i, :);
+%    [nets{i}] = feedforwardnet([15,20], 'traingdx');
+%    [nets{i}] = configure(nets{i}, testInputs, trainingTargets);
     %nets{i}.layers{1}.transferFcn = '';
     %nets{i}.layers{2}.transferFcn = '';
-    nets{i}.trainParam.mc = 0.95;
-    nets{i}.trainParam.epochs = 1000;
-    nets{i}.trainParam.lr = 0.015;
-    [nets{i}, trs{i}] = train(nets{i}, testInputs, trainingTargets);
-    simulations{i} = sim(nets{i}, testInputs);
+%    nets{i}.trainParam.mc = 0.95;
+%    nets{i}.trainParam.epochs = 1000;
+%    nets{i}.trainParam.lr = 0.015;
+%    [nets{i}, trs{i}] = train(nets{i}, testInputs, trainingTargets);
+%    simulations{i} = sim(nets{i}, testInputs);
 
-    fprintf('Best performance: %f\n', trs{i}.best_perf);
-end
+%    fprintf('Best performance: %f\n', trs{i}.best_perf);
+%end
 
 
 %plotperform(tr);
