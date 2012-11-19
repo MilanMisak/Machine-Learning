@@ -43,16 +43,15 @@ for i=1:10
 
     % compare to actual results and generate confusion matrix
     correct = 0;
-    
-    for m=1:size(validationTargets, 1)
+
+    for m=1:size(validationTargets, 2)
         predictedLabel = predictions(m);
         nonZeroValues = find(validationTargets(:, m));
-        actualLabel = validationTargets(nonZeroValues(1), m);
+        actualLabel = nonZeroValues(1);
 
         if predictedLabel == actualLabel
             correct = correct + 1;
         end
-        fprintf('%i, %i %i\n', i, predictedLabel, actualLabel)
 
         confusionMatrix(actualLabel, predictedLabel) = confusionMatrix(actualLabel, predictedLabel) + 1;
     end
