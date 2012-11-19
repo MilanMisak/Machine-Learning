@@ -13,13 +13,16 @@ for i=1:10
     last = round(size(examples, 2)*i / 10);
 
     % split the examples from the fold
-    % TODO - this is not looking good
-    trainingInputs  = examples(:, first:last);
-    trainingTargets = labels(:, first:last);
-    validationInputs  = examples(:, first:last);
-    validationTargets = labels(:, first:last);
+    trainingInputs = examples(:, ~ismember(1:size(examples, 2), [first:last]));
+    trainingTargets = labels(:, ~ismember(1:size(labels, 2), [first:last]));
+    %trainingInputs  = examples(:, first:last);
+    %trainingTargets = labels(:, first:last);
+    validationInputs = examples(:, ismember(1:size(examples, 2), [first:last]));
+    validationTargets = labels(:, ismember(1:size(examples, 2), [first:last]));
+    %validationInputs  = examples(:, first:last);
+    %validationTargets = labels(:, first:last);
 
-    % create the 6 networks for the fold, and classify the test set for each
+    % create the 6 networks for the fold
     nets = cell(1, 6);
     trs = cell(1, 6);
 
@@ -45,7 +48,7 @@ for i=1:10
 
         validationInputs
         
-        predictions{n} = testANN(nets(n), validationInputs);
+        predictions{n} = testANN(nets{n}, validationInputs);
         %fprintf('Best performance: %f\n', trs{i}.best_perf);
     end
 
