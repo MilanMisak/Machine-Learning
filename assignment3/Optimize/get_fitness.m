@@ -1,10 +1,8 @@
-function [net_out, per_out, tr_out, sim_out, vec_out] = get_fitness(x, y, net_in, per_in, tr_in, sim_in, vec_in, vector)
+function [net_out, per_out, vec_out] = get_fitness(x, y, net_in, per_in, vec_in, vector)
 
         %Set outputs incase the topology is not an improvement
         net_out = net_in;
         per_out= per_in;
-        tr_out = tr_in;
-        sim_out = sim_in;
         vec_out = vec_in;
 
         temp_net = feedforwardnet(vector, 'trainrp');
@@ -29,9 +27,7 @@ function [net_out, per_out, tr_out, sim_out, vec_out] = get_fitness(x, y, net_in
             
         if perf < per_in
             net_out = temp_net;
-            tr_out = tr;
             per_out = perf;
-            sim_out = sim(net_out, x);
             vec_out = vector;
         end
 
