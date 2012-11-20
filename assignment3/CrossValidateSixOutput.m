@@ -18,18 +18,8 @@ for i=1:10
     validationInputs = examples(:, ismember(1:size(examples, 2), [first:last]));
     validationTargets = labels(:, ismember(1:size(labels, 2), [first:last]));
 
-    [net] = feedforwardnet([15,20], 'traingdx');
-    [net] = configure(net, trainingInputs, trainingTargets);
     
-    % TODO - this stuff is a bit arbitrary
-    %net.layers{1}.transferFcn = '';
-    %net.layers{2}.transferFcn = '';
-    net.trainParam.mc = 0.95;
-    net.trainParam.epochs = 1000;
-    net.trainParam.lr = 0.015;
-    net.trainParam.showWindow = 0;
-    
-    [net, tr] = train(net, trainingInputs, trainingTargets);
+    net = trainNet(trainingInputs, trainingTargets, [13 7]);
 
     predictions = testANN(net, validationInputs);
 
