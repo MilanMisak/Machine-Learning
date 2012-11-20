@@ -41,14 +41,13 @@ for i=1:10
 
         %nets{n}.divideFcn = 'dividerand';
         %nets{n}.divideMode = 'value';
-        %nets{n}.divideParam.trainRatio = 67/100;?
-        %nets{n}.divideParam.valRatio = 33/100;?
-        %nets{n}.divideParam.testRatio = 0;
+        nets{n}.divideParam.trainRatio = 67/100;
+        nets{n}.divideParam.valRatio = 33/100;
+        nets{n}.divideParam.testRatio = 0;
 
         nets{n}.trainParam.showWindow = 0;
         
         [nets{n}, trs{i}] = train(nets{n}, trainingInputs, trainingTargetsForEmotion);
-        size(trs{i}.vperf, 2)
     end
     
     predictions = testANN(nets, validationInputs);
