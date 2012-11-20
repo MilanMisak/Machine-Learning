@@ -25,7 +25,11 @@ TODO \\
 
 \subsection*{Is there any difference in the classification performance of the two different classification approaches. Discuss the advantages/disadvantages of using 6 single-output NNs vs. 1 six-output NN.}
 
-TODO \\
+TODO: Is there any difference in classification performance? \\
+\begin{itemize}
+  \item The advantages of a six-output neural network are: the network will be weighted to give preference to one emotion over another, based on an attribute. For example, an attribute could indicate either emotion 1 or emotion 2 - seperately, this gives us little information, but when evaluating both in the same network, perhaps the attribute is more likely to signify emotion 1 over emotion 2.
+  \item The advantages of six single-output neural networks are: the networks are likely to be more TODO: accurate, since each one will weight its output focused purely on one emotion. This means weights, etc, will be specific to each tree - it will not be more general for all emotions, like in the multi-output tree.
+\end{itemize}
 
 
 \subsection*{Implementation details}
