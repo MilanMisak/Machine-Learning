@@ -57,6 +57,3 @@ recallAndPrecisionRates = getRecallAndPrecisionRates(confusionMatrix)
 f1Measures = getF1Measures(recallAndPrecisionRates)
 
 classificationRate = classificationRate / 10
-
-
-

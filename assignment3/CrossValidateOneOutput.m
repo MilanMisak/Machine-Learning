@@ -22,28 +22,11 @@ for i=1:10
 
     % create the 6 networks for the fold
     nets = cell(1, 6);
-    trs = cell(1, 6);
 
     for n=1:6
         trainingTargetsForEmotion = trainingTargets(n, :);
-
-        %[nets{n}] = feedforwardnet([15, 20], 'traingdx');
-        [nets{n}] = feedforwardnet(networkLayerNodes(n, :), 'trainrp');
-        [nets{n}] = configure(nets{n}, trainingInputs, trainingTargetsForEmotion);
-
-        nets{n}.layers{1}.transferFcn = 'tansig';
-        nets{n}.layers{2}.transferFcn = 'tansig';
-        nets{n}.trainParam.epochs = 100;
-
-        %nets{n}.divideFcn = 'dividerand';
-        %nets{n}.divideMode = 'value';
-        nets{n}.divideParam.trainRatio = 67/100;
-        nets{n}.divideParam.valRatio = 33/100;
-        nets{n}.divideParam.testRatio = 0;
-
-        nets{n}.trainParam.showWindow = 0;
         
-        [nets{n}, trs{i}] = train(nets{n}, trainingInputs, trainingTargetsForEmotion);
+        nets{n} = trainNet(trainingInputs, trainingTargetsForEmotion, networkLayerNodes(n, :));
     end
     
     predictions = testANN(nets, validationInputs);
@@ -72,4 +55,3 @@ recallAndPrecisionRates = getRecallAndPrecisionRates(confusionMatrix)
 f1Measures = getF1Measures(recallAndPrecisionRates)
 
 classificationRate = classificationRate / 10
-
