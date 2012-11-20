@@ -28,7 +28,15 @@ TODO \\
 
 
 \subsection*{Implementation details}
-TODO
+\begin{itemize}
+  \item Cross-validation is done in much the same way as it was done for Decision Trees, with the exception that we needed two seperate functions - one for the six one-output networks, and one for the six-output network. The cross-validation functions are passed the data recieved directly from ANNdata(), which is then split up in to training and validation data on each fold.
+  \begin{itemize}
+    \item For the six-output network, a network is created and trained using the optimal parameters we found, then used to predict the emotions of the validation inputs. These predictions are then compared to the correct outputs, and used to create the confusion matrix, etc
+    \item The six one-output networks were similarly cross-validated, being represented by a cell-array of networks, which were easier to work with. The testANN() function, used to make the predictions, was modified to recognise whether or not the input was a cell-array, and to modify it accordingly, to make predictions (see below).
+  \end{itemize}
+  \item The outputs of the six one-output networks were combined in the testANN() function, into a single matrix like the one returned by the six-output network. this allowed the same function to be used for predictions (ie. the max value found for each column).
+  \item TODO: anything else?
+\end{itemize}
 
 
 \subsection*{Evaluation results}
@@ -108,8 +116,8 @@ TODO
 \subsection*{Code Flowchart}
 
 TODO
-\begin{center}
-  \includegraphics[scale=0.6]{report-images/flowchart.png}
-\end{center}
+%\begin{center}
+%  \includegraphics[scale=0.6]{report-images/flowchart.png}
+%\end{center}
 
 \end{document}
