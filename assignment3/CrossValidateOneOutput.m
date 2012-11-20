@@ -30,14 +30,10 @@ for i=1:10
         %[nets{n}] = feedforwardnet([15, 20], 'traingdx');
         [nets{n}] = feedforwardnet(networkLayerNodes(n, :), 'trainrp');
         [nets{n}] = configure(nets{n}, trainingInputs, trainingTargetsForEmotion);
-        
-        % TODO - this stuff is a bit arbitrary
+
         nets{n}.layers{1}.transferFcn = 'tansig';
         nets{n}.layers{2}.transferFcn = 'tansig';
-        %nets{n}.trainParam.mc = 0.95;
         nets{n}.trainParam.epochs = 100;
-        %nets{n}.trainParam.lr = 0.015;
-        %nets{n}
 
         %nets{n}.divideFcn = 'dividerand';
         %nets{n}.divideMode = 'value';
