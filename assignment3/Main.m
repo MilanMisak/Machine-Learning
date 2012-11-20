@@ -27,30 +27,34 @@ n = size(x, 2);
 
 
 
+
 % 6 1-output networks
-nets = cell(1, 6);
-trs = cell(1, 6);
-simulations = cell(1, 6);
-performance = ones(1, 6);
-best_performance = 0
+nets = cell(1, 7);
+trs = cell(1, 7);
+simulations = cell(1, 7);
+performance = ones(1, 7);
+vectors = cell(1, 7);
+best_performance = 0;
 
 
-for i=1:1
-    trainingTargets = testTargets(i, :);
-    for j=2:15
+for i=1:7
+    if i == 7
+        trainingTargets = y;
+    else
+        trainingTargets = y(i, :);
+    end
+    for j=3:20
         vector = j; 
-        [nets{i}, performance(i), trs{i}, simulations{i}] = get_fitness(x, y, nets{i}, performance(i), trs{i}, simulations{i}, vector);
-        for k=2:15
+        [nets{i}, performance(i), trs{i}, simulations{i}, vectors{i}] = get_fitness(x, trainingTargets, nets{i}, performance(i), trs{i}, simulations{i}, vectors{i}, vector);
+        for k=3:20
             vector = [j,k]; 
-            [nets{i}, performance(i), trs{i}, simulations{i}] = get_fitness(x, y, nets{i}, performance(i), trs{i}, simulations{i}, vector);
-            for l=2:15
-                vector = [j,k,l]; 
-                [nets{i}, performance(i), trs{i}, simulations{i}] = get_fitness(x, y, nets{i}, performance(i), trs{i}, simulations{i}, vector);                         
-            end            
+            [nets{i}, performance(i), trs{i}, simulations{i}, vectors{i}] = get_fitness(x, trainingTargets, nets{i}, performance(i), trs{i}, simulations{i}, vectors{i}, vector);
         end
     end
     best_performance = best_performance + performance(i);
+    vectors{i}
 end
+  
 
 
 
