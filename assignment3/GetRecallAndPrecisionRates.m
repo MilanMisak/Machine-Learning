@@ -1,4 +1,4 @@
-function [ rates ] = GetRecallAndPrecisionRates( confusionMatrix )
+function [ rates ] = getRecallAndPrecisionRates( confusionMatrix )
 %GetRecallAndPrecisionRates Calculates recall and precision rates
 % for classes in the given confusion matrix.
 
