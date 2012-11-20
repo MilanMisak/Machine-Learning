@@ -48,8 +48,9 @@ for i=1:10
         confusionMatrix(actualLabel, predictedLabel) = confusionMatrix(actualLabel, predictedLabel) + 1;
     end
 
-    classificationRate = classificationRate + (correct / size(validationTargets, 1));
+    classificationRate = classificationRate + (correct / size(validationTargets, 2));
 end
+fprintf('%i %i %i : %i\n', size(validationTargets, 1), size(validationTargets, 2), correct, correct / size(validationTargets, 2))
 
 confusionMatrix = confusionMatrix / 10
 
