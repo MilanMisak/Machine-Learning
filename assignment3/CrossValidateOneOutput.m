@@ -7,6 +7,8 @@ last = 0;
 
 confusionMatrix = zeros(6);
 
+networkLayerNodes = [20 11; 19 5; 12 11; 13 12; 13 5; 11 6];
+
 for i=1:10
     % first will mark the index of the start of the fold, and last the end
     first = last + 1;
@@ -24,19 +26,29 @@ for i=1:10
 
     for n=1:6
         trainingTargetsForEmotion = trainingTargets(n, :);
-        
-        [nets{n}] = feedforwardnet([15,20], 'traingdx');
+
+        %[nets{n}] = feedforwardnet([15, 20], 'traingdx');
+        [nets{n}] = feedforwardnet(networkLayerNodes(n, :), 'trainrp');
         [nets{n}] = configure(nets{n}, trainingInputs, trainingTargetsForEmotion);
         
         % TODO - this stuff is a bit arbitrary
-        %nets{i}.layers{1}.transferFcn = '';
-        %nets{i}.layers{2}.transferFcn = '';
-        nets{n}.trainParam.mc = 0.95;
-        nets{n}.trainParam.epochs = 1000;
-        nets{n}.trainParam.lr = 0.015;
+        nets{n}.layers{1}.transferFcn = 'tansig';
+        nets{n}.layers{2}.transferFcn = 'tansig';
+        %nets{n}.trainParam.mc = 0.95;
+        nets{n}.trainParam.epochs = 100;
+        %nets{n}.trainParam.lr = 0.015;
+        %nets{n}
+
+        %nets{n}.divideFcn = 'dividerand';
+        %nets{n}.divideMode = 'value';
+        %nets{n}.divideParam.trainRatio = 67/100;?
+        %nets{n}.divideParam.valRatio = 33/100;?
+        %nets{n}.divideParam.testRatio = 0;
+
         nets{n}.trainParam.showWindow = 0;
         
         [nets{n}, trs{i}] = train(nets{n}, trainingInputs, trainingTargetsForEmotion);
+        size(trs{i}.vperf, 2)
     end
     
     predictions = testANN(nets, validationInputs);
