@@ -18,7 +18,6 @@ for i=1:10
     validationInputs = examples(:, ismember(1:size(examples, 2), [first:last]));
     validationTargets = labels(:, ismember(1:size(labels, 2), [first:last]));
 
-    
     net = trainNet(trainingInputs, trainingTargets, [13 7]);
 
     predictions = testANN(net, validationInputs);
