@@ -48,7 +48,7 @@ for i=1:10
         confusionMatrix(actualLabel, predictedLabel) = confusionMatrix(actualLabel, predictedLabel) + 1;
     end
 
-    classificationRate = classificationRate + (correct / size(validationTargets, 1));
+    classificationRate = classificationRate + (correct / size(validationTargets, 2));
 end
 
 confusionMatrix = confusionMatrix / 10
