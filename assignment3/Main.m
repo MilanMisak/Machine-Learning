@@ -29,27 +29,3 @@ CrossValidateOneOutput(x2, y2);
 
 %CrossValidateSixOutput(x2, y2);
 
-% 6 1-output networks
-%nets = cell(1, 6);
-%trs = cell(1, 6);
-%simulations = cell(1, 6);
-
-%for i=1:6
-%    trainingTargets2 = testTargets(i, :);
-%    [nets{i}] = feedforwardnet([15,20], 'traingdx');
-%    [nets{i}] = configure(nets{i}, testInputs, trainingTargets2);
-    %nets{i}.layers{1}.transferFcn = '';
-    %nets{i}.layers{2}.transferFcn = '';
-%    nets{i}.trainParam.mc = 0.95;
-%    nets{i}.trainParam.epochs = 1000;
-%    nets{i}.trainParam.lr = 0.015;
-%    [nets{i}, trs{i}] = train(nets{i}, testInputs, trainingTargets2);
-%    simulations{i} = sim(nets{i}, testInputs);
-
-%    fprintf('Best performance: %f\n', trs{i}.best_perf);
-%end
-
-
-%plotperform(tr);
-
-%plottrainstate(tr);
