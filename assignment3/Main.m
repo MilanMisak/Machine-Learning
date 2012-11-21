@@ -20,12 +20,13 @@ net.trainParam.epochs = 100;
 net.trainParam.showWindow = 0;
 [net, tr] = train(net, trainingInputs, trainingTargets);
 
+save('network.mat', 'net');
+
 %plotperform(tr);
 
 predictions = testANN(net, validationInputs);
 
 
-CrossValidateOneOutput(x2, y2);
+%CrossValidateOneOutput(x2, y2);
 
-%CrossValidateSixOutput(x2, y2);
-
+CrossValidateSixOutput(x2, y2);

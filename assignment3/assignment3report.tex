@@ -8,29 +8,33 @@
 
 \section*{Assignment 3: Artificial Neural Network}
 
-\subsection*{Discuss how you obtained the optimal topology and optimal values of network parameters. Describe the performance measure you used (and explain why you preferred it over other measures) and the different topologies/parameters you experimented with.}
+\subsubsection*{Discuss how you obtained the optimal topology and optimal values of network parameters. Describe the performance measure you used (and explain why you preferred it over other measures) and the different topologies/parameters you experimented with.}
 
 TODO \\
 
 
-\subsection*{Explain what strategy you employed to ensure good generalisation ability of the networks and overcome the problem of overfitting.}
+\subsubsection*{Explain what strategy you employed to ensure good generalisation ability of the networks and overcome the problem of overfitting.}
 
 TODO \\
 
 
-\subsection*{In Part VIII you used the optimal parameters that you found in part VI to train your networks. However, there is a problem with this approach, the data you used for validation at some point will be used for testing in cross-validation. Can you explain why this a problem? Ideally how should you optimise the parameters in cross-validation?}
+\subsubsection*{In Part VIII you used the optimal parameters that you found in part VI to train your networks. However, there is a problem with this approach, the data you used for validation at some point will be used for testing in cross-validation. Can you explain why this a problem? Ideally how should you optimise the parameters in cross-validation?}
 
 TODO \\
 
 
-\subsection*{Is there any difference in the classification performance of the two different classification approaches. Discuss the advantages/disadvantages of using 6 single-output NNs vs. 1 six-output NN.}
+\subsubsection*{Is there any difference in the classification performance of the two different classification approaches. Discuss the advantages/disadvantages of using 6 single-output NNs vs. 1 six-output NN.}
 
-TODO \\
+TODO: Is there any difference in classification performance? \\
+\begin{itemize}
+  \item The advantages of a six-output neural network are: the network will be weighted to give preference to one emotion over another, based on an attribute. For example, an attribute could indicate either emotion 1 or emotion 2 - separately, this gives us little information, but when evaluating both in the same network, perhaps the attribute is more likely to signify emotion 1 over emotion 2.
+  \item The advantages of six single-output neural networks are: the networks are likely to be more TODO: accurate, since each one will weight its output focused purely on one emotion. This means weights, etc, will be specific to each tree - it will not be more general for all emotions, like in the multi-output tree.
+\end{itemize}
 
 
 \subsection*{Implementation details}
 \begin{itemize}
-  \item Cross-validation is done in much the same way as it was done for Decision Trees, with the exception that we needed two seperate functions - one for the six one-output networks, and one for the six-output network. The cross-validation functions are passed the data recieved directly from ANNdata(), which is then split up in to training and validation data on each fold.
+  \item Cross-validation is done in much the same way as it was done for Decision Trees, with the exception that we needed two separate functions - one for the six one-output networks, and one for the six-output network. The cross-validation functions are passed the data received directly from ANNdata(), which is then split up in to training and validation data on each fold.
   \begin{itemize}
     \item For the six-output network, a network is created and trained using the optimal parameters we found, then used to predict the emotions of the validation inputs. These predictions are then compared to the correct outputs, and used to create the confusion matrix, etc
     \item The six one-output networks were similarly cross-validated, being represented by a cell-array of networks, which were easier to work with. The testANN() function, used to make the predictions, was modified to recognise whether or not the input was a cell-array, and to modify it accordingly, to make predictions (see below).
