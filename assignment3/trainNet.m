@@ -2,7 +2,7 @@ function [ net_out ] = trainNet( trainingInputs, trainingTargets, hiddenLayerNod
 %trainNet Trains a neural network.
 
 best = 100;
-max_fail = 15;
+max_fail = 10;
 escape = 0;
 perf = 100;
 old_perf = 101;
@@ -12,7 +12,7 @@ while ~escape
     for i=1:10
         net = createNet(trainingInputs, trainingTargets, hiddenLayerNodes, max_fail);
         [net, tr] = train(net, trainingInputs, trainingTargets);
-
+        
         vperf = tr.vperf(size(tr.vperf, 2));
         if perf > vperf
             perf = vperf;
@@ -20,15 +20,16 @@ while ~escape
         end
     end
     if old_perf < perf
-        escape = 1;
+        escape = 1
     else
-        old_perf = perf;
-        max_fail = max_fail - 1;
+        old_perf = perf
+        max_fail = max_fail - 1
         old_net = best_net;
+        perf = 100
     end
 end
 
-net_out = old_net;
+net_out = old_net
 end
 
 
@@ -45,7 +46,7 @@ end
 
 net.trainParam.epochs = 100;
 net.trainParam.showWindow = 0;
-%net.trainParam.max_fail = max_fail;
+net.trainParam.max_fail = max_fail;
 
 net.divideFcn = 'divideind';
 net.divideParam.trainInd = trainInd;
