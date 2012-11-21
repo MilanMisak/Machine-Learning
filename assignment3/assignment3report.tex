@@ -10,22 +10,22 @@
 
 \subsubsection*{Discuss how you obtained the optimal topology and optimal values of network parameters. Describe the performance measure you used (and explain why you preferred it over other measures) and the different topologies/parameters you experimented with.}
 
-TODO \\
+TODO: Jarck \\
 
 
 \subsubsection*{Explain what strategy you employed to ensure good generalisation ability of the networks and overcome the problem of overfitting.}
 
-TODO \\
+TODO: Jarck or Milarn \\
 
 
 \subsubsection*{In Part VIII you used the optimal parameters that you found in part VI to train your networks. However, there is a problem with this approach, the data you used for validation at some point will be used for testing in cross-validation. Can you explain why this a problem? Ideally how should you optimise the parameters in cross-validation?}
 
-TODO \\
+TODO: Jarck or Milarn\\
 
 
 \subsubsection*{Is there any difference in the classification performance of the two different classification approaches. Discuss the advantages/disadvantages of using 6 single-output NNs vs. 1 six-output NN.}
 
-TODO: Is there any difference in classification performance? \\
+TODO: Whoever has the graphs; is there any difference in classification performance? \\
 \begin{itemize}
   \item The advantages of a six-output neural network are: the network will be weighted to give preference to one emotion over another, based on an attribute. For example, an attribute could indicate either emotion 1 or emotion 2 - separately, this gives us little information, but when evaluating both in the same network, perhaps the attribute is more likely to signify emotion 1 over emotion 2.
   \item The advantages of six single-output neural networks are: the networks are likely to be more TODO: accurate, since each one will weight its output focused purely on one emotion. This means weights, etc, will be specific to each tree - it will not be more general for all emotions, like in the multi-output tree.
@@ -40,7 +40,7 @@ TODO: Is there any difference in classification performance? \\
     \item The six one-output networks were similarly cross-validated, being represented by a cell-array of networks, which were easier to work with. The testANN() function, used to make the predictions, was modified to recognise whether or not the input was a cell-array, and to modify it accordingly, to make predictions (see below).
   \end{itemize}
   \item The outputs of the six one-output networks were combined in the testANN() function, into a single matrix like the one returned by the six-output network. this allowed the same function to be used for predictions (ie. the max value found for each column).
-  \item TODO: anything else?
+  \item TODO: anyone; anything else?
 \end{itemize}
 
 
@@ -48,7 +48,7 @@ TODO: Is there any difference in classification performance? \\
 
 \subsubsection*{6-output network}
 
-TODO
+TODO: Not Crarig
 
 Something like:
 Confusion matrix: The happiness tree was very good, perhaps overfit. Disgust and Happiness were quite often misclassified as well as correctly. They probably produced better trees because there was more data for them. Classification rate: The average classification rate is semi-successful as it succeeds most of the time. But it is far from perfect. Precision/Recall rate: The standout results are that sadness and fear are very difficult to identify correctly, most of the time they are not recognised. Wheras Hapiness was easy to recall but also registering many false positives. The anger tree was very cautious in making classifications but when it did, it was very successful.  F-measure: The F measures suggest as suspected that the Disgust and Happiness have well trained trees. Perhaps Sadness and Surprise did not have enough data. Anger is likely an easy emotion to classify given the trees high performance given a relatively small amount of data \\ \\
@@ -58,7 +58,7 @@ Confusion matrix: The happiness tree was very good, perhaps overfit. Disgust and
 
 \subsubsection*{6 1-output networks}
 
-TODO
+TODO: Not Crarig
 
 
 
@@ -115,14 +115,15 @@ Average classification rate = 0.5808 \\
 
 \subsection*{Average performance per fold}
 
-TODO
+TODO: Not Crarig
 
+\newpage
+\subsection*{Code Flowcharts}
 
-\subsection*{Code Flowchart}
+\begin{center}
+  \includegraphics[scale=0.7]{report-images/main.png}
+\end{center}
 
-TODO
-%\begin{center}
-%  \includegraphics[scale=0.6]{report-images/flowchart.png}
-%\end{center}
+% TODO - trainNet and optimization flowcharts
 
 \end{document}
