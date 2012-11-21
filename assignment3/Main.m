@@ -15,11 +15,13 @@ validationTargets = y(:, (splitIndex + 1):n);
 
 % 6-output network
 % TODO - change to use trainNet
-[net] = feedforwardnet(6);
-[net] = configure(net, trainingInputs, trainingTargets);
-net.trainParam.epochs = 100;
-net.trainParam.showWindow = 0;
-[net, tr] = train(net, trainingInputs, trainingTargets);
+%[net] = feedforwardnet(6);
+%[net] = configure(net, trainingInputs, trainingTargets);
+%net.trainParam.epochs = 100;
+%net.trainParam.showWindow = 0;
+%[net, tr] = train(net, trainingInputs, trainingTargets);
+
+net = trainNet(trainingInputs, trainingTargets, [13 7]);
 
 save('network.mat', 'net');
 
@@ -28,6 +30,6 @@ save('network.mat', 'net');
 predictions = testANN(net, validationInputs);
 
 
-%CrossValidateOneOutput(x2, y2);
+CrossValidateOneOutput(x2, y2);
 
 CrossValidateSixOutput(x2, y2);
