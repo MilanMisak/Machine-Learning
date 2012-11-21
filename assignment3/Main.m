@@ -1,6 +1,5 @@
 cleandata = load('cleandata_students.mat');
 
-% TODO - just use x2 and y2 everywhere instead of x and y
 [x2, y2] = ANNdata(cleandata.x, cleandata.y);
 x = x2;
 y = y2;
