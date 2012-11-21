@@ -6,7 +6,6 @@ max_fail = 10;
 escape = 0;
 perf = 100;
 old_perf = 101;
-%old_net = none
 
 while ~escape
     for i=1:10
@@ -20,7 +19,7 @@ while ~escape
         end
     end
     if old_perf < perf
-        escape = 1
+        escape = 1;
     else
         old_perf = perf;
         max_fail = max_fail - 1;
@@ -36,7 +35,6 @@ end
 function [ net ] = createNet ( trainingInputs, trainingTargets, hiddenLayerNodes, max_fail)
 %createNet Helper function for creating a neural network.
 
-[trainInd, valInd, testInd] = dividerand(size(trainingTargets, 2), 67/100, 33/100, 0);
 [net] = feedforwardnet(hiddenLayerNodes, 'trainrp');
 [net] = configure(net, trainingInputs, trainingTargets);
 
@@ -48,8 +46,7 @@ net.trainParam.epochs = 100;
 net.trainParam.showWindow = 0;
 net.trainParam.max_fail = max_fail;
 
-net.divideFcn = 'divideind';
-net.divideParam.trainInd = trainInd;
-net.divideParam.valInd = valInd;
-net.divideParam.testInd = testInd;
+temp_net.divideParam.trainRatio = 67/100;
+temp_net.divideParam.valRatio = 33/100;
+temp_net.divideParam.testRatio = 0;
 end
