@@ -14,6 +14,7 @@ validationInputs  = x(:, (splitIndex + 1):n);
 validationTargets = y(:, (splitIndex + 1):n);
 
 % 6-output network
+% TODO - change to use trainNet
 [net] = feedforwardnet(6);
 [net] = configure(net, trainingInputs, trainingTargets);
 net.trainParam.epochs = 100;
