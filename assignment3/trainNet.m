@@ -1,7 +1,6 @@
 function [ net_out ] = trainNet( trainingInputs, trainingTargets, hiddenLayerNodes )
 %trainNet Trains a neural network.
 
-best = 100;
 max_fail = 10;
 escape = 0;
 perf = 100;

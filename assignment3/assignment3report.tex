@@ -47,22 +47,7 @@ TODO: Whoever has the graphs; is there any difference in classification performa
 
 \subsection*{Evaluation results}
 
-\subsubsection*{6-output network}
-
-TODO: Not Crarig
-
-Something like:
-Confusion matrix: The happiness tree was very good, perhaps overfit. Disgust and Happiness were quite often misclassified as well as correctly. They probably produced better trees because there was more data for them. Classification rate: The average classification rate is semi-successful as it succeeds most of the time. But it is far from perfect. Precision/Recall rate: The standout results are that sadness and fear are very difficult to identify correctly, most of the time they are not recognised. Wheras Hapiness was easy to recall but also registering many false positives. The anger tree was very cautious in making classifications but when it did, it was very successful.  F-measure: The F measures suggest as suspected that the Disgust and Happiness have well trained trees. Perhaps Sadness and Surprise did not have enough data. Anger is likely an easy emotion to classify given the trees high performance given a relatively small amount of data \\ \\
-
-Confusion matrix: The happiness tree was very good, perhaps overfit. Disgust and Happiness were quite often misclassified as well as correctly. They probably produced better trees because there was more data for them. Classification rate: The average classification rate is semi-successful as it succeeds most of the time. But it is far from perfect. Precision/Recall rate:  F-measure: The F measures suggest as suspected that the Disgust and Happiness have well trained trees. Perhaps Sadness and Surprise did not have enough data. Anger is likely an easy emotion to classify given the trees high performance given a relatively small amount of data \\ \\
-
-
 \subsubsection*{6 1-output networks}
-
-TODO: Not Crarig
-
-
-
 
 \begin{table}
 \centering
@@ -70,12 +55,12 @@ TODO: Not Crarig
 \multicolumn{8}{c}{Predicted class} \\
 &  & Anger & Disgust & Fear & Happiness & Sadness & Surprise \\
 \hline
-& Anger & 7.4 & 1.4  & 0.4 & 2.0  & 0.9 & 1.1 \\
- & Disgust & 1.2 & 15.0 & 0   & 2.1  & 0.6 & 0.9 \\
-Actual class & Fear & 0.5 & 2.3  & 3.9 & 1.8  & 0.8 & 2.6 \\
- & Happiness & 0.2 & 2.0  & 0   & 18.8 & 0.1 & 0.5 \\
-& Sadness & 0.7 & 2.8  & 0.4 & 2.6  & 4.5 & 2.2 \\
-& Surprise & 0   & 4.3  & 1.1 & 6.2  & 0.4 & 8.7 \\
+ & Anger            & 10.1 & 0.9  & 0.6 & 0.2  & 1.3 & 0.1  \\
+ & Disgust          & 1.7  & 16.2 & 0.1 & 0.6  & 1.1 & 0.1  \\
+Actual class & Fear & 0.3  & 0.2  & 9.4 & 0.3  & 0.5 & 1.2  \\
+ & Happiness        & 0.1  & 0.6  & 0   & 20.5 & 0.2 & 0.2  \\
+ & Sadness          & 1.1  & 2.0  & 0.7 & 0.5  & 8.5 & 0.4  \\
+ & Surprise         & 0.2  & 0.1  & 0.9 & 0.3  & 0.3 & 18.9 \\
 \end{tabular}
 \caption{Confusion matrix}
 \end{table}
@@ -85,12 +70,12 @@ Actual class & Fear & 0.5 & 2.3  & 3.9 & 1.8  & 0.8 & 2.6 \\
 \begin{tabular}{l | r r}
 Emotion & Recall rate (\%) & Precision rate (\%) \\
 \hline
-Anger & 56.0606 & 74.0000 \\
-Disgust & 75.7576 & 53.9568 \\
-Fear & 32.7731 & 67.2414 \\
-Happiness & 87.0370 & 56.1194 \\
-Sadness & 34.0909 & 61.6438 \\
-Surprise & 42.0290 & 54.3750 \\
+Anger     & 76.5152 & 74.8148 \\
+Disgust   & 81.8182 & 81.0000 \\
+Fear      & 78.9916 & 80.3419 \\
+Happiness & 94.9074 & 91.5179 \\
+Sadness   & 64.3939 & 71.4286 \\
+Surprise  & 91.3043 & 90.4306 \\
 \end{tabular}
 \caption{Recall and precision rates}
 \end{table}
@@ -100,18 +85,77 @@ Surprise & 42.0290 & 54.3750 \\
 \begin{tabular}{l | r}
 Emotion & \( F_1 \) measure \\
 \hline
-Anger & 63.7931 \\
-Disgust & 63.0252 \\
-Fear & 44.0678 \\
-Happiness & 68.2396 \\
-Sadness & 43.9024 \\
-Surprise & 47.4114 \\
+Anger     & 75.6554 \\
+Disgust   & 81.4070 \\
+Fear      & 79.6610 \\
+Happiness & 93.1818 \\
+Sadness   & 67.7291 \\
+Surprise  & 90.8654 \\
 \end{tabular}
 \caption{F1 measures}
 \end{table}
 
-Average classification rate = 0.5808 \\ 
+Average classification rate = 0.8328 \\ 
 
+TODO: Not Crarig
+
+Something like:
+Confusion matrix: The happiness tree was very good, perhaps overfit. Disgust and Happiness were quite often misclassified as well as correctly. They probably produced better trees because there was more data for them. Classification rate: The average classification rate is semi-successful as it succeeds most of the time. But it is far from perfect. Precision/Recall rate: The standout results are that sadness and fear are very difficult to identify correctly, most of the time they are not recognised. Wheras Hapiness was easy to recall but also registering many false positives. The anger tree was very cautious in making classifications but when it did, it was very successful.  F-measure: The F measures suggest as suspected that the Disgust and Happiness have well trained trees. Perhaps Sadness and Surprise did not have enough data. Anger is likely an easy emotion to classify given the trees high performance given a relatively small amount of data \\ \\
+
+Confusion matrix: The happiness tree was very good, perhaps overfit. Disgust and Happiness were quite often misclassified as well as correctly. They probably produced better trees because there was more data for them. Classification rate: The average classification rate is semi-successful as it succeeds most of the time. But it is far from perfect. Precision/Recall rate:  F-measure: The F measures suggest as suspected that the Disgust and Happiness have well trained trees. Perhaps Sadness and Surprise did not have enough data. Anger is likely an easy emotion to classify given the trees high performance given a relatively small amount of data \\ \\
+
+
+\subsubsection*{6-output network}
+
+\begin{table}
+\centering
+\begin{tabular}{r r | r r r r r r}
+\multicolumn{8}{c}{Predicted class} \\
+&  & Anger & Disgust & Fear & Happiness & Sadness & Surprise \\
+\hline
+ & Anger            & 9.1 & 1.8  & 0.4 & 0.4  & 1.4 & 0.1  \\
+ & Disgust          & 1.4 & 15.5 & 0.5 & 0.8  & 1.5 & 0.1  \\
+Actual class & Fear & 0.4 & 0.3  & 9.3 & 0.1  & 0.6 & 1.2  \\
+ & Happiness        & 0.2 & 0.8  & 0   & 20.0 & 0.3 & 0.3  \\
+ & Sadness          & 1.2 & 2.2  & 0.5 & 0.6  & 8.5 & 0.2  \\
+ & Surprise         & 0   & 0.2  & 1.2 & 0.6  & 0.4 & 18.3 \\
+\end{tabular}
+\caption{Confusion matrix}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{l | r r}
+Emotion & Recall rate (\%) & Precision rate (\%) \\
+\hline
+Anger     & 68.9394 & 73.9837 \\
+Disgust   & 78.2828 & 74.5192 \\
+Fear      & 78.1513 & 78.1513 \\
+Happiness & 92.5926 & 88.8889 \\
+Sadness   & 64.3939 & 66.9291 \\
+Surprise  & 88.4058 & 90.5941 \\
+\end{tabular}
+\caption{Recall and precision rates}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{l | r}
+Emotion & \( F_1 \) measure \\
+\hline
+Anger     & 71.3725 \\
+Disgust   & 76.3547 \\
+Fear      & 78.1513 \\
+Happiness & 90.7029 \\
+Sadness   & 65.6371 \\
+Surprise  & 89.4866 \\
+\end{tabular}
+\caption{F1 measures}
+\end{table}
+
+Average classification rate = 0.8039 \\ 
+
+TODO: Not Crarig
 
 
 \subsection*{Average performance per fold}
