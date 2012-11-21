@@ -40,7 +40,7 @@ TODO: Whoever has the graphs; is there any difference in classification performa
     \item The six one-output networks were similarly cross-validated, being represented by a cell-array of networks, which were easier to work with. The testANN() function, used to make the predictions, was modified to recognise whether or not the input was a cell-array, and to modify it accordingly, to make predictions (see below).
   \end{itemize}
   \item The outputs of the six one-output networks were combined in the testANN() function, into a single matrix like the one returned by the six-output network. this allowed the same function to be used for predictions (ie. the max value found for each column).
-  \item The process of figuring out optimal parameters of networks was made simpler by programatically testing different combinations of numbers of hidden layer nodes.
+  \item The process of figuring out optimal parameters of networks was made simpler by programatically testing different combinations of numbers of hidden layer nodes. Other parameters such as the number of hidden layers (2) were chosen by trial and error where we tried to minimise the mean square error of validation.
 \end{itemize}
 
 
