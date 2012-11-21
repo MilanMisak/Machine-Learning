@@ -22,7 +22,7 @@ function [net_out, per_out, vec_out] = get_fitness(x, y, net_in, per_in, vec_in,
         perf = 0;
         for i=1:5        
             [temp_net, tr] = train(temp_net, x, y);
-            perf = perf + (tr.vperf(size(tr.vperf, 2)) / 5);
+            perf = perf + (tr.best)vperf / 5);
         end
             
         if perf < per_in
