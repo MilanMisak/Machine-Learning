@@ -6,7 +6,6 @@ max_fail = 10;
 escape = 0;
 perf = 100;
 old_perf = 101;
-%old_net = none
 
 while ~escape
     for i=1:10
@@ -20,7 +19,7 @@ while ~escape
         end
     end
     if old_perf < perf
-        escape = 1
+        escape = 1;
     else
         old_perf = perf;
         max_fail = max_fail - 1;
