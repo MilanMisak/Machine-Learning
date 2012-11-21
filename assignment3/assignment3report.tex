@@ -25,11 +25,11 @@ The validation data used to find the optimal parameters is essentially part of t
 
 \subsubsection*{Is there any difference in the classification performance of the two different classification approaches. Discuss the advantages/disadvantages of using 6 single-output NNs vs. 1 six-output NN.}
 
+Yes, there is a difference in classification performance - the six single-output networks perform very slightly better then the single six-output network. Both the advantages listed below, and the data given later on, show that the six-output network has much lower recall and precision rates TODO, because jack
 
-TODO: Whoever has the graphs; is there any difference in classification performance? \\
 \begin{itemize}
-  \item The advantages of a six-output neural network are: the network will be weighted to give preference to one emotion over another, based on an attribute. For example, an attribute could indicate either emotion 1 or emotion 2 - separately, this gives us little information, but when evaluating both in the same network, perhaps the attribute is more likely to signify emotion 1 over emotion 2.
-  \item The advantages of six single-output neural networks are: the networks are likely to be more TODO: accurate, since each one will weight its output focused purely on one emotion. This means weights, etc, will be specific to each tree - it will not be more general for all emotions, like in the multi-output tree.
+  \item The advantages of a six-output neural network are: the network will be weighted to give preference to one emotion over another, based on an attribute. For example, an attribute could indicate either emotion 1 or emotion 2 - separately, this gives us little information, but when evaluating both in the same network, perhaps the attribute is more likely to signify emotion 1 over emotion 2. It also takes longer to train, and more space to store,  6 single-output networks than one six-output network.
+  \item The advantages of six single-output neural networks are: the networks are likely to be more TODO: accurate, since each one will weight its output focused purely on one emotion. This means weights, etc, will be specific to each tree, and should therefore reduce the number of false positives - the actual emotion is likely to have a higher output than the false positive, and overrule it (TODO: multi-output network is bad because).
 \end{itemize}
 
 
