@@ -22,14 +22,14 @@ while ~escape
     if old_perf < perf
         escape = 1
     else
-        old_perf = perf
-        max_fail = max_fail - 1
+        old_perf = perf;
+        max_fail = max_fail - 1;
         old_net = best_net;
-        perf = 100
+        perf = 100;
     end
 end
 
-net_out = old_net
+net_out = old_net;
 end
 
 
