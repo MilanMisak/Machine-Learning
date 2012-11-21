@@ -9,7 +9,7 @@ old_perf = 101;
 %old_net = none
 
 while ~escape
-    for i=1:1
+    for i=1:10
         net = createNet(trainingInputs, trainingTargets, hiddenLayerNodes, max_fail);
         [net, tr] = train(net, trainingInputs, trainingTargets);
 
