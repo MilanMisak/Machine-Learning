@@ -71,12 +71,12 @@ Actual class & Fear & 0.4 & 0.3  & 9.5 & 0.3  & 0.3 & 1.1  \\
 \begin{tabular}{l | r r}
 Emotion & Recall rate (\%) & Precision rate (\%) \\
 \hline
-Anger     & 76.5152 & 74.8148 \\
-Disgust   & 81.8182 & 81.0000 \\
-Fear      & 78.9916 & 80.3419 \\
-Happiness & 94.9074 & 91.5179 \\
-Sadness   & 64.3939 & 71.4286 \\
-Surprise  & 91.3043 & 90.4306 \\
+Anger     & 75.0000 & 81.1475 \\
+Disgust   & 83.3333 & 80.4878 \\
+Fear      & 79.8319 & 79.8319 \\
+Happiness & 92.1296 & 90.4545 \\
+Sadness   & 68.9394 & 72.8000 \\
+Surprise  & 92.2705 & 89.6714 \\
 \end{tabular}
 \caption{Recall and precision rates}
 \end{table}
@@ -86,17 +86,17 @@ Surprise  & 91.3043 & 90.4306 \\
 \begin{tabular}{l | r}
 Emotion & \( F_1 \) measure \\
 \hline
-Anger     & 75.6554 \\
-Disgust   & 81.4070 \\
-Fear      & 79.6610 \\
-Happiness & 93.1818 \\
-Sadness   & 67.7291 \\
-Surprise  & 90.8654 \\
+Anger     & 77.9528 \\
+Disgust   & 81.8859 \\
+Fear      & 79.8319 \\
+Happiness & 91.2844 \\
+Sadness   & 70.8171 \\
+Surprise  & 90.9524 \\
 \end{tabular}
 \caption{F1 measures}
 \end{table}
 
-Average classification rate = 0.8328 \\ \\
+Average classification rate = 0.8367 \\ \\
 
 Confusion matrix: the confusion matrix suggests that our neural networks work well. Anger, disgust and sadness are sometimes classified incorrectly as some other emotion from this group. Otherwise the predicted emotions work very well and some misclassifications do not occur at all (or haven't occurred during our testing). For example surprise has never been classified as anger. Classification rate: this is very high as it normally reaches over 80 per cent whenever we run the program. It is a lot higher that last time when we were using decision trees. It also means that our classified is very precise and reliable. Recall/precision rate: these are very similar for most emotions. Sadness was slightly harder to recognise but once it was recognised it was done correctly with a higher probability. Happiness is also worth mentioning as it was very nearly (94 per cent) recognised. The $F_1$ measure confirms what we have already seen which is that happiness and surprise are classified very well while sadness is the one with most classification errors.
 
@@ -109,12 +109,12 @@ Confusion matrix: the confusion matrix suggests that our neural networks work we
 \multicolumn{8}{c}{Predicted class} \\
 &  & Anger & Disgust & Fear & Happiness & Sadness & Surprise \\
 \hline
- & Anger            & 9.1 & 1.8  & 0.4 & 0.4  & 1.4 & 0.1  \\
- & Disgust          & 1.4 & 15.5 & 0.5 & 0.8  & 1.5 & 0.1  \\
-Actual class & Fear & 0.4 & 0.3  & 9.3 & 0.1  & 0.6 & 1.2  \\
- & Happiness        & 0.2 & 0.8  & 0   & 20.0 & 0.3 & 0.3  \\
- & Sadness          & 1.2 & 2.2  & 0.5 & 0.6  & 8.5 & 0.2  \\
- & Surprise         & 0   & 0.2  & 1.2 & 0.6  & 0.4 & 18.3 \\
+ & Anger            & 8.8 & 1.6  & 0.6 & 0.6  & 1.5 & 0.1  \\
+ & Disgust          & 0.6 & 16.0 & 0.3 & 0.7  & 1.8 & 0.4  \\
+Actual class & Fear & 0.2 & 0.4  & 9.0 & 0.2  & 0.3 & 1.8  \\
+ & Happiness        & 0.1 & 0.8  & 0   & 20.1 & 0.4 & 0.2  \\
+ & Sadness          & 1.0 & 2.1  & 0.4 & 0.4  & 8.9 & 0.4  \\
+ & Surprise         & 0.2 & 0.2  & 1.1 & 0.6  & 0.3 & 18.3 \\
 \end{tabular}
 \caption{Confusion matrix}
 \end{table}
@@ -124,12 +124,12 @@ Actual class & Fear & 0.4 & 0.3  & 9.3 & 0.1  & 0.6 & 1.2  \\
 \begin{tabular}{l | r r}
 Emotion & Recall rate (\%) & Precision rate (\%) \\
 \hline
-Anger     & 68.9394 & 73.9837 \\
-Disgust   & 78.2828 & 74.5192 \\
-Fear      & 78.1513 & 78.1513 \\
-Happiness & 92.5926 & 88.8889 \\
-Sadness   & 64.3939 & 66.9291 \\
-Surprise  & 88.4058 & 90.5941 \\
+Anger     & 66.6667 & 80.7339 \\
+Disgust   & 80.8081 & 75.8294 \\
+Fear      & 75.6303 & 78.9474 \\
+Happiness & 93.0556 & 88.9381 \\
+Sadness   & 67.4242 & 67.4242 \\
+Surprise  & 88.4058 & 86.3208 \\
 \end{tabular}
 \caption{Recall and precision rates}
 \end{table}
@@ -139,17 +139,17 @@ Surprise  & 88.4058 & 90.5941 \\
 \begin{tabular}{l | r}
 Emotion & \( F_1 \) measure \\
 \hline
-Anger     & 71.3725 \\
-Disgust   & 76.3547 \\
-Fear      & 78.1513 \\
-Happiness & 90.7029 \\
-Sadness   & 65.6371 \\
-Surprise  & 89.4866 \\
+Anger     & 73.0290 \\
+Disgust   & 78.2396 \\
+Fear      & 77.2532 \\
+Happiness & 90.9502 \\
+Sadness   & 67.4242 \\
+Surprise  & 87.3508 \\
 \end{tabular}
 \caption{F1 measures}
 \end{table}
 
-Average classification rate = 0.8039 \\ \\
+Average classification rate = 0.8079 \\ \\
 
 TODO
 
