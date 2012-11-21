@@ -10,20 +10,21 @@
 
 \subsubsection*{Discuss how you obtained the optimal topology and optimal values of network parameters. Describe the performance measure you used (and explain why you preferred it over other measures) and the different topologies/parameters you experimented with.}
 
-TODO: Jarck \\
+We read the matlab guide for neural networks, and it suggested that trainrp and trainscg worked well with pattern recognition, a couple of tests using these proved that they performed better than the other functions, but there was not much difference between them. We decided to use trainrp because it appeared to be slightly faster. It was not feasible to test all the combinations of transfer functions with all node layouts so we took the reccomendation of the matlab guide and used tansig on all layers, as suggested for pattern recognition problems. To find the best layout of nodes for each network, we used a brute force search on all combinations of nodes from 1-2 hidden layers and 3:20 nodes per layer. A few manual tests suggested that the optimum layouts would lie within this range, and it took too long to search another dimension.\\
+The performance measure we used was training each layout 5 times, and using the average best validation score. We chose to measure the best validation performance opposed to the score when training stopped, in the hope that this best score could be achieved later with measures to avoid overfitting. We repeated this 5 times in order to see how well the layout performed with different training and validation sets, the divide function used was dividerand.
 
 
 \subsubsection*{Explain what strategy you employed to ensure good generalisation ability of the networks and overcome the problem of overfitting.}
 
-TODO: Jarck or Milarn \\
+When training the network we started off with a large value max\_fail and trained the network 10 times, storing the one with the best performing validation. max\_fail was then decremented, and a new network was found from 10 iterations. If the performance of the network with the lower max\_fail is better, then max fail is decremented again and the algorithm continues. Otherwise, the network trained with the higher value is returned. This method aims to find the optimum value of max\_fail to train the network with. When using a max\_fail too high, the network will overfit so it needs to be reduced as much as possible to eradicate overfitting, but still be big enough to get over the local spikes in validation performance. 
 
 
 \subsubsection*{In Part VIII you used the optimal parameters that you found in part VI to train your networks. However, there is a problem with this approach, the data you used for validation at some point will be used for testing in cross-validation. Can you explain why this a problem? Ideally how should you optimise the parameters in cross-validation?}
 
-TODO: Jarck or Milarn\\
-
+The validation data used to find the optimal parameters is essentially part of the training data because it is used to decided when to stop training. When this data is used again for cross validation it is not validating the network because the network was designed to be optimal for said data. Ideally, there would be 2 different sets of data used to design the network topology, then to cross validate. Or at least, the data used for validation in designing the topology should be marked in a way so it cannot be used as part of the validation set in cross validation.
 
 \subsubsection*{Is there any difference in the classification performance of the two different classification approaches. Discuss the advantages/disadvantages of using 6 single-output NNs vs. 1 six-output NN.}
+
 
 TODO: Whoever has the graphs; is there any difference in classification performance? \\
 \begin{itemize}
