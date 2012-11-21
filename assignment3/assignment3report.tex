@@ -42,7 +42,8 @@ Yes, there is a difference in classification performance - the six single-output
     \item The six one-output networks were similarly cross-validated, being represented by a cell-array of networks, which were easier to work with. The testANN() function, used to make the predictions, was modified to recognise whether or not the input was a cell-array, and to modify it accordingly, to make predictions (see below).
   \end{itemize}
   \item The outputs of the six one-output networks were combined in the testANN() function, into a single matrix like the one returned by the six-output network. this allowed the same function to be used for predictions (ie. the max value found for each column).
-  \item The process of figuring out optimal parameters of networks was made simpler by programatically testing different combinations of numbers of hidden layer nodes. Other parameters such as the number of hidden layers (2) were chosen by trial and error where we tried to minimise the mean square error of validation.
+  \item The process of figuring out optimal parameters of networks was made simpler by programatically testing different combinations of numbers of hidden layer nodes, this is gone over in more detail in the first question.
+  \item Whenever a network needs to be trained, it is done so using our trainNet function used to maximize generality. This is explained in the second question and there is a flow chart attached.
 \end{itemize}
 
 
@@ -165,6 +166,9 @@ TODO: Not Crarig
   \includegraphics[scale=0.7]{report-images/main.png}
 \end{center}
 
-TODO - trainNet and optimization flowcharts
+\begin{center}
+  \includegraphics[scale=0.7]{report-images/trainnet.png}
+\end{center}
+
 
 \end{document}
