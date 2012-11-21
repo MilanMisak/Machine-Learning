@@ -25,7 +25,8 @@ The validation data used to find the optimal parameters is essentially part of t
 
 \subsubsection*{Is there any difference in the classification performance of the two different classification approaches. Discuss the advantages/disadvantages of using 6 single-output NNs vs. 1 six-output NN.}
 
-Yes, there is a difference in classification performance - the six single-output networks perform very slightly better then the single six-output network. Both the advantages listed below, and the data given later on, show that the six-output network has much lower recall and precision rates TODO, because jack
+Yes, there is a difference in classification performance - the six single-output networks perform very slightly better then the single six-output network. Both the advantages listed below, and the data given later on, show that the six-output network has an average of 1 or 2 percent lower recall and precision rates than the six single-output networks. \\
+
 
 \begin{itemize}
   \item The advantages of a six-output neural network are: the network will be weighted to give preference to one emotion over another, based on an attribute. For example, an attribute could indicate either emotion 1 or emotion 2 - separately, this gives us little information, but when evaluating both in the same network, perhaps the attribute is more likely to signify emotion 1 over emotion 2. It also takes longer to train, and more space to store,  6 single-output networks than one six-output network.
