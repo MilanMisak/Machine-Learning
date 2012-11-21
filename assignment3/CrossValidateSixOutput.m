@@ -24,6 +24,7 @@ for i=1:10
 
     % compare to actual results and generate confusion matrix
     correct = 0;
+    foldConfusionMatrix = zeros(6);
 
     for m=1:size(validationTargets, 2)
         predictedLabel = predictions(m);
@@ -35,11 +36,18 @@ for i=1:10
         end
 
         confusionMatrix(actualLabel, predictedLabel) = confusionMatrix(actualLabel, predictedLabel) + 1;
+        foldConfusionMatrix(actualLabel, predictedLabel) = foldConfusionMatrix(actualLabel, predictedLabel) + 1;
     end
+
+    % report fold F1 measure
+    fprintf('Fold %i\n:', i)
+    foldRecallAndPrecisionRates = getRecallAndPrecisionRates(foldConfusionMatrix);
+    foldF1Measures = getF1Measures(foldRecallAndPrecisionRates)
 
     classificationRate = classificationRate + (correct / size(validationTargets, 2));
 end
 
+fprintf('6-output:\n')
 confusionMatrix = confusionMatrix / 10
 
 recallAndPrecisionRates = getRecallAndPrecisionRates(confusionMatrix)
