@@ -18,5 +18,8 @@ function [ similarity ] = jaccard_similarity( case1, case2 )
     similarity = problem_intersection / problem_union;
 end
 
-
-
+function [similarity] = dice_similarity( case1, case2 )
+    numerator = 2 * size(intersect(case1.problem, case2.problem));
+    denominator = size(case1.problem) + size(case2.problem);
+    similarity = numerator / denominator;
+end
