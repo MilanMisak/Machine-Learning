@@ -1,0 +1,174 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage[margin=0.8in]{geometry}
+\begin{document}
+{\bf Names:} Jack Bracewell, Milan Misak, Craig Ellis \\
+{\bf Usernames:} jb2910, mm5510, ce710 \\
+{\bf Group Number: 28}  \\ \\
+
+\section*{Assignment 3: Artificial Neural Network}
+
+\subsubsection*{Discuss how you obtained the optimal topology and optimal values of network parameters. Describe the performance measure you used (and explain why you preferred it over other measures) and the different topologies/parameters you experimented with.}
+
+We read the matlab guide for neural networks, and it suggested that trainrp (Resilient backpropogation) and trainscg (Scaled conjugate gradient propogation) worked well with pattern recognition, a couple of tests using these proved that they performed better than the other functions, but there was not much difference between them. We decided to use trainrp because it appeared to be slightly faster. It was not feasible to test all the combinations of transfer functions with all node layouts so we took the recomendation of the Matlab guide and used tansig on all layers, as suggested for pattern recognition problems. To find the best layout of nodes for each network, we used a brute force search on all combinations of nodes from 1-2 hidden layers and 3:20 nodes per layer. A few manual tests suggested that the optimum layouts would lie within this range, and it took too long to search another dimension.\\
+The performance measure we used was training each layout 5 times, and using the average best validation score. We chose to measure the best validation performance opposed to the score when training stopped, in the hope that this best score could be achieved later with measures to avoid overfitting. We repeated this 5 times in order to see how well the layout performed with different training and validation sets, the divide function used was dividerand.
+
+
+\subsubsection*{Explain what strategy you employed to ensure good generalisation ability of the networks and overcome the problem of overfitting.}
+
+When training the network we started off with a large value max\_fail and trained the network 10 times, storing the one with the best performing validation. max\_fail was then decremented, and a new network was found from 10 iterations. If the performance of the network with the lower max\_fail is better, then max fail is decremented again and the algorithm continues. Otherwise, the network trained with the higher value is returned. This method aims to find the optimum value of max\_fail to train the network with. When using a max\_fail too high, the network will overfit so it needs to be reduced as much as possible to eradicate overfitting, but still be big enough to get over the local spikes in validation performance. 
+
+
+\subsubsection*{In Part VIII you used the optimal parameters that you found in part VI to train your networks. However, there is a problem with this approach, the data you used for validation at some point will be used for testing in cross-validation. Can you explain why this a problem? Ideally how should you optimise the parameters in cross-validation?}
+
+The validation data used to find the optimal parameters is essentially part of the training data because it is used to decided when to stop training. When this data is used again for cross validation it is not validating the network because the network was designed to be optimal for said data. Ideally, there would be 2 different sets of data used to design the network topology, then to cross validate. Or at least, the data used for validation in designing the topology should be marked in a way so it cannot be used as part of the validation set in cross validation.
+
+\subsubsection*{Is there any difference in the classification performance of the two different classification approaches. Discuss the advantages/disadvantages of using 6 single-output NNs vs. 1 six-output NN.}
+
+Yes, there is a difference in classification performance - the six single-output networks perform very slightly better then the single six-output network. Both the advantages listed below, and the data given later on, show that the six-output network has an average of 1 or 2 percent lower recall and precision rates than the six single-output networks. \\
+
+
+\begin{itemize}
+  \item The advantages of a six-output neural network are: the network will be weighted to give preference to one emotion over another, based on an attribute. For example, an attribute could indicate either emotion 1 or emotion 2 - separately, this gives us little information, but when evaluating both in the same network, perhaps the attribute is more likely to signify emotion 1 over emotion 2. It also takes longer to train, and more space to store,  6 single-output networks than one six-output network.
+  \item The advantages of six single-output neural networks are: the networks are likely to be more accurate, since each one will weight its output focused purely on one emotion. This means weights, etc, will be specific to each tree, and should therefore reduce the number of false positives - the actual emotion is likely to have a higher output than the false positive, and overrule it.
+\end{itemize}
+
+
+\subsection*{Implementation details}
+\begin{itemize}
+  \item Cross-validation is done in much the same way as it was done for Decision Trees, with the exception that we needed two separate functions - one for the six one-output networks, and one for the six-output network. The cross-validation functions are passed the clean data received directly from ANNdata(), which is then split up in to training and validation data on each fold.
+  \begin{itemize}
+    \item For the six-output network, a network is created and trained using the optimal parameters we found, then used to predict the emotions of the validation inputs. These predictions are then compared to the correct outputs, and used to create the confusion matrix and calculate classification rate. After all the folds an average confusion matrix is constructed and other rates and measures ($F_1$, precision, recall) are calculated.
+    \item The six one-output networks were similarly cross-validated, being represented by a cell-array of networks, which were easier to work with. The testANN() function, used to make the predictions, was modified to recognise whether or not the input was a cell-array, and to modify it accordingly, to make predictions (see below).
+  \end{itemize}
+  \item The outputs of the six one-output networks were combined in the testANN() function, into a single matrix like the one returned by the six-output network. this allowed the same function to be used for predictions (ie. the max value found for each column).
+  \item The process of figuring out optimal parameters of networks was made simpler by programatically testing different combinations of numbers of hidden layer nodes, this is gone over in more detail in the first question.
+  \item Whenever a network needs to be trained, it is done so using our trainNet function used to maximize generality. This is explained in the second question and there is a flow chart attached.
+\end{itemize}
+
+
+\subsection*{Evaluation results}
+
+\subsubsection*{6 1-output networks}
+
+\begin{table}
+\centering
+\begin{tabular}{r r | r r r r r r}
+\multicolumn{8}{c}{Predicted class} \\
+&  & Anger & Disgust & Fear & Happiness & Sadness & Surprise \\
+\hline
+ & Anger            & 9.9 & 1.0  & 0.5 & 0.4  & 1.2 & 0.2  \\
+ & Disgust          & 0.9 & 16.5 & 0.5 & 0.6  & 1.2 & 0.1  \\
+Actual class & Fear & 0.4 & 0.3  & 9.5 & 0.3  & 0.3 & 1.1  \\
+ & Happiness        & 0   & 0.6  & 0.3 & 19.9 & 0.4 & 0.4  \\
+ & Sadness          & 1.0 & 2.0  & 0.4 & 0.3  & 9.1 & 0.4  \\
+ & Surprise         & 0   & 0.1  & 0.7 & 0.5  & 0.3 & 19.1 \\
+\end{tabular}
+\caption{Confusion matrix}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{l | r r}
+Emotion & Recall rate (\%) & Precision rate (\%) \\
+\hline
+Anger     & 75.0000 & 81.1475 \\
+Disgust   & 83.3333 & 80.4878 \\
+Fear      & 79.8319 & 79.8319 \\
+Happiness & 92.1296 & 90.4545 \\
+Sadness   & 68.9394 & 72.8000 \\
+Surprise  & 92.2705 & 89.6714 \\
+\end{tabular}
+\caption{Recall and precision rates}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{l | r}
+Emotion & \( F_1 \) measure \\
+\hline
+Anger     & 77.9528 \\
+Disgust   & 81.8859 \\
+Fear      & 79.8319 \\
+Happiness & 91.2844 \\
+Sadness   & 70.8171 \\
+Surprise  & 90.9524 \\
+\end{tabular}
+\caption{F1 measures}
+\end{table}
+
+Average classification rate = 0.8367 \\ \\
+Confusion matrix: the confusion matrix suggests that our neural networks work well. Anger, disgust and sadness are sometimes classified incorrectly as some other emotion from this group. Otherwise the predicted emotions work very well and some misclassifications do not occur at all (or haven't occurred during our testing). For example happiness has never been classified as anger. Classification rate: this is very high as it normally reaches over 80 per cent whenever we run the program. It is a lot higher than last time when we were using decision trees. It also means that our classifier is very precise and reliable. Recall/precision rate: these are very similar for most emotions. Sadness was slightly harder to recognise. Happiness is also worth mentioning as it was very nearly all the time (93 per cent) recognised. Once it was recognised it was done so correctly with a slightly lower probability. The $F_1$ measure confirms what we have already seen which is that happiness and surprise are classified very well while sadness is the one with most classification errors.
+
+
+\subsubsection*{6-output network}
+
+\begin{table}
+\centering
+\begin{tabular}{r r | r r r r r r}
+\multicolumn{8}{c}{Predicted class} \\
+&  & Anger & Disgust & Fear & Happiness & Sadness & Surprise \\
+\hline
+ & Anger            & 8.8 & 1.6  & 0.6 & 0.6  & 1.5 & 0.1  \\
+ & Disgust          & 0.6 & 16.0 & 0.3 & 0.7  & 1.8 & 0.4  \\
+Actual class & Fear & 0.2 & 0.4  & 9.0 & 0.2  & 0.3 & 1.8  \\
+ & Happiness        & 0.1 & 0.8  & 0   & 20.1 & 0.4 & 0.2  \\
+ & Sadness          & 1.0 & 2.1  & 0.4 & 0.4  & 8.9 & 0.4  \\
+ & Surprise         & 0.2 & 0.2  & 1.1 & 0.6  & 0.3 & 18.3 \\
+\end{tabular}
+\caption{Confusion matrix}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{l | r r}
+Emotion & Recall rate (\%) & Precision rate (\%) \\
+\hline
+Anger     & 66.6667 & 80.7339 \\
+Disgust   & 80.8081 & 75.8294 \\
+Fear      & 75.6303 & 78.9474 \\
+Happiness & 93.0556 & 88.9381 \\
+Sadness   & 67.4242 & 67.4242 \\
+Surprise  & 88.4058 & 86.3208 \\
+\end{tabular}
+\caption{Recall and precision rates}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{l | r}
+Emotion & \( F_1 \) measure \\
+\hline
+Anger     & 73.0290 \\
+Disgust   & 78.2396 \\
+Fear      & 77.2532 \\
+Happiness & 90.9502 \\
+Sadness   & 67.4242 \\
+Surprise  & 87.3508 \\
+\end{tabular}
+\caption{F1 measures}
+\end{table}
+
+Average classification rate = 0.8079 \\ \\
+Confusion matrix: this is very similar again. Emotions are classified correctly almost all the time. Most of the cells in the confusion matrix have values lower than 1 meaning that there are not too many incorrect classifications. Happiness is quite distinctive from the other emotions as it was confused with any other emotion very rarely. Classification rate: it is slightly lower than for the 6 1-output networks. However, it is still just above 80 per cent and this is very good as predictions will be very accurate. Recall/precision rate: happiness is the most recognised emotion again and when an example is classified as happiness it is correct slightly less often again (93 vs. 88 per cent). Sadness is hard to recognise like in the previous section with a probability below 70 per cent. This time though we can see that anger is not recognised too often. Only in 66 per cent of cases. But when it is recognised there is quite a high chance of the classification being correct (80 per cent). $F_1$ measures are very similar to those for single-output networks. Happiness is clearly recognised very well.
+
+
+\subsection*{Average performance per fold}
+
+\begin{center}
+  \includegraphics[scale=0.7]{report-images/graph.png}
+\end{center}
+
+\newpage
+\subsection*{Code Flowcharts}
+
+\begin{center}
+  \includegraphics[scale=0.7]{report-images/main.png}
+\end{center}
+
+\begin{center}
+  \includegraphics[scale=0.7]{report-images/trainnet.png}
+\end{center}
+
+
+\end{document}
