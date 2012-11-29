@@ -4,6 +4,7 @@ function [ cbr ] = CBRInit( x, y )
     % TODO
     cbr.cases = {};
     for i=1:size(x, 1)
-        cbr.cases(i) = []; % TODO - get case
+        % TODO - check if a case already exists and then update typicality
+        cbr.cases(i) = MakeCase(x(i, :), y(i));
     end
 end

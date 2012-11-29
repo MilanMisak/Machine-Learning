@@ -1,11 +1,10 @@
 function [ outputcase ] = MakeCase( inputvector, scalarlabel )
-%MAKECASE TODO: makes a case from these input things
+%MakeCase TODO: makes a case from these input things
     auvector = [];
-    for i=1:size(inputvector,2)
+    for i=1:size(inputvector, 2)
         if inputvector[i] == 1
             auvector = auvector + [i];
         end
     end
     outputcase = struct('problem', auvector, 'solution', scalarlabel, 'typicality', 1);
 end
-
