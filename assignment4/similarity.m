@@ -1,14 +1,7 @@
 function [ similarity ] = simple_similarity( case1, case2 )
 % similarity computes the similarity of 2 cases.
     % TODO - at least 3 different measures
-    matching_attributes = 0;
-    for i=1:size(case1.problem)
-        if ismember(case1.problem(i), case2.problem)
-            matching_attributes = matching_attributes + 1;
-        end
-    end
-    unmatched_case2_attributes = size(case2.problem) - matching_attributes;
-    similarity = matching_attributes / (size(case1.problem) + unmatched_case2_attributes);
+    similarity = size(union(case1, case2));
 end
 
 
@@ -18,8 +11,34 @@ function [ similarity ] = jaccard_similarity( case1, case2 )
     similarity = problem_intersection / problem_union;
 end
 
-function [similarity] = dice_similarity( case1, case2 )
+function [ similarity ] = dice_similarity( case1, case2 )
     numerator = 2 * size(intersect(case1.problem, case2.problem));
     denominator = size(case1.problem) + size(case2.problem);
     similarity = numerator / denominator;
 end
+
+function [similarity] = levenshtein_similarity( case1, case2 )
+    cost = 0;
+    problem1_size = size(case1.problem);
+    problem2_size = size(case2.problem);
+
+    if case1.problem(1) ~= case2.problem(1);
+        cost = 1;
+    end
+
+    if (problem1_size == 0)
+        problem2_size;
+    else if (problem2_size == 0)
+        return size(problem1_size);
+    end
+    
+    smaller_prob1 = case1.problem(1:(problem1_size - 1));
+    smaller_prob2 = case2.problem(1:(problem2_size - 1));
+    
+    similarity = min(leveshtein_similarity(smaller_prob1, case2.problem) + 1,
+                     leveshtein_similarity(case1.problem, smaller_prob2) + 1,
+                     leveshtein_similarity(smaller_prob1, smaller_prob2) + cost);
+end
+
+
+
