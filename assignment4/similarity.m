@@ -1,7 +1,7 @@
 function [ similarity ] = simple_similarity( case1, case2 )
 % similarity computes the similarity of 2 cases.
     % TODO - at least 3 different measures
-    similarity = size(union(case1, case2));
+    similarity = size(intersect(case1, case2));
 end
 
 
