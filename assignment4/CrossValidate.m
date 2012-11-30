@@ -23,16 +23,10 @@ for i=1:10
     correct = 0;
     foldConfusionMatrix = zeros(6);
     
-    for j=1:size(validationTargets, 1)
-        newcase = MakeCase(validationInputs(j,:), 0);
-        solvedcase = reuse(retrieve(cbr, newcase), newcase);
-        cbr = retain(cbr, solvedcase);
-        
-        %predictedLabel = predictions(j);
-        %nonZeroValues = find(validationTargets(:, j));
-        %actualLabel = nonZeroValues(1);
-        
-        predictedLabel = solvedcase.solution;% = [predictions solvedcase.solution];
+    predictions = testCBR(cbr, validationInputs);
+    
+    for j=1:size(predictions, 1)
+        predictedLabel = predictions(j);
         actualLabel = validationTargets(j);
         
         if predictedLabel == actualLabel
