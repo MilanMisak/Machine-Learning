@@ -1,49 +1,48 @@
-function [ similarity ] = simple_similarity( case1, case2 )
+function [ similarity ] = case_similarity( case1, case2 )
 % similarity computes the similarity of 2 cases.
-    % TODO - at least 3 different measures
-    similarity = size(intersect(case1, case2));
+    %similarity = size(intersect(case1.problem, case2.problem));
+    %similarity = dice_similarity(case1.problem, case2.problem);
+    similarity = jaccard_similarity(case1.problem, case2.problem);
+    %similarity = levenshtein_similarity(case1.problem, case2.problem);
 end
 
 
-function [ similarity ] = jaccard_similarity( case1, case2 )
-    problem_intersection = size(intersect(case1.problem, case2.problem));
-    problem_union = size(union(case1.problem, case2.problem));
+function [ similarity ] = jaccard_similarity( prob1, prob2 )
+    problem_intersection = size(intersect(prob1, prob2));
+    problem_union = size(union(prob1, prob2));
     similarity = problem_intersection / problem_union;
 end
 
-function [ similarity ] = dice_similarity( case1, case2 )
-    numerator = 2 * size(intersect(case1.problem, case2.problem));
-    denominator = size(case1.problem) + size(case2.problem);
+function [ similarity ] = dice_similarity( prob1, prob2 )
+    numerator = 2 * size(intersect(prob1, prob2));
+    denominator = size(prob1) + size(prob2);
     similarity = numerator / denominator;
 end
 
-function [similarity] = levenshtein_similarity( case1, case2 )
+function [similarity] = levenshtein_similarity( prob1, prob2 )
     cost = 0;
-    problem1_size = size(case1.problem);
-    problem2_size = size(case2.problem);
+    prob1_size = size(prob1);
+    prob2_size = size(prob2);
 
-    if case1.problem(1) ~= case2.problem(1);
+    if prob1(1) ~= prob2(1);
         cost = 1;
     end
 
-    if problem1_size == 0
-        similarity = problem2_size;
-    elseif problem2_size == 0
-        similarity = problem1_size;
-    else
-    
-        smaller_prob1 = case1.problem(1:(problem1_size - 1));
-        smaller_prob2 = case2.problem(1:(problem2_size - 1));
-        
-        similarities = zeros(3);
-        similarities(1) = leveshtein_similarity(smaller_prob1, case2.problem) + 1;
-        similarities(2) = leveshtein_similarity(case1.problem, smaller_prob2) + 1;
-        similarities(3) = leveshtein_similarity(smaller_prob1, smaller_prob2) + cost;
-        
-        similarity = min(similarities);
-                         
+    if prob1_size == 0
+        similarity = prob2_size;
+        return;
+    elseif prob2_size == 0
+        similarity = prob1_size;
+        return;
     end
+    
+    smaller_prob1 = prob1(1:(prob1_size - 1));
+    smaller_prob2 = prob2(1:(prob2_size - 1));
+    
+    similarities = zeros(3);
+    similarities(1) = levenshtein_similarity(smaller_prob1, prob2) + 1;
+    similarities(2) = levenshtein_similarity(prob1, smaller_prob2) + 1;
+    similarities(3) = levenshtein_similarity(smaller_prob1, smaller_prob2) + cost;
+    
+    similarity = min(similarities);
 end
-
-
-

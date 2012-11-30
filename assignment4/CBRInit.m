@@ -3,8 +3,15 @@ function [ cbr ] = CBRInit( x, y )
 % of labels y.
     % TODO
     cbr.cases = {};
-    for i=1:size(x, 1)
-        % TODO - check if a case already exists and then update typicality
-        cbr.cases{i} = MakeCase(x(i, :), y(i));
+    cbr.cases{1} = MakeCase(x(1, :), y(1));
+    
+    for i=2:size(x, 1)
+        auvector = CreateAUVector(x(i, :));
+        existingcase = ExistsInCellArray(cbr.cases, auvector);
+        if existingcase == -1
+            cbr.cases{i} = MakeCase(x(i, :), y(i));
+        else
+            cbr.cases{existingcase}.typicality = cbr.cases{existingcase}.typicality + 1;
+        end
     end
 end
