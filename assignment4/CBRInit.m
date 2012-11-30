@@ -10,6 +10,7 @@ function [ cbr ] = CBRInit( x, y )
         if existingcase == -1
             cbr.cases{i} = MakeCase(x(i, :), y(i));
         else
+            fprintf('exists\n')
             cbr.cases{existingcase}.typicality = cbr.cases{existingcase}.typicality + 1;
         end
     end
@@ -17,7 +18,6 @@ end
 
 
 function [ exists ] = ExistsInCellArray( cellarray, attributevector )
-
     auvector = [];
     for i=1:size(attributevector, 2)
         if attributevector[i] == 1
@@ -26,12 +26,12 @@ function [ exists ] = ExistsInCellArray( cellarray, attributevector )
     end
     
     for j=1:size(cellarray, 1)
-        if cellarray{j}.problem==auvector
+        problem = cellarray{j}.problem;
+        if size(problem, 2) == size(auvector, 2) && problem == auvector
             exists = j;
             return;
         end
     end
     
     exists = -1;
-    return;
 end

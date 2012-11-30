@@ -3,7 +3,6 @@ function [ outputcase ] = MakeCase( inputvector, scalarlabel )
     auvector = [];
 
     for i=1:size(inputvector, 2)
-        inputvector(1, i)
         if inputvector(1, i) == 1
             auvector = [auvector; i];
         end
