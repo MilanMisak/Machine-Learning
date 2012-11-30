@@ -16,8 +16,7 @@ The performance measure we used was training each layout 5 times, and using the 
 
 \subsubsection*{Discuss what happens if you try to add a case to CBR system that is already there (either initialisation phase or when you call the retain function? How did you deal with this issue?}
 %TODO: laugh at the appalling grammar in their question
-When training the network we started off with a large value max\_fail and trained the network 10 times, storing the one with the best performing validation. max\_fail was then decremented, and a new network was found from 10 iterations. If the performance of the network with the lower max\_fail is better, then max fail is decremented again and the algorithm continues. Otherwise, the network trained with the higher value is returned. This method aims to find the optimum value of max\_fail to train the network with. When using a max\_fail too high, the network will overfit so it needs to be reduced as much as possible to eradicate overfitting, but still be big enough to get over the local spikes in validation performance. 
-
+We incremented the typicality of the case.
 
 \subsubsection*{Compare the different similarity measures you have used (at least three). What are the advantages/disadvantages of each measure?}
 
