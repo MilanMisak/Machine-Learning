@@ -3,7 +3,9 @@ function [ cbr ] = CBRInit( x, y )
 % of labels y.
     % TODO
     cbr.cases = {};
-    for i=1:size(x, 1)
+    cbr.cases{1} = MakeCase(x(1, :), y(1));
+    
+    for i=2:size(x, 1)
         existingcase = ExistsInCellArray(cbr.cases, x(i, :));
         if existingcase == -1
             cbr.cases{i} = MakeCase(x(i, :), y(i));
@@ -15,11 +17,6 @@ end
 
 
 function [ exists ] = ExistsInCellArray( cellarray, attributevector )
-    
-    if size(cellarray, 1)==0
-        exists = -1;
-        return;
-    end
 
     auvector = [];
     for i=1:size(attributevector, 2)
@@ -29,7 +26,7 @@ function [ exists ] = ExistsInCellArray( cellarray, attributevector )
     end
     
     for j=1:size(cellarray, 1)
-        if cellarray(j).problem==auvector
+        if cellarray{j}.problem==auvector
             exists = j;
             return;
         end
