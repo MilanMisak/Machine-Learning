@@ -42,7 +42,7 @@ function [ cbr ]  = OtherCBRInit( x, y )
         if ~exists
             new_case = MakeCase(x(i, :), y(i));
             cases = cbr.categories{new_case.solution}.cases;
-            cases{size{cases} + 1} = new_case;
+            cases{size(cases) + 1} = new_case;
         else
             exists = false;
         end
