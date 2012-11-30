@@ -1,6 +1,5 @@
 function [ predictions ] = testCBR( cbr, x2 )
-%TESTCBR Summary of this function goes here
-%   Detailed explanation goes here
+%testCBR Summary of this function goes here
 
 predictions = 1:size(x2,1);
 
@@ -11,4 +10,3 @@ for j=1:size(x2, 1)
 
     predictions(j) = solvedcase.solution;
 end
-
