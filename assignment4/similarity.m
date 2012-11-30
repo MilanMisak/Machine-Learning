@@ -1,7 +1,8 @@
 function [ similarity ] = simple_similarity( case1, case2 )
 % similarity computes the similarity of 2 cases.
     % TODO - at least 3 different measures
-    similarity = size(union(case1, case2));
+    %similarity = size(union(case1, case2));
+    similarity = levenshtein_similarity(union(case1, case2));
 end
 
 
@@ -31,7 +32,6 @@ function [similarity] = levenshtein_similarity( case1, case2 )
     elseif problem2_size == 0
         similarity = problem1_size;
     else
-    
         smaller_prob1 = case1.problem(1:(problem1_size - 1));
         smaller_prob2 = case2.problem(1:(problem2_size - 1));
         
@@ -41,9 +41,5 @@ function [similarity] = levenshtein_similarity( case1, case2 )
         similarities(3) = leveshtein_similarity(smaller_prob1, smaller_prob2) + cost;
         
         similarity = min(similarities);
-                         
     end
 end
-
-
-
