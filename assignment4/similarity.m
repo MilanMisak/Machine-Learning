@@ -26,18 +26,23 @@ function [similarity] = levenshtein_similarity( case1, case2 )
         cost = 1;
     end
 
-    if (problem1_size == 0)
-        problem2_size;
-    else if (problem2_size == 0)
-        return size(problem1_size);
+    if problem1_size == 0
+        similarity = problem2_size;
+    elseif problem2_size == 0
+        similarity = problem1_size;
+    else
+    
+        smaller_prob1 = case1.problem(1:(problem1_size - 1));
+        smaller_prob2 = case2.problem(1:(problem2_size - 1));
+        
+        similarities = zeros(3);
+        similarities(1) = leveshtein_similarity(smaller_prob1, case2.problem) + 1;
+        similarities(2) = leveshtein_similarity(case1.problem, smaller_prob2) + 1;
+        similarities(3) = leveshtein_similarity(smaller_prob1, smaller_prob2) + cost;
+        
+        similarity = min(similarities);
+                         
     end
-    
-    smaller_prob1 = case1.problem(1:(problem1_size - 1));
-    smaller_prob2 = case2.problem(1:(problem2_size - 1));
-    
-    similarity = min(leveshtein_similarity(smaller_prob1, case2.problem) + 1,
-                     leveshtein_similarity(case1.problem, smaller_prob2) + 1,
-                     leveshtein_similarity(smaller_prob1, smaller_prob2) + cost);
 end
 
 
