@@ -7,7 +7,7 @@ function [ outputcase ] = retrieve( cbr, newcase )
         othercase = cbr.cases{i};
         newsimilarity = similarity(othercase, newcase);
 
-        if newsimilarity < bestsimilarity
+        if newsimilarity > bestsimilarity
            bestsimilarity = newsimilarity;
            bestsimilarityarray = {othercase};
         elseif newsimilarity == bestsimilarity
