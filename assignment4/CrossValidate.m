@@ -38,8 +38,8 @@ for i=1:10
     end
 
     % report fold F1 measure
-    fprintf('Fold %i\n:', i)
-    foldRecallAndPrecisionRates = getRecallAndPrecisionRates(foldConfusionMatrix);
+    fprintf('Fold %i:\n', i)
+    foldRecallAndPrecisionRates = getRecallAndPrecisionRates(foldConfusionMatrix)
     foldF1Measures = mean(getF1Measures(foldRecallAndPrecisionRates))
 
     classificationRate = classificationRate + (correct / size(validationTargets, 2));
