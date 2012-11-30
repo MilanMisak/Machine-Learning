@@ -29,10 +29,10 @@ function [ cbr ]  = OtherCBRInit( x, y )
     for i=1:size(x, 1)
         auvector = CreateAUVector(x(i, :));
         
-        for i=1:6
-            existingcase = ExistsInCellArray(cbr.categories{i}.cases, auvector);
+        for j=1:6
+            existingcase = ExistsInCellArray(cbr.categories{j}.cases, auvector);
             if existingcase > -1
-                foundcase = cbr.categories{i}.cases{existingcase};
+                foundcase = cbr.categories{j}.cases{existingcase};
                 foundcase.typicality = foundcase.typicality + 1;
                 exists = true;
                 break;
@@ -48,11 +48,34 @@ function [ cbr ]  = OtherCBRInit( x, y )
         end
     end
 
-    %TODO - Append averages to each category
-
+    
+    %Append averages to each category
+    for i=1:6
+        category = cbr.categories{i};
+        acc = zeros(45);
+        for j=1:size(category.cases)
+            acc = acc + category.binaryproblem;
+        end
+        acc = acc / size(category.cases);
+        category.averageProblem, category.averageBinaryProblem = MakeProblems(acc);
+    end
 end
 
 function [ category ] = MakeCategory( index )
     category.solution = index;
     category.cases = {};
 end
+
+function [ Problem, BinaryProblem ] = MakeProblems( acc )
+    BinaryProblem = zeros(45);
+
+    for i=1:45
+        BinaryProblem(i) = Round(acc(i));
+    end
+
+    Problem = CreateAUVector(BinaryProblem);
+end;
+
+
+
+
