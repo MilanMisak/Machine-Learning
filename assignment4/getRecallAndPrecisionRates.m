@@ -10,8 +10,16 @@ for i=1:size(confusionMatrix, 1)
     fp = sum(confusionMatrix(:, i)) - tp;
     
     % Recall rate in %
-    rates(i, 1) = (tp / (tp + fn)) * 100;
+    if tp + fn > 0
+        rates(i, 1) = (tp / (tp + fn)) * 100;
+    else
+        rates(i, 1) = 0;
+    end
     
     % Precision rate in %
-    rates(i, 2) = (tp / (tp + fp)) * 100;
+    if tp + fp > 0
+        rates(i, 2) = (tp / (tp + fp)) * 100;
+    else
+        rates(i, 2) = 0;
+    end
 end
