@@ -1,7 +1,5 @@
-function [ exists ] = ExistsInCellArray( cellarray, attributevector )
+function [ exists ] = ExistsInCellArray( cellarray, auvector )
 % TODO
-    auvector = CreateAUVector(attributevector);
-    
     for j=1:size(cellarray, 1)
         problem = cellarray{j}.problem;
         if size(problem, 2) == size(auvector, 2)

@@ -6,7 +6,8 @@ function [ cbr ] = CBRInit( x, y )
     cbr.cases{1} = MakeCase(x(1, :), y(1));
     
     for i=2:size(x, 1)
-        existingcase = ExistsInCellArray(cbr.cases, x(i, :));
+        auvector = CreateAUVector(x(i, :));
+        existingcase = ExistsInCellArray(cbr.cases, auvector);
         if existingcase == -1
             cbr.cases{i} = MakeCase(x(i, :), y(i));
         else
