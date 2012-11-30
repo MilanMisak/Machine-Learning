@@ -74,8 +74,4 @@ function [ Problem, BinaryProblem ] = MakeProblems( acc )
     end
 
     Problem = CreateAUVector(BinaryProblem);
-end;
-
-
-
-
+end
