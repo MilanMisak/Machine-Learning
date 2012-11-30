@@ -15,3 +15,44 @@ function [ cbr ] = CBRInit( x, y )
         end
     end
 end
+
+function [ cbr ]  = OtherCBRInit( x, y )
+
+    %Create categories
+    cbr.categories = cell(6);
+    for i=1:6
+        cbr.categories{i} = MakeCategory(i);
+    end
+
+    %Insert all cases
+    exists = false;
+    for i=1:size(x, 1)
+        auvector = CreateAUVector(x(i, :));
+        
+        for i=1:6
+            existingcase = ExistsInCellArray(cbr.categories{i}.cases, auvector);
+            if existingcase > -1
+                foundcase = cbr.categories{i}.cases{existingcase};
+                foundcase.typicality = foundcase.typicality + 1;
+                exists = true;
+                break;
+            end
+        end
+
+        if ~exists
+            new_case = MakeCase(x(i, :), y(i));
+            cases = cbr.categories{new_case.solution}.cases;
+            cases{size{cases} + 1} = new_case;
+        else
+            exists = false;
+        end
+    end
+
+    %TODO - Append averages to each category
+
+end
+
+function [ category ] = MakeCategory( index )
+    category.solution = index;
+    category.cases = {};
+end
