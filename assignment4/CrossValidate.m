@@ -10,7 +10,7 @@ confusionMatrix = zeros(6);
 for i=1:10
     % first will mark the index of the start of the fold, and last the end
     first = last + 1;
-    last = round(size(examples, 2)*i / 10);
+    last = round(size(examples, 1)*i / 10);
 
     % split the examples from the fold
     trainingInputs = examples(~ismember(1:size(examples, 1), [first:last]), :);
@@ -24,11 +24,11 @@ for i=1:10
     foldConfusionMatrix = zeros(6);
     
     predictions = testCBR(cbr, validationInputs);
-    
-    for j=1:size(predictions, 1)
+
+    for j=1:size(predictions, 2)
         predictedLabel = predictions(j);
         actualLabel = validationTargets(j);
-        
+        fprintf('%i %i\n', predictedLabel, actualLabel)
         if predictedLabel == actualLabel
             correct = correct + 1;
         end
@@ -45,7 +45,6 @@ for i=1:10
     classificationRate = classificationRate + (correct / size(validationTargets, 2));
 end
 
-fprintf('6-output:\n')
 confusionMatrix = confusionMatrix / 10
 
 recallAndPrecisionRates = getRecallAndPrecisionRates(confusionMatrix)
