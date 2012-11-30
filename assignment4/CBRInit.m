@@ -6,6 +6,7 @@ function [ cbr ] = CBRInit( x, y )
     cbr.cases{1} = MakeCase(x(1, :), y(1));
     
     for i=2:size(x, 1)
+        %x(i, :)
         existingcase = ExistsInCellArray(cbr.cases, x(i, :));
         if existingcase == -1
             cbr.cases{i} = MakeCase(x(i, :), y(i));
@@ -20,16 +21,18 @@ end
 function [ exists ] = ExistsInCellArray( cellarray, attributevector )
     auvector = [];
     for i=1:size(attributevector, 2)
-        if attributevector[i] == 1
-            auvector = auvector + [i];
+        if attributevector(1, i) == 1
+            auvector = [auvector; i];
         end
     end
     
     for j=1:size(cellarray, 1)
         problem = cellarray{j}.problem;
-        if size(problem, 2) == size(auvector, 2) && problem == auvector
-            exists = j;
-            return;
+        if size(problem, 1) == size(auvector, 1)
+            if problem == auvector
+                exists = j;
+                return;
+            end
         end
     end
     
