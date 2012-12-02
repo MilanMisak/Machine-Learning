@@ -4,11 +4,11 @@ function [ similarity_value ] = similarity( case1, case2 )
     %similarity_value = similarity_value / max(size(case1.problem), size(case2.problem));
 
 
-    %similarity_value = dice_similarity(case1.problem, case2.problem);
+    similarity_value = dice_similarity(case1.problem, case2.problem);
 
     %similarity_value = jaccard_similarity(case1.problem, case2.problem);
 
-    similarity_value = levenshtein_similarity(case1.problem, case2.problem);
+    %similarity_value = levenshtein_similarity(case1.problem, case2.problem);
 end
 
 
@@ -16,14 +16,12 @@ function [ similarity_value ] = jaccard_similarity( prob1, prob2 )
     problem_intersection = size(intersect(prob1, prob2));
     problem_union = size(union(prob1, prob2));
     similarity_value = problem_intersection / problem_union;
-    similarity_value = 1 / similarity_value + 1;
 end
 
 function [ similarity_value ] = dice_similarity( prob1, prob2 )
     numerator = 2 * size(intersect(prob1, prob2));
     denominator = size(prob1) + size(prob2);
     similarity_value = numerator / denominator;
-    similarity_value = 1 / similarity_value + 1;
 end
 
 function [ similarity_value ] = levenshtein_similarity( prob1, prob2 )

@@ -28,7 +28,7 @@ for i=1:10
     for j=1:size(predictions, 2)
         predictedLabel = predictions(j);
         actualLabel = validationTargets(j);
-        fprintf('%i %i\n', predictedLabel, actualLabel)
+        %fprintf('%i %i\n', predictedLabel, actualLabel)
         if predictedLabel == actualLabel
             correct = correct + 1;
         end
