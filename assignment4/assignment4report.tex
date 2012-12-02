@@ -21,9 +21,9 @@ We just increment the typicality of the case that is already in the CBR system a
 
 The first similarity measure we used was the size of the intersection of 2 AU vectors, normalised. This method was quite quick but only resulted in a classification rate of 73.2. \\ 
 
-We also used the Jaccard Index and Dice coefficient as measures, these had surprisingly the same $F_1$ measure of: 77.5. Whilst still being relatively quick due to not needing to be normalised.\\
+We also used the Jaccard Index and Dice coefficient (used to measure the similarity of 2 sets) as measures, these had surprisingly the same $F_1$ measure of: 77.5. Whilst still being relatively quick due to not needing to be normalised.\\
 
-The final similarity measure we tried was a normalised Levenshtein Distance between 2 problems. It was so slow that we do not have cross validation results for it using our K-NN method. For comparison, Dice's classification rate using our faster System (which involved calculating average AU vectors for each category, so only 6 similarities needed to be calculated as opposed to once for each case) was: 42.2 Jaccard's: 50.5 and Levenshtein was 43.3. The Cross Validation forLevenshtein took minutes compared to a couple of seconds for the other similarity measures.  \\ \\
+The final similarity measure we tried was a normalised Levenshtein Distance between 2 problems, it is normaly used to compare strings to provide correction suggestions in spellcheckers, because the AU Vector always had the same ordering we could use it to compare their similarity. It was so slow that we do not have cross validation results for it using our K-NN method. For comparison, Dice's classification rate using our faster System (which involved calculating average AU vectors for each category, so only 6 similarities needed to be calculated as opposed to once for each case) was: 42.2 Jaccard's: 50.5 and Levenshtein was 43.3. The Cross Validation forLevenshtein took minutes compared to a couple of seconds for the other similarity measures.  \\ \\
 
 \subsubsection*{Describe how you initialise your CBR system.}
 
