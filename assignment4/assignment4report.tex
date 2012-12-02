@@ -37,13 +37,13 @@ Online learning algorithms. The difference is that for online algorithms the lea
 
 \subsection*{Implementation details}
 \begin{itemize}
-  \item RETRIEVE
+  \item RETRIEVE:
     We Cycle through all the cases in the structure, picking the case with be highest similarity to the case we are attempting to classify (1-NN).
-  \item REUSE
+  \item REUSE:
     We simply assign the solution value from the retrieved case to the case we are classifying.
-  \item RETAIN
-    The case is added to the cases array for the category it was assigned to. (cases are placed in categories based on their solution value (1-6)).
-  \item CBR cases
+  \item RETAIN:
+    The case is added to the cases array for the category it was assigned to. (cases are placed in categories based on their solution value (1-6)). TODO - really?
+  \item CBR cases:
     Each case has an AUVector, a solution and a typicality value, the use of which is explained previously
 \end{itemize}
 
