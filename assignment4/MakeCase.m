@@ -6,4 +6,5 @@ function [ outputcase ] = MakeCase( inputvector, scalarlabel )
     outputcase.binaryproblem = inputvector;
     outputcase.solution = scalarlabel;
     outputcase.typicality = 1;
+    outputcase.weight = 1;
 end

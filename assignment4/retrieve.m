@@ -1,7 +1,7 @@
 function [ outputcase ] = retrieve( cbr, newcase )
 % retrieve retrieves a case that matches best with newcase from the given
 % CBR system.
-    knearest = 4;
+    knearest = 3;
     worstsimilarity = Inf;
     cases = {};
     casesimilarities = {};

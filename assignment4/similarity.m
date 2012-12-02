@@ -9,6 +9,8 @@ function [ similarity_value ] = similarity( case1, case2 )
     similarity_value = jaccard_similarity(case1.problem, case2.problem);
 
     %similarity_value = levenshtein_similarity(case1.problem, case2.problem);
+    
+    similarity_value = similarity_value * case1.weight;
 end
 
 
