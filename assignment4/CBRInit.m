@@ -8,46 +8,29 @@ function [ cbr ]  = CBRInit( x, y )
     end
 
     %Insert all cases
-    exists = false;
-    for i=1:size(x, 1)
-        auvector = CreateAUVector(x(i, :));
+    for i=1:size(x, 1)  
+        problem = x(i, :);
+        solution = y(i);
         
-        for j=1:6
-            existingcase = ExistsInCellArray(cbr.categories{j}.cases, auvector);
-            if existingcase > -1
-                foundcase = cbr.categories{j}.cases{existingcase};
-                foundcase.typicality = foundcase.typicality + 1;
-                exists = true;
-                break;
-            end
-        end
-
-        if ~exists
-            new_case = MakeCase(x(i, :), y(i));
-            case_size = size(cbr.categories{new_case.solution}.cases, 2);
-            cbr.categories{new_case.solution}.cases{case_size + 1} = new_case;
-        else
-            exists = false;
-        end
+        noOfCases = cbr.categories{solution}.noOfCases;
+        cbr.categories{solution}.noOfCases = noOfCases + 1;
+        
+        acc = cbr.categories{solution}.averageBinaryProblem;
+        cbr.categories{solution}.averageBinaryProblem = acc + problem;
     end
     
-    %Append averages to each category
     for i=1:6
-        category = cbr.categories{i};
-        acc = zeros(1, 45);
-        for j=1:size(category.cases, 2)
-            acc = acc + category.cases{j}.binaryproblem;
-        end
-        acc = acc / size(category.cases, 2);    
-
-        category.averageBinaryProblem = acc;
-        category.averageProblem = CreateAUVector(round(acc));
+        binaryProblem = cbr.categories{i}.averageBinaryProblem;
+        noOfCases = cbr.categories{i}.noOfCases;
+        average = binaryProblem / noOfCases;
+        cbr.categories{i}.averageBinaryProblem = average;
+        cbr.categories{i}.averageAUProblem = CreateAUVector(average);
     end
 end
 
 function [ category ] = MakeCategory( index )
+    category.noOfCases = 0;
     category.solution = index;
-    category.cases = {};
 end
 
 

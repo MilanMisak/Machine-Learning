@@ -1,4 +1,20 @@
-function [ outputcase ] = retrieve( cbr, newcase )
+function [ outputcase ] = retrieve ( cbr, newcase)
+    
+    bestsimilarity = -Inf;
+    best = 0;
+    
+    for i=1:6
+        newsimilarity = similarity(cbr.categories{i}.averageProblem, newcase.problem);
+        if newsimilarity > bestsimilarity
+            best = i;
+        end
+    end
+    
+    outputcase = cbr.categories{best}.cases{1};
+end
+
+
+function [ outputcase ] = OldRetrieve( cbr, newcase )
 % retrieve retrieves a case that matches best with newcase from the given
 % CBR system.
     bestsimilarity = -Inf;
