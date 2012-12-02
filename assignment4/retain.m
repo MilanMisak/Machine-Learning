@@ -11,7 +11,8 @@ function [ newcbr ] = retain( cbr, solvedcase )
     average = average + ((problem / noOfCases) * weight);
     
     cbr.categories{solution}.averageBinaryProblem = average;
-        
+    cbr.categories{solution}.averageAUProblem = CreateAUVector(round(average));
+    
     newcbr = cbr;
 end
 
