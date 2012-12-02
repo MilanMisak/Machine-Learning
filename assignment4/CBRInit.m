@@ -1,22 +1,5 @@
-function [ cbr ] = CBRInit( x, y )
-%CBRInit initialises a CBR system given a matrix of examples x and a vector
-% of labels y.
-    % TODO
-    cbr.cases = {};
-    cbr.cases{1} = MakeCase(x(1, :), y(1));
-    
-    for i=2:size(x, 1)
-        auvector = CreateAUVector(x(i, :));
-        existingcase = ExistsInCellArray(cbr.cases, auvector);
-        if existingcase == -1
-            cbr.cases{i} = MakeCase(x(i, :), y(i));
-        else
-            cbr.cases{existingcase}.typicality = cbr.cases{existingcase}.typicality + 1;
-        end
-    end
-end
 
-function [ cbr ]  = OtherCBRInit( x, y )
+function [ cbr ]  = CBRInit( x, y )
 
     %Create categories
     cbr.categories = cell(6);
@@ -41,23 +24,24 @@ function [ cbr ]  = OtherCBRInit( x, y )
 
         if ~exists
             new_case = MakeCase(x(i, :), y(i));
-            cases = cbr.categories{new_case.solution}.cases;
-            cases{size(cases) + 1} = new_case;
+            case_size = size(cbr.categories{new_case.solution}.cases, 2);
+            cbr.categories{new_case.solution}.cases{case_size + 1} = new_case;
         else
             exists = false;
         end
     end
-
     
     %Append averages to each category
     for i=1:6
         category = cbr.categories{i};
-        acc = zeros(45);
-        for j=1:size(category.cases)
-            acc = acc + category.binaryproblem;
+        acc = zeros(1, 45);
+        for j=1:size(category.cases, 2)
+            acc = acc + category.cases{j}.binaryproblem;
         end
-        acc = acc / size(category.cases);
-        category.averageProblem, category.averageBinaryProblem = MakeProblems(acc);
+        acc = acc / size(category.cases, 2);    
+
+        category.averageBinaryProblem = acc;
+        category.averageProblem = CreateAUVector(round(acc));
     end
 end
 
@@ -66,12 +50,24 @@ function [ category ] = MakeCategory( index )
     category.cases = {};
 end
 
-function [ Problem, BinaryProblem ] = MakeProblems( acc )
-    BinaryProblem = zeros(45);
 
-    for i=1:45
-        BinaryProblem(i) = Round(acc(i));
+function [ cbr ] = OldCBRInit( x, y )
+%CBRInit initialises a CBR system given a matrix of examples x and a vector
+% of labels y.
+    % TODO
+    cbr.cases = {};
+    cbr.cases{1} = MakeCase(x(1, :), y(1));
+    
+    for i=2:size(x, 1)
+        auvector = CreateAUVector(x(i, :));
+        existingcase = ExistsInCellArray(cbr.cases, auvector);
+        if existingcase == -1
+            cbr.cases{i} = MakeCase(x(i, :), y(i));
+        else
+            cbr.cases{existingcase}.typicality = cbr.cases{existingcase}.typicality + 1;
+        end
     end
-
-    Problem = CreateAUVector(BinaryProblem);
 end
+
+
+
