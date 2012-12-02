@@ -4,14 +4,14 @@ function [ similarity_value ] = similarity( case1, case2 )
     %similarity_value = similarity_value / max(size(case1), size(case2));
 
 
-    %similarity_value = dice_similarity(case1, case2);
+    similarity_value = dice_similarity(case1, case2);
 
     %similarity_value = jaccard_similarity(case1, case2);
 
-    distance  = levenshtein_similarity(case1, case2);
-    shorter = min(size(case1), size(case2));
-    longer = max(size(case1), size(case2));
-    similarity_value = ((longer - distance) / longer) * (shorter / longer);
+    %distance  = levenshtein_similarity(case1, case2);
+    %shorter = min(size(case1), size(case2));
+    %longer = max(size(case1), size(case2));
+    %similarity_value = ((longer - distance) / longer) * (shorter / longer);
 end
 
 

@@ -7,7 +7,6 @@ for j=1:size(x2, 1)
     newcase = MakeCase(x2(j, :), 0);
     solvedcase = reuse(retrieve(cbr, newcase), newcase);
     cbr = retain(cbr, solvedcase);
-    j
     predictions(j) = solvedcase.solution;
 end
 
