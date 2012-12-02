@@ -1,7 +1,7 @@
 function [ newcbr ] = retain( cbr, solvedcase )
 %retain updates cbr by storing solvedcase and returns a new CBR system.
     solution = solvedcase.solution;
-    problem = solvedcase.problem;
+    problem = solvedcase.binaryproblem;
     weight = 0.5;
     
     average = cbr.categories{solution}.averageBinaryProblem;

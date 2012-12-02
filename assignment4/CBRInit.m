@@ -31,6 +31,7 @@ end
 function [ category ] = MakeCategory( index )
     category.noOfCases = 0;
     category.solution = index;
+    category.averageBinaryProblem = zeros(1, 45);
 end
 
 

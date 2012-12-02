@@ -4,13 +4,14 @@ function [ outputcase ] = retrieve ( cbr, newcase)
     best = 0;
     
     for i=1:6
-        newsimilarity = similarity(cbr.categories{i}.averageProblem, newcase.problem);
+        newsimilarity = similarity(cbr.categories{i}.averageAUProblem, newcase.problem);
         if newsimilarity > bestsimilarity
+            bestsimilarity = newsimilarity;
             best = i;
         end
     end
     
-    outputcase = cbr.categories{best}.cases{1};
+    outputcase = MakeCase(cbr.categories{best}.averageBinaryProblem, best);
 end
 
 
