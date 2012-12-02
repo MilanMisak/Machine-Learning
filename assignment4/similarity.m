@@ -1,10 +1,10 @@
 function [ similarity_value ] = similarity( case1, case2 )
 % similarity computes the similarity of 2 cases.
-    similarity_value = size(intersect(case1.problem, case2.problem));
-    similarity_value = similarity_value / max(size(case1.problem), size(case2.problem));
+    %similarity_value = size(intersect(case1.problem, case2.problem));
+    %similarity_value = similarity_value / max(size(case1.problem), size(case2.problem));
 
 
-    %similarity_value = dice_similarity(case1.problem, case2.problem);
+    similarity_value = dice_similarity(case1.problem, case2.problem);
 
     %similarity_value = jaccard_similarity(case1.problem, case2.problem);
 
