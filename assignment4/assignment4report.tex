@@ -10,7 +10,7 @@
 
 \subsubsection*{How did you solve the problem of finding two or more best matches with different labels in function RETRIEVE?}
 
-TODO
+In \emph{retrieve} we iterate over all the cases and calculate similarity of each case and the one passed into the function. We store the value of the highest similarity we found so far and an array of cases which had that similarity. Then for each emotion we calculate the sum of typicalities of cases from our array. Then we return the first case whose emotion is the one with the highest total typicality.
 
 
 \subsubsection*{Discuss what happens if you try to add a case to CBR system that is already there (either initialisation phase or when you call the retain function? How did you deal with this issue?}
