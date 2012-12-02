@@ -9,7 +9,6 @@ for j=1:size(x2, 1)
     cbr = retain(cbr, solvedcase);
 
     predictions(j) = solvedcase.solution;
-    j
 end
 
 end
