@@ -19,13 +19,11 @@ We just increment the typicality of the case that is already in the CBR system a
 
 \subsubsection*{Compare the different similarity measures you have used (at least three). What are the advantages/disadvantages of each measure?}
 
-The first similarity measure we used was the size of the intersection of 2 AU vectors, normalized. This method was quite quick but only resulted in an f1 measure of: TODO. \\ \\
+The first similarity measure we used was the size of the intersection of 2 AU vectors, normalized. This method was quite quick but only resulted in a classification rate of 73.2. \\ \\
 
-We also used the Jaccard Index and Dice coefficient as measures, these had suprisingly the samef1 measure of: TODO. Whilst still being relatively quick due to not needing to be normalized.\\\\
+We also used the Jaccard Index and Dice coefficient as measures, these had suprisingly the samef1 measure of: 77.5. Whilst still being relatively quick due to not needing to be normalized.\\\\
 
-The final similarity measure we tried was a normalized Levenshtein Distance between 2 problems.It was so slow that we do not have cross validation results for it using our K-NN method. For comparison, Jaccard's f1 measure using our faster System was: and Levenshtein was :. \\ \\
-
-
+The final similarity measure we tried was a normalized Levenshtein Distance between 2 problems.It was so slow that we do not have cross validation results for it using our K-NN method. For comparison, Jaccard's f1 measure using our faster System (explained later) was: and Levenshtein was :TODO. \\ \\
 
 \subsubsection*{Describe how you initialise your CBR system.}
 
