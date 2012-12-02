@@ -10,31 +10,25 @@
 
 \subsubsection*{How did you solve the problem of finding two or more best matches with different labels in function RETRIEVE?}
 
-We read the matlab guide for neural networks, and it suggested that trainrp (Resilient backpropogation) and trainscg (Scaled conjugate gradient propogation) worked well with pattern recognition, a couple of tests using these proved that they performed better than the other functions, but there was not much difference between them. We decided to use trainrp because it appeared to be slightly faster. It was not feasible to test all the combinations of transfer functions with all node layouts so we took the recomendation of the Matlab guide and used tansig on all layers, as suggested for pattern recognition problems. To find the best layout of nodes for each network, we used a brute force search on all combinations of nodes from 1-2 hidden layers and 3:20 nodes per layer. A few manual tests suggested that the optimum layouts would lie within this range, and it took too long to search another dimension.\\
-The performance measure we used was training each layout 5 times, and using the average best validation score. We chose to measure the best validation performance opposed to the score when training stopped, in the hope that this best score could be achieved later with measures to avoid overfitting. We repeated this 5 times in order to see how well the layout performed with different training and validation sets, the divide function used was dividerand.
+TODO
 
 
 \subsubsection*{Discuss what happens if you try to add a case to CBR system that is already there (either initialisation phase or when you call the retain function? How did you deal with this issue?}
 %TODO: laugh at the appalling grammar in their question
-We incremented the typicality of the case.
+We incremented the typicality of the case. TODO
 
 \subsubsection*{Compare the different similarity measures you have used (at least three). What are the advantages/disadvantages of each measure?}
 
-The validation data used to find the optimal parameters is essentially part of the training data because it is used to decided when to stop training. When this data is used again for cross validation it is not validating the network because the network was designed to be optimal for said data. Ideally, there would be 2 different sets of data used to design the network topology, then to cross validate. Or at least, the data used for validation in designing the topology should be marked in a way so it cannot be used as part of the validation set in cross validation.
-
+TODO
 
 \subsubsection*{Describe how you initialise your CBR system.}
 
-Yes, there is a difference in classification performance - the six single-output networks perform very slightly better then the single six-output network. Both the advantages listed below, and the data given later on, show that the six-output network has an average of 1 or 2 percent lower recall and precision rates than the six single-output networks. \\
-
-\begin{itemize}
-  \item The advantages of a six-output neural network are: the network will be weighted to give preference to one emotion over another, based on an attribute. For example, an attribute could indicate either emotion 1 or emotion 2 - separately, this gives us little information, but when evaluating both in the same network, perhaps the attribute is more likely to signify emotion 1 over emotion 2. It also takes longer to train, and more space to store,  6 single-output networks than one six-output network.
-  \item The advantages of six single-output neural networks are: the networks are likely to be more accurate, since each one will weight its output focused purely on one emotion. This means weights, etc, will be specific to each tree, and should therefore reduce the number of false positives - the actual emotion is likely to have a higher output than the false positive, and overrule it.
-\end{itemize}
-
+TODO
 
 \subsubsection*{CBR belongs to a specific class of learning algorithms? How are these algorithms called and what are the differences with other learning algorithms, like neural networks and decision trees?}
 %TODO: that first sentence isn't even a question...
+
+On-line learning algorithms? TODO
 
 
 \subsection*{Implementation details}
@@ -42,14 +36,7 @@ Yes, there is a difference in classification performance - the six single-output
   \item RETRIEVE
   \item REUSE
   \item RETAIN
-  \item Cross-validation is done in much the same way as it was done for Decision Trees, with the exception that we needed two separate functions - one for the six one-output networks, and one for the six-output network. The cross-validation functions are passed the clean data received directly from ANNdata(), which is then split up in to training and validation data on each fold.
-  \begin{itemize}
-    \item For the six-output network, a network is created and trained using the optimal parameters we found, then used to predict the emotions of the validation inputs. These predictions are then compared to the correct outputs, and used to create the confusion matrix and calculate classification rate. After all the folds an average confusion matrix is constructed and other rates and measures ($F_1$, precision, recall) are calculated.
-    \item The six one-output networks were similarly cross-validated, being represented by a cell-array of networks, which were easier to work with. The testANN() function, used to make the predictions, was modified to recognise whether or not the input was a cell-array, and to modify it accordingly, to make predictions (see below).
-  \end{itemize}
-  \item The outputs of the six one-output networks were combined in the testANN() function, into a single matrix like the one returned by the six-output network. this allowed the same function to be used for predictions (ie. the max value found for each column).
-  \item The process of figuring out optimal parameters of networks was made simpler by programatically testing different combinations of numbers of hidden layer nodes, this is gone over in more detail in the first question.
-  \item Whenever a network needs to be trained, it is done so using our trainNet function used to maximize generality. This is explained in the second question and there is a flow chart attached.
+  \item CBR cases
 \end{itemize}
 
 
