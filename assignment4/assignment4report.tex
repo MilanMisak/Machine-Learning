@@ -18,13 +18,15 @@ We just increment the typicality of the case that is already in the CBR system a
 
 \subsubsection*{Compare the different similarity measures you have used (at least three). What are the advantages/disadvantages of each measure?}
 
+\emph{(We started off deciding which similarity to choose using non-weighted 1-NN for retrieval.)} \\
+
 The first similarity measure we used was the size of the intersection of 2 AU vectors, normalised. This method was quite quick but only resulted in a classification rate of 73.2. \\ 
 
-We also used the Jaccard Index and Dice coefficient (used to measure the similarity of 2 sets) as measures. These had surprisingly the same $F_1$ measure of 77.5, while still being relatively quick due to not needing to be normalised. \\
+We also used the Jaccard Index and Dice coefficient (used to measure the similarity of 2 sets) as measures. These had surprisingly the same classification rate of 77.5, while still being relatively quick due to not needing to be normalised. \\
 
 The final similarity measure we tried was a normalised Levenshtein Distance between 2 problems. It is normally used to compare strings to provide correction suggestions in spellcheckers, but because the AU Vector always had the same ordering we could still use it to compare their similarity. It was so slow that we do not have cross validation results for it using our K-NN method. For comparison, Dice's classification rate using our faster system (which involved calculating average AU vectors for each category, so only 6 similarities needed to be calculated as opposed to one for every case) was: 42.2, Jaccard's: 50.5, and Levenshtein was 43.3. The Cross Validation for Levenshtein took minutes compared to a couple of seconds for the other similarity measures.  \\
 
-In the end, we used the Dice coefficient with 3-nearest neighbours. Jaccard perfomed a very small amount better (provided an $F_1$ measure of 0.2 higher), but took more than 1.25 times as much time, so we decided that the trade-off was worth it. \\ \\
+We then started testing different values of K for our nearest neighbours algorithm, and adding different weights for the similarities of online learned cases, using Jaccard. Once we had settled on 3-NN and 0.8 weight we decided to test Dice again to see if it differed from Jaccard. Dice's coefficient performed with a 78.3 classification rate, Jaccard perfomed a very small amount better (78.5), but had 4:45 running time for cross validation opposed to Dice's 3:20, so we decided to choose Dice's coefficient for the trade off in time against classification rate. \\ \\
 
 \subsubsection*{Describe how you initialise your CBR system.}
 
