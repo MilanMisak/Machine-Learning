@@ -97,8 +97,9 @@ Surprise  & 87.4142 \\
 
 Average classification rate = 0.7830 \\ \\
 
-Confusion matrix: the confusion matrix suggests that our neural networks work well. Anger, disgust and sadness are sometimes classified incorrectly as some other emotion from this group. Otherwise the predicted emotions work very well and some misclassifications do not occur at all (or haven't occurred during our testing). For example happiness has never been classified as anger. Classification rate: this is very high as it normally reaches over 80 per cent whenever we run the program. It is a lot higher than last time when we were using decision trees. It also means that our classifier is very precise and reliable. Recall/precision rate: these are very similar for most emotions. Sadness was slightly harder to recognise. Happiness is also worth mentioning as it was very nearly all the time (93 per cent) recognised. Once it was recognised it was done so correctly with a slightly lower probability. The $F_1$ measure confirms what we have already seen which is that happiness and surprise are classified very well while sadness is the one with most classification errors.
-
+Confusion matrix: the confusion matrix shows that our cbr performs fairly well. Sadness, however, is often misclassified as other classes, specifically Anger. Anger itself is chosen fairly often to classify any case (meaning many emotions are often mistaken for anger). \\
+Classification rate: Not as good as some previous classification methods (eg. neural networks), it is still always over 70\%, and almost always above 75\%, after some tweaking of the k nearest neighbours and the weight given to classified cases, which is a reasonable success rate. \\
+Recall/Precision rate: These are fairly high for most emotions, with just a few cases bringing the average right down. Sadness, for example, was only recognised correctly 50\% of the time, and fear only 68\%. As stated before, anger was often used incorrectly as a classification, resulting in its low precision rate. The $F_1$ measure confirms this, with all emotions but sandness and anger scoring above 70\%. \\
 
 \newpage
 \subsection*{Code Flowchart}
