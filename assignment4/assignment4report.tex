@@ -20,9 +20,11 @@ We just increment the typicality of the case that is already in the CBR system a
 
 The first similarity measure we used was the size of the intersection of 2 AU vectors, normalised. This method was quite quick but only resulted in a classification rate of 73.2. \\ 
 
-We also used the Jaccard Index and Dice coefficient (used to measure the similarity of 2 sets) as measures. These had surprisingly the same $F_1$ measure of: 77.5, while still being relatively quick due to not needing to be normalised. \\
+We also used the Jaccard Index and Dice coefficient (used to measure the similarity of 2 sets) as measures. These had surprisingly the same $F_1$ measure of 77.5, while still being relatively quick due to not needing to be normalised. \\
 
-The final similarity measure we tried was a normalised Levenshtein Distance between 2 problems. It is normally used to compare strings to provide correction suggestions in spellcheckers, but because the AU Vector always had the same ordering we could still use it to compare their similarity. It was so slow that we do not have cross validation results for it using our K-NN method. For comparison, Dice's classification rate using our faster system (which involved calculating average AU vectors for each category, so only 6 similarities needed to be calculated as opposed to one for every case) was: 42.2, Jaccard's: 50.5, and Levenshtein was 43.3. The Cross Validation for Levenshtein took minutes compared to a couple of seconds for the other similarity measures.  \\ \\
+The final similarity measure we tried was a normalised Levenshtein Distance between 2 problems. It is normally used to compare strings to provide correction suggestions in spellcheckers, but because the AU Vector always had the same ordering we could still use it to compare their similarity. It was so slow that we do not have cross validation results for it using our K-NN method. For comparison, Dice's classification rate using our faster system (which involved calculating average AU vectors for each category, so only 6 similarities needed to be calculated as opposed to one for every case) was: 42.2, Jaccard's: 50.5, and Levenshtein was 43.3. The Cross Validation for Levenshtein took minutes compared to a couple of seconds for the other similarity measures.  \\
+
+In the end, we used the Dice coefficient with 3-nearest neighbours. Jaccard perfomed a very small amount better (provided an $F_1$ measure of 0.2 higher), but took more than 1.25 times as much time, so we decided that the trade-off was worth it. \\ \\
 
 \subsubsection*{Describe how you initialise your CBR system.}
 
@@ -32,7 +34,6 @@ Our CBR system is fairly simple, as it only consists of a cell array of cases. T
 %TODO: that first sentence isn't even a question... I've put an exclamation mark there to see if anyone notices. Good job; I noticed
 
 Online learning algorithms. The difference is that for online algorithms the learning never ends. Their performance should be continually improved with every new case they encounter. Offline learning algorithms do not continue learning once the training is completed.
-
 
 \subsection*{Implementation details}
 \begin{itemize}
@@ -46,7 +47,6 @@ Online learning algorithms. The difference is that for online algorithms the lea
     Each case has an AUVector, a solution, and a typicality value, the use of which is explained previously.
 \end{itemize}
 
-
 \subsection*{Evaluation results}
 
 \begin{table}
@@ -55,12 +55,12 @@ Online learning algorithms. The difference is that for online algorithms the lea
 \multicolumn{8}{c}{Predicted class} \\
 &  & Anger & Disgust & Fear & Happiness & Sadness & Surprise \\
 \hline
- & Anger            & 9.9 & 1.0  & 0.5 & 0.4  & 1.2 & 0.2  \\
- & Disgust          & 0.9 & 16.5 & 0.5 & 0.6  & 1.2 & 0.1  \\
-Actual class & Fear & 0.4 & 0.3  & 9.5 & 0.3  & 0.3 & 1.1  \\
- & Happiness        & 0   & 0.6  & 0.3 & 19.9 & 0.4 & 0.4  \\
- & Sadness          & 1.0 & 2.0  & 0.4 & 0.3  & 9.1 & 0.4  \\
- & Surprise         & 0   & 0.1  & 0.7 & 0.5  & 0.3 & 19.1 \\
+ & Anger            & 9.6 & 1.3  & 0.6 & 0.9  & 0.5 & 0.3  \\
+ & Disgust          & 1.7 & 14.9 & 0.3 & 1.7  & 0.8 & 0.4  \\
+Actual class & Fear & 1.0 & 0.1  & 8.2 & 0.4  & 0.1 & 2.1  \\
+ & Happiness        & 0.1 & 0.8  & 0.2 & 19.9 & 0.1 & 0.5  \\
+ & Sadness          & 2.4 & 1.8  & 0.9 & 0.9  & 6.6 & 0.6  \\
+ & Surprise         & 0.1 & 0.3  & 0.7 & 0.4  & 0.1 & 19.1 \\
 \end{tabular} 
 \caption{Confusion matrix}
 \end{table}
@@ -70,12 +70,12 @@ Actual class & Fear & 0.4 & 0.3  & 9.5 & 0.3  & 0.3 & 1.1  \\
 \begin{tabular}{l | r r}
 Emotion & Recall rate (\%) & Precision rate (\%) \\
 \hline
-Anger     & 75.0000 & 81.1475 \\
-Disgust   & 83.3333 & 80.4878 \\
-Fear      & 79.8319 & 79.8319 \\
-Happiness & 92.1296 & 90.4545 \\
-Sadness   & 68.9394 & 72.8000 \\
-Surprise  & 92.2705 & 89.6714 \\
+Anger     & 72.7273 & 64.4295 \\
+Disgust   & 75.2525 & 77.6042 \\
+Fear      & 68.9076 & 75.2294 \\
+Happiness & 92.1296 & 82.2314 \\
+Sadness   & 50.0000 & 80.4878 \\
+Surprise  & 92.2705 & 83.0435 \\
 \end{tabular}
 \caption{Recall and precision rates}
 \end{table}
@@ -85,17 +85,18 @@ Surprise  & 92.2705 & 89.6714 \\
 \begin{tabular}{l | r}
 Emotion & \( F_1 \) measure \\
 \hline
-Anger     & 77.9528 \\
-Disgust   & 81.8859 \\
-Fear      & 79.8319 \\
-Happiness & 91.2844 \\
-Sadness   & 70.8171 \\
-Surprise  & 90.9524 \\
+Anger     & 68.3274 \\
+Disgust   & 76.4103 \\
+Fear      & 71.9298 \\
+Happiness & 86.8996 \\
+Sadness   & 61.6822 \\
+Surprise  & 87.4142 \\
 \end{tabular}
 \caption{F1 measures}
 \end{table}
 
-Average classification rate = 0.8367 \\ \\
+Average classification rate = 0.7830 \\ \\
+
 Confusion matrix: the confusion matrix suggests that our neural networks work well. Anger, disgust and sadness are sometimes classified incorrectly as some other emotion from this group. Otherwise the predicted emotions work very well and some misclassifications do not occur at all (or haven't occurred during our testing). For example happiness has never been classified as anger. Classification rate: this is very high as it normally reaches over 80 per cent whenever we run the program. It is a lot higher than last time when we were using decision trees. It also means that our classifier is very precise and reliable. Recall/precision rate: these are very similar for most emotions. Sadness was slightly harder to recognise. Happiness is also worth mentioning as it was very nearly all the time (93 per cent) recognised. Once it was recognised it was done so correctly with a slightly lower probability. The $F_1$ measure confirms what we have already seen which is that happiness and surprise are classified very well while sadness is the one with most classification errors.
 
 
