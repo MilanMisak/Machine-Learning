@@ -17,7 +17,6 @@ In \emph{retrieve} we iterate over all the cases and calculate the similarity of
 We just increment the typicality of the case that is already in the CBR system and discard the new case. 
 
 \subsubsection*{Compare the different similarity measures you have used (at least three). What are the advantages/disadvantages of each measure?}
-TODO: advantages/disadvantages of each \\
 
 The first similarity measure we used was the size of the intersection of 2 AU vectors, normalised. This method was quite quick but only resulted in a classification rate of 73.2. \\ 
 
@@ -38,13 +37,13 @@ Online learning algorithms. The difference is that for online algorithms the lea
 \subsection*{Implementation details}
 \begin{itemize}
   \item RETRIEVE:
-    We Cycle through all the cases in the structure, picking the cases with the 3 highest similarities to the case we are attempting to classify (3-NN). If there are more than 3 with the same similarity then they are included in the "voting" not discarded.
+    We Cycle through all the cases in the structure, picking the cases with the 3 highest similarities to the case we are attempting to classify (3-NN). If there are more than 3 with the highest similarity then they are all included in the "voting", and not discarded. For example, case one has a similarity of 79, case two has 78, and cases three and four both have similarities of 77. We cannot decide which of cases three and four to keep in the 'top three', so we include both.
   \item REUSE:
     We simply assign the solution value from the retrieved case to the case we are classifying.
   \item RETAIN:
-    A new case is made with the corrosponding AU Vector and solution that was found. The weight is value used for calculating similarity is set to 0.8 because that is roughly the classification rate, ie - how much we should trust the prediction opposed to the training data which we know is correct.
+    A new case is made with the corresponding AU Vector and solution that was found. The weight is a value used for calculating similarity, and is set to 0.8 for every new case, because that is roughly the classification rate, ie - how much we should trust the prediction, compared to the training data which we know is correct.
   \item CBR cases:
-    Each case has an AUVector, a solution and a typicality value, the use of which is explained previously
+    Each case has an AUVector, a solution, and a typicality value, the use of which is explained previously.
 \end{itemize}
 
 
