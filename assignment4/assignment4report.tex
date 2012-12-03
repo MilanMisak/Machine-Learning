@@ -10,27 +10,27 @@
 
 \subsubsection*{How did you solve the problem of finding two or more best matches with different labels in function RETRIEVE?}
 
-In \emph{retrieve} we iterate over all the cases and calculate similarity of each case and the one passed into the function. We store the value of the highest similarity we found so far and an array of cases which had that similarity. Then for each emotion we calculate the sum of typicalities of cases from our array. Then we return the first case whose emotion is the one with the highest total typicality.
-
+In \emph{retrieve} we iterate over all the cases and calculate the similarity of each case and the one passed into the function. We store the value of the highest similarity we have found so far, and an array of cases which had that similarity. Once we have iterated through all of the cases, we calculate the sum of the typicalities of the cases in our array, for each emotion. We return the first case whose emotion is the same as the one with the highest total. \\
 
 \subsubsection*{Discuss what happens if you try to add a case to CBR system that is already there (either initialisation phase or when you call the retain function? How did you deal with this issue?}
 
 We just increment the typicality of the case that is already in the CBR system and discard the new case. 
 
 \subsubsection*{Compare the different similarity measures you have used (at least three). What are the advantages/disadvantages of each measure?}
+TODO: advantages/disadvantages of each \\
 
 The first similarity measure we used was the size of the intersection of 2 AU vectors, normalised. This method was quite quick but only resulted in a classification rate of 73.2. \\ 
 
-We also used the Jaccard Index and Dice coefficient (used to measure the similarity of 2 sets) as measures, these had surprisingly the same $F_1$ measure of: 77.5. Whilst still being relatively quick due to not needing to be normalised.\\
+We also used the Jaccard Index and Dice coefficient (used to measure the similarity of 2 sets) as measures. These had surprisingly the same $F_1$ measure of: 77.5, while still being relatively quick due to not needing to be normalised. \\
 
-The final similarity measure we tried was a normalised Levenshtein Distance between 2 problems, it is normaly used to compare strings to provide correction suggestions in spellcheckers, because the AU Vector always had the same ordering we could use it to compare their similarity. It was so slow that we do not have cross validation results for it using our K-NN method. For comparison, Dice's classification rate using our faster System (which involved calculating average AU vectors for each category, so only 6 similarities needed to be calculated as opposed to once for each case) was: 42.2 Jaccard's: 50.5 and Levenshtein was 43.3. The Cross Validation forLevenshtein took minutes compared to a couple of seconds for the other similarity measures.  \\ \\
+The final similarity measure we tried was a normalised Levenshtein Distance between 2 problems. It is normally used to compare strings to provide correction suggestions in spellcheckers, but because the AU Vector always had the same ordering we could still use it to compare their similarity. It was so slow that we do not have cross validation results for it using our K-NN method. For comparison, Dice's classification rate using our faster system (which involved calculating average AU vectors for each category, so only 6 similarities needed to be calculated as opposed to one for every case) was: 42.2, Jaccard's: 50.5, and Levenshtein was 43.3. The Cross Validation for Levenshtein took minutes compared to a couple of seconds for the other similarity measures.  \\ \\
 
 \subsubsection*{Describe how you initialise your CBR system.}
 
-Our CBR system is fairly simple as it only consists of a cell array of cases. To initialise it we iterate over examples in the given clean data creating a case for each example on the fly. For every case we check if the CBR system already contains an equal case and if so then we increment typicality of the already stored case otherwise we add the new case to the CBR system.
+Our CBR system is fairly simple, as it only consists of a cell array of cases. To initialise it we iterate over examples in the given clean data and create a case for each example on the fly. For every case we check if the CBR system already contains an equal case, and if so then we increment typicality of the already stored case, otherwise we add the new case to the CBR system.
 
 \subsubsection*{CBR belongs to a specific class of learning algorithms?! How are these algorithms called and what are the differences with other learning algorithms, like neural networks and decision trees?}
-%TODO: that first sentence isn't even a question... I've put an exclamation mark there to see if anyone notices
+%TODO: that first sentence isn't even a question... I've put an exclamation mark there to see if anyone notices. Good job; I noticed
 
 Online learning algorithms. The difference is that for online algorithms the learning never ends. Their performance should be continually improved with every new case they encounter. Offline learning algorithms do not continue learning once the training is completed.
 
