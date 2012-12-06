@@ -23,6 +23,8 @@ for i=1:10
     predictions = testANN(net, validationInputs);
 
     % compare to actual results and generate confusion matrix
+    correctemo = zeros(1,6);
+    countemo = zeros(1,6);
     correct = 0;
     foldConfusionMatrix = zeros(6);
 
@@ -33,7 +35,9 @@ for i=1:10
 
         if predictedLabel == actualLabel
             correct = correct + 1;
+            correctemo(actualLabel) = correctemo(actualLabel) + 1;
         end
+        countemo(actualLabel) = countemo(actualLabel) + 1;
 
         confusionMatrix(actualLabel, predictedLabel) = confusionMatrix(actualLabel, predictedLabel) + 1;
         foldConfusionMatrix(actualLabel, predictedLabel) = foldConfusionMatrix(actualLabel, predictedLabel) + 1;
@@ -45,6 +49,10 @@ for i=1:10
     foldF1Measures = mean(getF1Measures(foldRecallAndPrecisionRates))
 
     classificationRate = classificationRate + (correct / size(validationTargets, 2));
+    for p = 1:6
+        fprintf('%f, ', 1-(correctemo(p)/countemo(p)))
+    end
+    fprintf('\n')
 end
 
 fprintf('6-output:\n')

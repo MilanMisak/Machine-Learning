@@ -39,6 +39,8 @@ for i=1:10
     predictions = TestTrees(trees, x2);
     
     % compare to actual results and generate confusion matrix
+    correctemo = zeros(1,6);
+    countemo = zeros(1,6);
     correct = 0;
     
     for m=1:size(testSetLabels)
@@ -47,12 +49,16 @@ for i=1:10
 
         if predictedLabel == actualLabel
             correct = correct + 1;
+            correctemo(actualLabel) = correctemo(actualLabel) + 1;
         end
-        
+        countemo(actualLabel) = countemo(actualLabel) + 1;
         confusionMatrix(actualLabel, predictedLabel) = confusionMatrix(actualLabel, predictedLabel) + 1;
     end
-    
     classificationRate = classificationRate + (correct / size(testSetLabels, 1));
+    for p = 1:6
+        fprintf('%f, ', 1-(correctemo(p)/countemo(p)))
+    end
+    fprintf('\n')
 end
 
 confusionMatrix = confusionMatrix / 10
