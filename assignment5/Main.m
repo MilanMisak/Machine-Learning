@@ -1,4 +1,4 @@
-cleandata = load('cleandata_students.mat');
+cleandata = load('noisydata_students.mat');
 
 cbr = CBRInit(cleandata.x, cleandata.y);
 
