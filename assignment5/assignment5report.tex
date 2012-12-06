@@ -65,11 +65,11 @@ The neural networks algorithm performed best in terms of values of $F_1$ measure
 
 \subsubsection*{How did you adjust the significance level in order to take into account the fact that you perform a multiple comparison test?}
 
-divide $\alpha$ by k.
+We adjusted our chosen significance level (5 \%) by dividing it by 3 where 3 is the number of comparisons needed for this multiple comparison test.
 
 \subsubsection*{Which type of t-test did you use and why?}
 
-The special kind.
+We used the paired T-test as the samples we were testing we not independent because they were coming from the exact same data.
 
 \subsubsection*{Why do you think t-test was performed on the classification error and not the F1 measure?}
 
@@ -77,22 +77,11 @@ Something about classification error having higher varience maybe.
 
 \subsubsection*{What is the trade-off between the number of folds you use and the number of examples per fold? In other words, what is going to happen if you use more folds, so you will have fewer examples per fold, or if you use fewer folds, so you will have more examples per fold?}
 
-This shan't be too difficult.
+TODO
 
 \subsubsection*{Suppose that we want to add some new emotions to the existing dataset. Which of the examined algorithms are more suitable for incorporating the new classes in terms of engineering effort? Which algorithms need to undergo radical changes in order to include new classes?}
 
 Surely CBR is the easiest? Neural networks will need new optimal shit so that might be hardest?
 
-\subsection*{Implementation details}
-\begin{itemize}
-  \item RETRIEVE:
-    We Cycle through all the cases in the structure, picking the cases with the 3 highest similarities to the case we are attempting to classify (3-NN). If there are more than 3 with the highest similarity then they are all included in the "voting", and not discarded. For example, case one has a similarity of 79, case two has 78, and cases three and four both have similarities of 77. We cannot decide which of cases three and four to keep in the 'top three', so we include both.
-  \item REUSE:
-    We simply assign the solution value from the retrieved case to the case we are classifying.
-  \item RETAIN:
-    A new case is made with the corresponding AU Vector and solution that was found. The weight is a value used for calculating similarity, and is set to 0.8 for every new case, because that is roughly the classification rate, ie - how much we should trust the prediction, compared to the training data which we know is correct.
-  \item CBR cases:
-    Each case has an AUVector, a solution, and a typicality value, the use of which is explained previously.
-\end{itemize}
 
 \end{document}
