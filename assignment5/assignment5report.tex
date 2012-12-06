@@ -51,7 +51,7 @@ Surprise  & Tree/Net & 1          & 0          \\
           & Tree/CBR & 1          & 0          \\
           & Net/CBR  & 0          & 0          \\
 \end{tabular}
-\caption{F1 measures}
+\caption{T-test results}
 \end{table}
 
 \subsubsection*{T-test results using clean data}
@@ -64,7 +64,8 @@ I'm 12 and what is this?
 
 \subsubsection*{Which algorithm performed better overall in terms of values of $F_1$ measure (part I)? Which algorithm performed better when comparison was performed using the t-test (part II and part III)? Can we claim that this algorithm is a better learning algorithm than the others in general? Why? Why not?}
 
-The neural networks algorithm performed best in terms of values of $F_1$ measure.
+The neural networks algorithm performed best in terms of values of $F_1$ measure. Neural networks had the highest $F_1$ measures for every emotion with the exception of anger. \\ \\
+TODO
 
 \subsubsection*{How did you adjust the significance level in order to take into account the fact that you perform a multiple comparison test?}
 
@@ -84,7 +85,7 @@ TODO
 
 \subsubsection*{Suppose that we want to add some new emotions to the existing dataset. Which of the examined algorithms are more suitable for incorporating the new classes in terms of engineering effort? Which algorithms need to undergo radical changes in order to include new classes?}
 
-Surely CBR is the easiest? Neural networks will need new optimal shit so that might be hardest?
-
+Case-based reasoning and decision trees are both quite easily extended by adding new classes of emotions. The algorithms can be just simply modified in a few places and they will still work very well.\\ \\
+Neural networks, on the other hand, will need some additional effort to tweak performance after the algorithm is modified. Some optimisations will need to be done for neural networks for example figuring out the number of neurones in hidden layers or the number of hidden layers to make sure that they still classify examples as well as they possibly can.
 
 \end{document}
