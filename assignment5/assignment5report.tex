@@ -6,36 +6,31 @@
 {\bf Usernames:} jb2910, mm5510, ce710 \\
 {\bf Group Number: 28}  \\ \\
 
-\section*{Assignment 4: Case Based Reasoning}
+\section*{Assignment 5: T-test}
 
-\subsubsection*{How did you solve the problem of finding two or more best matches with different labels in function RETRIEVE?}
+\subsubsection*{Which algorithm performed better overall in terms of values of $F_1$ measure (part I)? Which algorithm performed better when comparison was performed using the t-test (part II and part III)? Can we claim that this algorithm is a better learning algorithm than the others in general? Why? Why not?}
 
-In \emph{retrieve} we iterate over all the cases and calculate the similarity of each case and the one passed into the function. We store the value of the highest similarity we have found so far, and an array of cases which had that similarity. Once we have iterated through all of the cases, we calculate the sum of the typicalities of the cases in our array, for each emotion. We return the first case whose emotion is the same as the one with the highest total. \\
+lorem ipsum.
 
-\subsubsection*{Discuss what happens if you try to add a case to CBR system that is already there (either initialisation phase or when you call the retain function? How did you deal with this issue?}
+\subsubsection*{How did you adjust the significance level in order to take into account the fact that you perform a multiple comparison test?}
 
-We just increment the typicality of the case that is already in the CBR system and discard the new case. 
+divide $\alpha$ by k.
 
-\subsubsection*{Compare the different similarity measures you have used (at least three). What are the advantages/disadvantages of each measure?}
+\subsubsection*{Which type of t-test did you use and why?}
 
-\emph{(We started off deciding which similarity to choose using non-weighted 1-NN for retrieval.)} \\
+The special kind.
 
-The first similarity measure we used was the size of the intersection of 2 AU vectors, normalised. This method was quite quick but only resulted in a classification rate of 73.2. \\ 
+\subsubsection*{Why do you think t-test was performed on the classification error and not the F1 measure?}
 
-We also used the Jaccard Index and Dice coefficient (used to measure the similarity of 2 sets) as measures. These had surprisingly the same classification rate of 77.5, while still being relatively quick due to not needing to be normalised. \\
+Something about classification error having higher varience maybe.
 
-The final similarity measure we tried was a normalised Levenshtein Distance between 2 problems. It is normally used to compare strings to provide correction suggestions in spellcheckers, but because the AU Vector always had the same ordering we could still use it to compare their similarity. It was so slow that we do not have cross validation results for it using our K-NN method. For comparison, Dice's classification rate using our faster system (which involved calculating average AU vectors for each category, so only 6 similarities needed to be calculated as opposed to one for every case) was: 42.2, Jaccard's: 50.5, and Levenshtein was 43.3. The Cross Validation for Levenshtein took minutes compared to a couple of seconds for the other similarity measures.  \\
+\subsubsection*{What is the trade-off between the number of folds you use and the number of examples per fold? In other words, what is going to happen if you use more folds, so you will have fewer examples per fold, or if you use fewer folds, so you will have more examples per fold?}
 
-We then started testing different values of K for our nearest neighbours algorithm, and adding different weights for the similarities of online learned cases, using Jaccard. Once we had settled on 3-NN and 0.8 weight we decided to test Dice again to see if it differed from Jaccard. Dice's coefficient performed with a 78.3 classification rate, Jaccard perfomed a very small amount better (78.5), but had 4:45 running time for cross validation opposed to Dice's 3:20, so we decided to choose Dice's coefficient for the trade off in time against classification rate. \\ \\
+This shan't be too difficult.
 
-\subsubsection*{Describe how you initialise your CBR system.}
+\subsubsection*{Suppose that we want to add some new emotions to the existing dataset. Which of the examined algorithms are more suitable for incorporating the new classes in terms of engineering effort? Which algorithms need to undergo radical changes in order to include new classes?}
 
-Our CBR system is fairly simple, as it only consists of a cell array of cases. To initialise it we iterate over examples in the given clean data and create a case for each example on the fly. For every case we check if the CBR system already contains an equal case, and if so then we increment typicality of the already stored case, otherwise we add the new case to the CBR system.
-
-\subsubsection*{CBR belongs to a specific class of learning algorithms?! How are these algorithms called and what are the differences with other learning algorithms, like neural networks and decision trees?}
-%TODO: that first sentence isn't even a question... I've put an exclamation mark there to see if anyone notices. Good job; I noticed
-
-Online learning algorithms. The difference is that for online algorithms the learning never ends. Their performance should be continually improved with every new case they encounter. Offline learning algorithms do not continue learning once the training is completed.
+Surely CBR is the easiest? Neural networks will need new optimal shit so that might be hardest?
 
 \subsection*{Implementation details}
 \begin{itemize}
