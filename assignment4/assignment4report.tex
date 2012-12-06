@@ -10,7 +10,7 @@
 
 \subsubsection*{How did you solve the problem of finding two or more best matches with different labels in function RETRIEVE?}
 
-In \emph{retrieve} we iterate over all the cases and calculate the similarity of each case and the one passed into the function. We store the value of the highest similarity we have found so far, and an array of cases which had that similarity. Once we have iterated through all of the cases, we calculate the sum of the typicalities of the cases in our array, for each emotion. We return the first case whose emotion is the same as the one with the highest total. \\
+In \emph{retrieve} we iterate over all the cases and calculate the similarity of each case and the one passed into the function. We store the value of the highest similarity we have found so far, and an array of cases which had that similarity. Once we have iterated through all of the cases, we calculate the sum of the typicalities of the cases in our array, for each emotion. We return the first case whose emotion is the same as the one with the highest total.
 
 \subsubsection*{Discuss what happens if you try to add a case to CBR system that is already there (either initialisation phase or when you call the retain function? How did you deal with this issue?}
 
@@ -26,27 +26,27 @@ We also used the Jaccard Index and Dice coefficient (used to measure the similar
 
 The final similarity measure we tried was a normalised Levenshtein Distance between 2 problems. It is normally used to compare strings to provide correction suggestions in spellcheckers, but because the AU Vector always had the same ordering we could still use it to compare their similarity. It was so slow that we do not have cross validation results for it using our K-NN method. For comparison, Dice's classification rate using our faster system (which involved calculating average AU vectors for each category, so only 6 similarities needed to be calculated as opposed to one for every case) was: 42.2, Jaccard's: 50.5, and Levenshtein was 43.3. The Cross Validation for Levenshtein took minutes compared to a couple of seconds for the other similarity measures.  \\
 
-We then started testing different values of K for our nearest neighbours algorithm, and adding different weights for the similarities of online learned cases, using Jaccard. Once we had settled on 3-NN and 0.8 weight we decided to test Dice again to see if it differed from Jaccard. Dice's coefficient performed with a 78.3 classification rate, Jaccard perfomed a very small amount better (78.5), but had 4:45 running time for cross validation opposed to Dice's 3:20, so we decided to choose Dice's coefficient for the trade off in time against classification rate. \\ \\
+We then started testing different values of K for our nearest neighbours algorithm, and adding different weights for the similarities of online learned cases, using Jaccard. Once we had settled on 3-NN and 0.8 weight we decided to test Dice again to see if it differed from Jaccard. Dice's coefficient performed with a 78.3 classification rate, Jaccard performed a very small amount better (78.5), but had 4:45 running time for cross validation opposed to Dice's 3:20, so we decided to choose Dice's coefficient for the trade off in time against classification rate.
 
 \subsubsection*{Describe how you initialise your CBR system.}
 
 Our CBR system is fairly simple, as it only consists of a cell array of cases. To initialise it we iterate over examples in the given clean data and create a case for each example on the fly. For every case we check if the CBR system already contains an equal case, and if so then we increment typicality of the already stored case, otherwise we add the new case to the CBR system.
 
 \subsubsection*{CBR belongs to a specific class of learning algorithms?! How are these algorithms called and what are the differences with other learning algorithms, like neural networks and decision trees?}
-%TODO: that first sentence isn't even a question... I've put an exclamation mark there to see if anyone notices. Good job; I noticed
+%TODO: that first sentence isn't even a question... I've put an exclamation mark there to see if anyone notices. Good job; I noticed; OK, cool. But I wonder if the ML people see that.
 
 Online learning algorithms. The difference is that for online algorithms the learning never ends. Their performance should be continually improved with every new case they encounter. Offline learning algorithms do not continue learning once the training is completed.
 
 \subsection*{Implementation details}
 \begin{itemize}
   \item RETRIEVE:
-    We Cycle through all the cases in the structure, picking the cases with the 3 highest similarities to the case we are attempting to classify (3-NN). If there are more than 3 with the highest similarity then they are all included in the "voting", and not discarded. For example, case one has a similarity of 79, case two has 78, and cases three and four both have similarities of 77. We cannot decide which of cases three and four to keep in the 'top three', so we include both.
+    We cycle through all the cases in the structure, picking the cases with the 3 highest similarities to the case we are attempting to classify (3-NN). If there are more than 3 with the highest similarity then they are all included in the "voting", and not discarded. For example, case one has a similarity of 79, case two has 78, and cases three and four both have similarities of 77. We cannot decide which of cases three and four to keep in the 'top three', so we include both.
   \item REUSE:
     We simply assign the solution value from the retrieved case to the case we are classifying.
   \item RETAIN:
-    A new case is made with the corresponding AU Vector and solution that was found. The weight is a value used for calculating similarity, and is set to 0.8 for every new case, because that is roughly the classification rate, ie - how much we should trust the prediction, compared to the training data which we know is correct.
+    A new case is made with the corresponding AU Vector and solution that was found. The weight is a value used for calculating similarity, and is set to 0.8 for every new case, because that is roughly the classification rate, ie how much we should trust the prediction, compared to the training data which we know is correct.
   \item CBR cases:
-    Each case has an AUVector, a solution, and a typicality value, the use of which is explained previously.
+    Each case has an AU vector, a solution, and a typicality value, the use of which is explained previously.
 \end{itemize}
 
 \subsection*{Evaluation results}
@@ -97,20 +97,24 @@ Surprise  & 87.4142 \\
 \caption{F1 measures}
 \end{table}
 
-Average classification rate = 0.7830 \\ \\
+Average classification rate = 0.7830 \\
 
-Confusion matrix: the confusion matrix shows that our cbr performs fairly well. Sadness, however, is often misclassified as other classes, specifically Anger. Anger itself is chosen fairly often to classify any case (meaning many emotions are often mistaken for anger). \\
-Classification rate: Not as good as some previous classification methods (eg. neural networks), it is still always over 70\%, and almost always above 75\%, after some tweaking of the k nearest neighbours and the weight given to classified cases, which is a reasonable success rate. \\
-Recall/Precision rate: These are fairly high for most emotions, with just a few cases bringing the average right down. Sadness, for example, was only recognised correctly 50\% of the time, and fear only 68\%. As stated before, anger was often used incorrectly as a classification, resulting in its low precision rate. The $F_1$ measure confirms this, with all emotions but sandness and anger scoring above 70\%. \\
+Confusion matrix: the confusion matrix shows that our CBR performs fairly well. Sadness, however, is often misclassified as other classes, specifically Anger. Anger itself is chosen fairly often to classify any case (meaning many emotions are often mistaken for anger). \\
+Classification rate: Not as good as some previous classification methods (eg. neural networks), it is still always over 70\%, and almost always above 75\%, after some tweaking of the K-nearest neighbours and the weight given to classified cases, which is a reasonable success rate. \\
+Recall/Precision rate: These are fairly high for most emotions, with just a few cases bringing the average right down. Sadness, for example, was only recognised correctly 50\% of the time, and fear only 68\%. As stated before, anger was often used incorrectly as a classification, resulting in its low precision rate. The $F_1$ measure confirms this, with all emotions but sadness and anger scoring above 70\%. \\
 
-\newpage
-\subsection*{Code Flowchart}
+\subsection*{Code Flowcharts}
 
-TODO
-%\begin{center}
-%  \includegraphics[scale=0.7]{report-images/main.png}
-%\end{center}
+\begin{center}
+  \includegraphics[scale=0.7]{report-images/Main.png}
+\end{center}
 
+\begin{center}
+  \includegraphics[scale=0.7]{report-images/CBRInit.png}
+\end{center}
 
+\begin{center}
+  \includegraphics[scale=0.7]{report-images/Retrieve.png}
+\end{center}
 
 \end{document}
