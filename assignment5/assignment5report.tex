@@ -70,7 +70,7 @@ We used the paired T-test, as the samples we were testing were not independent. 
 
 \subsubsection*{Why do you think t-test was performed on the classification error and not the F1 measure? What's the theoretical justification for this decision?}
 
-Classification error has higher variance which means it will be less likely that we will get a false TODO
+The $F_1$ measure does not take true negatives into account unlike the classification error which is therefore preferred for the T-test.
 
 \subsubsection*{What is the trade-off between the number of folds you use and the number of examples per fold? In other words, what is going to happen if you use more folds, so you will have fewer examples per fold, or if you use fewer folds, so you will have more examples per fold?}
 
