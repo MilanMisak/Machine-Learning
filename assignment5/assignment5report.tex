@@ -54,38 +54,33 @@ Surprise  & Tree/Net & 1          & 0          \\
 \caption{T-test results}
 \end{table}
 
-\subsubsection*{T-test results using clean data}
-
-I'm 12 and what is this?
-
-\subsubsection*{T-test results using noisy data}
-
-I'm 12 and what is this?
-
 \subsubsection*{Which algorithm performed better overall in terms of values of $F_1$ measure (part I)? Which algorithm performed better when comparison was performed using the t-test (part II and part III)? Can we claim that this algorithm is a better learning algorithm than the others in general? Why? Why not?}
 
-The neural networks algorithm performed best in terms of values of $F_1$ measure. Neural networks had the highest $F_1$ measures for every emotion with the exception of anger. \\ \\
-TODO
+The neural networks algorithm performed best in terms of values of $F_1$ measure; they had the highest $F_1$ measures for every emotion with the exception of anger and surprise. \\
+Using the t-test, it is clear that the neural networks and the CBR give very similar results - the only statistically significant differences appear when classifying happiness and sadness with noisy data. Trees are significantly different more often, but the $F_1$ measures suggest that this is because the decision trees are usually worse than the other two. \\
+It is not possible to determine if there is a significant difference in performance unless the t-test proves the alternative hypothesis for both clean and noisy data. This never happens between the two best-performing algorithms (ANN and CBR), so we cannot say for sure whether one is better than the other. \\ \\
 
 \subsubsection*{How did you adjust the significance level in order to take into account the fact that you perform a multiple comparison test?}
 
-We adjusted our chosen significance level (5 \%) by dividing it by 3 where 3 is the number of comparisons needed for this multiple comparison test.
+We adjusted our chosen significance level (5\%) by dividing it by 3, where 3 is the number of comparisons needed for this multiple comparison test. This is the 'Bonferroni correction' example provided, and seemed suficient for our purposes. \\ \\
 
 \subsubsection*{Which type of t-test did you use and why?}
 
-We used the paired T-test as the samples we were testing we not independent because they were coming from the exact same data.
+We used the paired T-test, as the samples we were testing were not independent. Since the samples were drawn from the exact same data for each classification method, they are clearly all dependant. TODO: words?
 
 \subsubsection*{Why do you think t-test was performed on the classification error and not the F1 measure?}
 
-Something about classification error having higher varience maybe.
+TODO: Something about classification error having higher varience maybe.
 
 \subsubsection*{What is the trade-off between the number of folds you use and the number of examples per fold? In other words, what is going to happen if you use more folds, so you will have fewer examples per fold, or if you use fewer folds, so you will have more examples per fold?}
 
-TODO
+TODO: \\
+Fewer folds obviously means that we will obtain fewer fold measurements, so it would be harder to tell if any of those measurements are anomalous. However, it's good also for some reason (like, it doesn't have the bad points of more folds, i guess).
+More folds means that more of the data set is used for training, and less for testing. This is likely to more accurately model how the fully-trained algorithm will perform, but since there are fewer test examples, it is harder to tell whether or not the results are anomalous.
 
 \subsubsection*{Suppose that we want to add some new emotions to the existing dataset. Which of the examined algorithms are more suitable for incorporating the new classes in terms of engineering effort? Which algorithms need to undergo radical changes in order to include new classes?}
 
 Case-based reasoning and decision trees are both quite easily extended by adding new classes of emotions. The algorithms can be just simply modified in a few places and they will still work very well.\\ \\
-Neural networks, on the other hand, will need some additional effort to tweak performance after the algorithm is modified. Some optimisations will need to be done for neural networks for example figuring out the number of neurones in hidden layers or the number of hidden layers to make sure that they still classify examples as well as they possibly can.
+Neural networks, on the other hand, will need some additional effort to tweak performance after the algorithm is modified. Some optimisations will be needed for neural networks; for example figuring out the number of neurons in hidden layers, or the number of hidden layers, to make sure that they still classify examples as well as they possibly can.
 
 \end{document}
