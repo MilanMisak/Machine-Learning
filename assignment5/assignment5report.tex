@@ -70,12 +70,11 @@ We used the paired T-test, as the samples we were testing were not independent. 
 
 \subsubsection*{Why do you think t-test was performed on the classification error and not the F1 measure? What's the theoretical justification for this decision?}
 
-TODO: Something about classification error having higher varience maybe.
+Classification error has higher variance which means it will be less likely that we will get a false TODO
 
 \subsubsection*{What is the trade-off between the number of folds you use and the number of examples per fold? In other words, what is going to happen if you use more folds, so you will have fewer examples per fold, or if you use fewer folds, so you will have more examples per fold?}
 
-TODO: \\
-Fewer folds obviously means that we will obtain fewer fold measurements, so it would be harder to tell if any of those measurements are anomalous. However, it's good also for some reason (like, it doesn't have the bad points of more folds, i guess).
+Fewer folds obviously means that we will obtain fewer fold measurements, so it would be harder to tell if any of those measurements are anomalous. \\ \\
 More folds means that more of the data set is used for training, and less for testing. This is likely to more accurately model how the fully-trained algorithm will perform, but since there are fewer test examples, it is harder to tell whether or not the results are anomalous.
 
 \subsubsection*{Suppose that we want to add some new emotions to the existing dataset. Which of the examined algorithms are more suitable for incorporating the new classes in terms of engineering effort? Which algorithms need to undergo radical changes in order to include new classes?}
